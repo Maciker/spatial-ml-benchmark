@@ -1,0 +1,16 @@
+# Local data and generated outputs
+data/raw/
+data/interim/
+data/processed/
+outputs/
+models/
+.venv/
+__pycache__/
+.pytest_cache/
+.ipynb_checkpoints/
+.env
+
+# Editors
+.vscode/
+.idea/
+.DS_Store
