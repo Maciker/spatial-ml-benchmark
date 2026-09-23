@@ -1,0 +1,35 @@
+{
+  "crs": "EPSG:4326",
+  "license": "CC0-1.0",
+  "source": "Synthetic meadow and woodland points authored for Spatial ML Benchmark. Not observed land cover.",
+  "featureTimestamp": "2020-07-01",
+  "labelTimestamp": "2020-07-01",
+  "deploymentAssumption": "Generalize to unsampled 1-degree cells in EPSG:4326. This is not a global land-cover product.",
+  "unknownLabelPolicy": "reject",
+  "classes": {
+    "0": "meadow",
+    "1": "woodland"
+  },
+  "leakageChannels": [
+    "spatial autocorrelation inside each 1-degree cell",
+    "shared July 2020 acquisition date for features and labels"
+  ],
+  "samples": [
+    { "id": "WN-01", "longitude": -1.12, "latitude": 53.08, "spatialGroup": "west-north", "ndvi": 0.22, "elevationMeters": 80, "moisture": 0.31, "label": 0 },
+    { "id": "WN-02", "longitude": -0.94, "latitude": 53.11, "spatialGroup": "west-north", "ndvi": 0.25, "elevationMeters": 92, "moisture": 0.28, "label": 0 },
+    { "id": "WN-03", "longitude": -1.05, "latitude": 52.97, "spatialGroup": "west-north", "ndvi": 0.19, "elevationMeters": 74, "moisture": 0.35, "label": 0 },
+    { "id": "WN-04", "longitude": -0.88, "latitude": 52.92, "spatialGroup": "west-north", "ndvi": 0.41, "elevationMeters": 88, "moisture": 0.40, "label": 1 },
+    { "id": "EN-01", "longitude": 0.91, "latitude": 53.06, "spatialGroup": "east-north", "ndvi": 0.71, "elevationMeters": 210, "moisture": 0.62, "label": 1 },
+    { "id": "EN-02", "longitude": 1.08, "latitude": 53.12, "spatialGroup": "east-north", "ndvi": 0.76, "elevationMeters": 198, "moisture": 0.58, "label": 1 },
+    { "id": "EN-03", "longitude": 0.97, "latitude": 52.95, "spatialGroup": "east-north", "ndvi": 0.68, "elevationMeters": 205, "moisture": 0.66, "label": 1 },
+    { "id": "EN-04", "longitude": 1.14, "latitude": 52.90, "spatialGroup": "east-north", "ndvi": 0.33, "elevationMeters": 188, "moisture": 0.44, "label": 0 },
+    { "id": "WS-01", "longitude": -1.10, "latitude": 51.08, "spatialGroup": "west-south", "ndvi": 0.69, "elevationMeters": 160, "moisture": 0.71, "label": 1 },
+    { "id": "WS-02", "longitude": -0.93, "latitude": 51.13, "spatialGroup": "west-south", "ndvi": 0.74, "elevationMeters": 171, "moisture": 0.68, "label": 1 },
+    { "id": "WS-03", "longitude": -1.07, "latitude": 50.96, "spatialGroup": "west-south", "ndvi": 0.66, "elevationMeters": 155, "moisture": 0.73, "label": 1 },
+    { "id": "WS-04", "longitude": -0.86, "latitude": 50.91, "spatialGroup": "west-south", "ndvi": 0.29, "elevationMeters": 149, "moisture": 0.39, "label": 0 },
+    { "id": "ES-01", "longitude": 0.89, "latitude": 51.07, "spatialGroup": "east-south", "ndvi": 0.21, "elevationMeters": 45, "moisture": 0.24, "label": 0 },
+    { "id": "ES-02", "longitude": 1.06, "latitude": 51.14, "spatialGroup": "east-south", "ndvi": 0.18, "elevationMeters": 52, "moisture": 0.27, "label": 0 },
+    { "id": "ES-03", "longitude": 0.98, "latitude": 50.95, "spatialGroup": "east-south", "ndvi": 0.24, "elevationMeters": 41, "moisture": 0.22, "label": 0 },
+    { "id": "ES-04", "longitude": 1.15, "latitude": 50.90, "spatialGroup": "east-south", "ndvi": 0.63, "elevationMeters": 58, "moisture": 0.55, "label": 1 }
+  ]
+}
