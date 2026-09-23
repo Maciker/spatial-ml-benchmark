@@ -1,0 +1,29 @@
+{
+  "taskId": "lucas-spain-2022-cropland-woodland",
+  "version": 1,
+  "crs": {
+    "epsg": 4326,
+    "name": "WGS 84",
+    "axisOrder": "longitude-latitude"
+  },
+  "sampleUnit": "point",
+  "generalizationClaim": "Hold out one of two distant Spanish NUTS2 blocks to measure spatial transfer between Galicia and Andalusia. This extract does not support a national land-cover accuracy claim.",
+  "featureTimestamp": "2022-05-02T00:00:00Z",
+  "labelTimestamp": "2022-10-29T00:00:00Z",
+  "leakageChannels": [
+    "lucas_land_cover_code_in_feature_columns",
+    "duplicate_sample_ids",
+    "train_statistics_on_full_dataset"
+  ],
+  "target": {
+    "field": "label",
+    "classes": [0, 1],
+    "unknownLabelPolicy": "reject"
+  },
+  "forbiddenFeatureFields": ["label", "id", "lucasCode", "SURVEY_LC1"],
+  "source": {
+    "name": "Eurostat LUCAS 2022 Spain microdata, modified extract",
+    "license": "Eurostat reuse with attribution; the European Commission accepts no responsibility for results derived from this extract",
+    "reference": "https://ec.europa.eu/eurostat/web/lucas/database/2022"
+  }
+}
