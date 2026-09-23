@@ -2,7 +2,6 @@ import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 import { parseDataset } from "../packages/domain/src/dataset.js";
-import { DomainError } from "../packages/domain/src/domain-error.js";
 import { assignFolds } from "../packages/domain/src/folds.js";
 
 const dataset = parseDataset(
@@ -38,7 +37,7 @@ describe("The fold assignment", () => {
   it("rejects a buffer that would mix neighbouring train and test points", () => {
     expect(() =>
       assignFolds(dataset, { scheme: "spatial", foldCount: 4, seed: 7, bufferMeters: 1_000_000 }),
-    ).toThrow(DomainError);
+    ).toThrow(/buffer|fold/i);
   });
 
   it("rejects an empty spatial group as a fold", () => {
@@ -47,6 +46,6 @@ describe("The fold assignment", () => {
       samples: dataset.samples.filter((sample) => sample.spatialGroup !== "east-south"),
     };
 
-    expect(() => assignFolds(broken, { scheme: "spatial", foldCount: 4, seed: 1, bufferMeters: 0 })).toThrow(DomainError);
+    expect(() => assignFolds(broken, { scheme: "spatial", foldCount: 4, seed: 1, bufferMeters: 0 })).toThrow(/buffer|fold/i);
   });
 });

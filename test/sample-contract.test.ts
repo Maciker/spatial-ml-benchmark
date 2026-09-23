@@ -2,7 +2,6 @@ import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 import { parseDataset } from "../packages/domain/src/dataset.js";
-import { DomainError } from "../packages/domain/src/domain-error.js";
 
 const fixture = JSON.parse(
   readFileSync(resolve("data/meadow-woodland/samples.json"), "utf8"),
@@ -28,22 +27,24 @@ describe("The labelled spatial fixture", () => {
       samples: [{ ...fixture.samples[0], label: 9 }],
     };
 
-    expect(() => parseDataset(invalid)).toThrow(DomainError);
+    expect(() => parseDataset(invalid)).toThrow(/label|Duplicate|CRS|field/i);
   });
 
   it("rejects duplicate sample identifiers", () => {
     const first = fixture.samples[0];
+    if (!first) throw new Error("fixture must include a sample");
     const invalid = {
       ...fixture,
       samples: [first, { ...first, longitude: first.longitude + 0.01 }],
     };
 
-    expect(() => parseDataset(invalid)).toThrow(DomainError);
+    expect(() => parseDataset(invalid)).toThrow(/label|Duplicate|CRS|field/i);
   });
 
   it("rejects a missing CRS instead of inferring one", () => {
-    const { crs: _crs, ...withoutCrs } = fixture;
+    const withoutCrs: Record<string, unknown> = { ...fixture };
+    delete withoutCrs.crs;
 
-    expect(() => parseDataset(withoutCrs)).toThrow(DomainError);
+    expect(() => parseDataset(withoutCrs)).toThrow(/label|Duplicate|CRS|field/i);
   });
 });

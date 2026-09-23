@@ -2,7 +2,7 @@ import type { Dataset } from "./dataset.js";
 import { DomainError } from "./domain-error.js";
 import { hashDataset, runBenchmark, type BenchmarkResult, type SamplePrediction } from "./experiment.js";
 
-export type ExperimentManifest = {
+type ExperimentManifest = {
   readonly status: "complete";
   readonly packageVersion: string;
   readonly seed: number;

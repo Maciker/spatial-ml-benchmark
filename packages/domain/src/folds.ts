@@ -1,22 +1,22 @@
 import type { Dataset, Sample } from "./dataset.js";
 import { DomainError } from "./domain-error.js";
 
-export type SplitScheme = "random" | "spatial";
+type SplitScheme = "random" | "spatial";
 
-export type Fold = {
+type Fold = {
   readonly foldId: string;
   readonly trainIds: readonly string[];
   readonly testIds: readonly string[];
 };
 
-export type FoldAssignment = {
+type FoldAssignment = {
   readonly scheme: SplitScheme;
   readonly seed: number;
   readonly bufferMeters: number;
   readonly folds: readonly Fold[];
 };
 
-export type FoldRequest = {
+type FoldRequest = {
   readonly scheme: SplitScheme;
   readonly foldCount: number;
   readonly seed: number;

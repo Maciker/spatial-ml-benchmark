@@ -1,7 +1,7 @@
 import type { Dataset } from "./dataset.js";
 import { DomainError } from "./domain-error.js";
 
-export type FeatureDefinition = {
+type FeatureDefinition = {
   readonly name: string;
   readonly source: string;
   readonly units: string;
@@ -9,14 +9,14 @@ export type FeatureDefinition = {
   readonly missingValuePolicy: "reject";
 };
 
-export type FeatureRow = {
+type FeatureRow = {
   readonly id: string;
   readonly spatialGroup: string;
   readonly values: readonly number[];
   readonly label: 0 | 1;
 };
 
-export type FeatureTable = {
+type FeatureTable = {
   readonly features: readonly FeatureDefinition[];
   readonly rows: readonly FeatureRow[];
 };

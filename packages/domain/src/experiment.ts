@@ -5,19 +5,19 @@ import { fitForest, predictForest } from "./forest.js";
 import { fitMajority, predictMajority } from "./majority.js";
 import { summarizePredictions, type ClassificationSummary } from "./metrics.js";
 
-export type BenchmarkOptions = {
+type BenchmarkOptions = {
   readonly seed: number;
   readonly foldCount: number;
   readonly bufferMeters: number;
   readonly extraFeatures?: readonly string[];
 };
 
-export type FoldScore = {
+type FoldScore = {
   readonly foldId: string;
   readonly summary: ClassificationSummary;
 };
 
-export type ModelReport = {
+type ModelReport = {
   readonly model: "majority" | "forest";
   readonly folds: readonly FoldScore[];
   readonly meanBalancedAccuracy: number;

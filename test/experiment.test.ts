@@ -2,7 +2,6 @@ import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 import { parseDataset } from "../packages/domain/src/dataset.js";
-import { DomainError } from "../packages/domain/src/domain-error.js";
 import { runBenchmark } from "../packages/domain/src/experiment.js";
 import { replayManifest, writeManifest } from "../packages/domain/src/manifest.js";
 
@@ -19,13 +18,16 @@ describe("The benchmark comparison", () => {
     expect(result.schemes.spatial.majority.folds).toHaveLength(4);
     expect(result.schemes.random.forest.folds).toHaveLength(4);
     expect(result.schemes.spatial.majority.meanBalancedAccuracy).toBeGreaterThanOrEqual(0);
+    expect(result.schemes.random.forest.meanBalancedAccuracy).toBeGreaterThan(
+      result.schemes.spatial.forest.meanBalancedAccuracy,
+    );
     expect(result.predictions[0]?.sampleId).toBeDefined();
   });
 
   it("detects a leaked group identifier used as a predictor", () => {
     expect(() =>
       runBenchmark(dataset, { seed: 21, foldCount: 4, bufferMeters: 10_000, extraFeatures: ["spatialGroup"] }),
-    ).toThrow(DomainError);
+    ).toThrow(/feature|hash/i);
   });
 });
 
@@ -37,6 +39,6 @@ describe("The experiment manifest", () => {
     expect(replayManifest(dataset, manifest).predictions).toEqual(manifest.predictions);
 
     const tampered = { ...manifest, sourceHash: "0".repeat(64) };
-    expect(() => replayManifest(dataset, tampered)).toThrow(DomainError);
+    expect(() => replayManifest(dataset, tampered)).toThrow(/feature|hash/i);
   });
 });

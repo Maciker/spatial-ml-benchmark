@@ -1,7 +1,7 @@
 import { createRng } from "./folds.js";
 import { DomainError } from "./domain-error.js";
 
-export type ForestOptions = {
+type ForestOptions = {
   readonly seed: number;
   readonly treeCount: number;
   readonly maxDepth: number;
@@ -17,7 +17,7 @@ type Branch = {
 };
 type Tree = Leaf | Branch;
 
-export type ForestModel = {
+type ForestModel = {
   readonly kind: "forest";
   readonly options: ForestOptions;
   readonly trees: readonly Tree[];

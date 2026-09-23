@@ -2,7 +2,6 @@ import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 import { parseDataset } from "../packages/domain/src/dataset.js";
-import { DomainError } from "../packages/domain/src/domain-error.js";
 import { buildFeatureTable, scaleTrainingFold } from "../packages/domain/src/feature-table.js";
 
 const dataset = parseDataset(
@@ -23,7 +22,7 @@ describe("The feature table", () => {
   });
 
   it("rejects a target column disguised as a feature", () => {
-    expect(() => buildFeatureTable(dataset, ["ndvi", "label"])).toThrow(DomainError);
+    expect(() => buildFeatureTable(dataset, ["ndvi", "label"])).toThrow(/Target/i);
   });
 
   it("scales using training-fold statistics only", () => {

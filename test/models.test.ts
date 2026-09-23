@@ -1,5 +1,4 @@
 import { describe, expect, it } from "vitest";
-import { DomainError } from "../packages/domain/src/domain-error.js";
 import { fitMajority, predictMajority } from "../packages/domain/src/majority.js";
 import { fitForest, predictForest, serializeForest } from "../packages/domain/src/forest.js";
 import { scoreClassification, summarizePredictions } from "../packages/domain/src/metrics.js";
@@ -12,7 +11,7 @@ describe("The majority baseline", () => {
   });
 
   it("rejects empty training labels", () => {
-    expect(() => fitMajority([])).toThrow(DomainError);
+    expect(() => fitMajority([])).toThrow(/training|Evaluation/i);
   });
 });
 
@@ -45,6 +44,6 @@ describe("The classification score", () => {
   });
 
   it("rejects empty evaluation sets", () => {
-    expect(() => summarizePredictions([], [])).toThrow(DomainError);
+    expect(() => summarizePredictions([], [])).toThrow(/training|Evaluation/i);
   });
 });

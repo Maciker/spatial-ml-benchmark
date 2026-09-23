@@ -1,6 +1,6 @@
 import { DomainError } from "./domain-error.js";
 
-export type MajorityModel = {
+type MajorityModel = {
   readonly kind: "majority";
   readonly label: 0 | 1;
 };
