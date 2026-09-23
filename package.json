@@ -15,6 +15,8 @@
     "lint:fix": "eslint . --fix",
     "test": "vitest run",
     "test:watch": "vitest",
+    "test:e2e": "playwright test",
+    "test:e2e:install": "playwright install chromium --with-deps",
     "arch": "depcruise apps packages test tools --config dependency-cruiser.config.cjs",
     "deadcode": "knip",
     "dup": "jscpd --config jscpd.config.json",
@@ -47,9 +49,14 @@
     "doctor": "node tools/diagnostics/doctor.mjs",
     "setup:hooks": "bash scripts/install-githooks.sh",
     "build:server": "tsc -p tsconfig.build.json",
-    "demo": "pnpm build && node dist/apps/cli/src/main.js"
+    "demo": "pnpm build && node dist/apps/cli/src/main.js",
+    "benchmark:run": "pnpm build && node dist/apps/cli/src/main.js benchmark run --fixture fixtures/mvp-demo --output .benchmark-runs/latest",
+    "benchmark:replay": "pnpm build && node dist/apps/cli/src/main.js benchmark replay --fixture fixtures/mvp-demo --manifest .benchmark-runs/latest/manifest.json",
+    "web:dev": "pnpm --filter @gis/spatial-ml-benchmark-web dev",
+    "web:build": "pnpm --filter @gis/spatial-ml-benchmark-web build"
   },
   "dependencies": {
+    "ml-random-forest": "^2.1.0",
     "yaml": "^2.7.0"
   },
   "pnpm": {
@@ -59,6 +66,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.18.0",
+    "@playwright/test": "^1.55.0",
     "@types/node": "^22.10.0",
     "dependency-cruiser": "^16.9.0",
     "eslint": "^9.18.0",

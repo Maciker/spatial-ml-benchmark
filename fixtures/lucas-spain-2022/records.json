@@ -1,0 +1,292 @@
+{
+  "records": [
+    {
+      "id": "27722418",
+      "lon": -9.201723787,
+      "lat": 43.07281397,
+      "spatialGroup": "es11-galicia",
+      "lucasCode": "B55",
+      "elevation_m": 67,
+      "surveyDate": "2022-07-09"
+    },
+    {
+      "id": "27762418",
+      "lon": -9.153933112,
+      "lat": 43.0819656,
+      "spatialGroup": "es11-galicia",
+      "lucasCode": "B16",
+      "elevation_m": 92,
+      "surveyDate": "2022-07-09"
+    },
+    {
+      "id": "27802422",
+      "lon": -9.117751188,
+      "lat": 43.12587625,
+      "spatialGroup": "es11-galicia",
+      "lucasCode": "B16",
+      "elevation_m": 26,
+      "surveyDate": "2022-07-09"
+    },
+    {
+      "id": "27822402",
+      "lon": -9.035969622,
+      "lat": 42.95648309,
+      "spatialGroup": "es11-galicia",
+      "lucasCode": "B16",
+      "elevation_m": 261,
+      "surveyDate": "2022-05-26"
+    },
+    {
+      "id": "27842398",
+      "lon": -9.000606051,
+      "lat": 42.9262186,
+      "spatialGroup": "es11-galicia",
+      "lucasCode": "B16",
+      "elevation_m": 301,
+      "surveyDate": "2022-05-26"
+    },
+    {
+      "id": "27842400",
+      "lon": -9.006356259,
+      "lat": 42.94362034,
+      "spatialGroup": "es11-galicia",
+      "lucasCode": "B16",
+      "elevation_m": 285,
+      "surveyDate": "2022-05-26"
+    },
+    {
+      "id": "27842402",
+      "lon": -9.012110998,
+      "lat": 42.96102132,
+      "spatialGroup": "es11-galicia",
+      "lucasCode": "B55",
+      "elevation_m": 260,
+      "surveyDate": "2022-05-26"
+    },
+    {
+      "id": "27842412",
+      "lon": -9.040952818,
+      "lat": 43.04801488,
+      "spatialGroup": "es11-galicia",
+      "lucasCode": "B55",
+      "elevation_m": 304,
+      "surveyDate": "2022-05-26"
+    },
+    {
+      "id": "27682414",
+      "lon": -9.237820846,
+      "lat": 43.02887453,
+      "spatialGroup": "es11-galicia",
+      "lucasCode": "C10",
+      "elevation_m": 123,
+      "surveyDate": "2022-07-09"
+    },
+    {
+      "id": "27722294",
+      "lon": -8.848788383,
+      "lat": 41.99347157,
+      "spatialGroup": "es11-galicia",
+      "lucasCode": "C22",
+      "elevation_m": 433,
+      "surveyDate": "2022-07-23"
+    },
+    {
+      "id": "27722300",
+      "lon": -8.865475733,
+      "lat": 42.04576503,
+      "spatialGroup": "es11-galicia",
+      "lucasCode": "C22",
+      "elevation_m": 303,
+      "surveyDate": "2022-07-23"
+    },
+    {
+      "id": "27722366",
+      "lon": -9.051631426,
+      "lat": 42.62054251,
+      "spatialGroup": "es11-galicia",
+      "lucasCode": "C22",
+      "elevation_m": 10,
+      "surveyDate": "2022-08-18"
+    },
+    {
+      "id": "27742358",
+      "lon": -9.005107942,
+      "lat": 42.55544852,
+      "spatialGroup": "es11-galicia",
+      "lucasCode": "C32",
+      "elevation_m": 106,
+      "surveyDate": "2022-08-18"
+    },
+    {
+      "id": "27742366",
+      "lon": -9.027903266,
+      "lat": 42.62508062,
+      "spatialGroup": "es11-galicia",
+      "lucasCode": "C33",
+      "elevation_m": 34,
+      "surveyDate": "2022-08-18"
+    },
+    {
+      "id": "27742368",
+      "lon": -9.033613262,
+      "lat": 42.64248675,
+      "spatialGroup": "es11-galicia",
+      "lucasCode": "C32",
+      "elevation_m": 20,
+      "surveyDate": "2022-05-02"
+    },
+    {
+      "id": "27742388",
+      "lon": -9.090960157,
+      "lat": 42.81650618,
+      "spatialGroup": "es11-galicia",
+      "lucasCode": "C10",
+      "elevation_m": 47,
+      "surveyDate": "2022-05-04"
+    },
+    {
+      "id": "28221754",
+      "lon": -6.942185925,
+      "lat": 37.36070605,
+      "spatialGroup": "es61-andalusia",
+      "lucasCode": "B31",
+      "elevation_m": 37,
+      "surveyDate": "2022-09-05"
+    },
+    {
+      "id": "28241746",
+      "lon": -6.90256871,
+      "lat": 37.29402187,
+      "spatialGroup": "es61-andalusia",
+      "lucasCode": "B31",
+      "elevation_m": 15,
+      "surveyDate": "2022-08-23"
+    },
+    {
+      "id": "28241748",
+      "lon": -6.906959667,
+      "lat": 37.31169158,
+      "spatialGroup": "es61-andalusia",
+      "lucasCode": "B41",
+      "elevation_m": 6,
+      "surveyDate": "2022-08-24"
+    },
+    {
+      "id": "28261748",
+      "lon": -6.884938999,
+      "lat": 37.31567314,
+      "spatialGroup": "es61-andalusia",
+      "lucasCode": "B12",
+      "elevation_m": 15,
+      "surveyDate": "2022-08-24"
+    },
+    {
+      "id": "28281750",
+      "lon": -6.867299881,
+      "lat": 37.33732093,
+      "spatialGroup": "es61-andalusia",
+      "lucasCode": "B12",
+      "elevation_m": 30,
+      "surveyDate": "2022-08-24"
+    },
+    {
+      "id": "28301754",
+      "lon": -6.854036229,
+      "lat": 37.37663629,
+      "spatialGroup": "es61-andalusia",
+      "lucasCode": "B12",
+      "elevation_m": 70,
+      "surveyDate": "2022-09-05"
+    },
+    {
+      "id": "28301756",
+      "lon": -6.858424314,
+      "lat": 37.39430662,
+      "spatialGroup": "es61-andalusia",
+      "lucasCode": "B11",
+      "elevation_m": 51,
+      "surveyDate": "2022-09-05"
+    },
+    {
+      "id": "28321756",
+      "lon": -6.836376223,
+      "lat": 37.39827757,
+      "spatialGroup": "es61-andalusia",
+      "lucasCode": "B31",
+      "elevation_m": 82,
+      "surveyDate": "2022-09-05"
+    },
+    {
+      "id": "27781784",
+      "lon": -7.494580315,
+      "lat": 37.53613529,
+      "spatialGroup": "es61-andalusia",
+      "lucasCode": "C10",
+      "elevation_m": 95,
+      "surveyDate": "2022-08-12"
+    },
+    {
+      "id": "27821792",
+      "lon": -7.4687213,
+      "lat": 37.61488843,
+      "spatialGroup": "es61-andalusia",
+      "lucasCode": "C10",
+      "elevation_m": 113,
+      "surveyDate": "2022-10-29"
+    },
+    {
+      "id": "27841774",
+      "lon": -7.405645234,
+      "lat": 37.4603142,
+      "spatialGroup": "es61-andalusia",
+      "lucasCode": "C10",
+      "elevation_m": 127,
+      "surveyDate": "2022-10-29"
+    },
+    {
+      "id": "27861772",
+      "lon": -7.379068583,
+      "lat": 37.44677647,
+      "spatialGroup": "es61-andalusia",
+      "lucasCode": "C10",
+      "elevation_m": 165,
+      "surveyDate": "2022-10-29"
+    },
+    {
+      "id": "27861776",
+      "lon": -7.388136495,
+      "lat": 37.48205009,
+      "spatialGroup": "es61-andalusia",
+      "lucasCode": "C10",
+      "elevation_m": 94,
+      "surveyDate": "2022-10-29"
+    },
+    {
+      "id": "27881800",
+      "lon": -7.420708159,
+      "lat": 37.69773904,
+      "spatialGroup": "es61-andalusia",
+      "lucasCode": "C10",
+      "elevation_m": 122,
+      "surveyDate": "2022-10-29"
+    },
+    {
+      "id": "27901762",
+      "lon": -7.312423609,
+      "lat": 37.36674822,
+      "spatialGroup": "es61-andalusia",
+      "lucasCode": "C10",
+      "elevation_m": 116,
+      "surveyDate": "2022-10-29"
+    },
+    {
+      "id": "27901798",
+      "lon": -7.394026197,
+      "lat": 37.68421431,
+      "spatialGroup": "es61-andalusia",
+      "lucasCode": "C10",
+      "elevation_m": 189,
+      "surveyDate": "2022-10-29"
+    }
+  ]
+}

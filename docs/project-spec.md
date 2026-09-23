@@ -14,7 +14,7 @@ The balanced-accuracy kernel and its known-result test are ported to TypeScript.
 - Local demo first, bounded inputs and resources; no hosted service, billing or automatic publishing.
 
 ## Acceptance source
-[Tracker #7](https://github.com/Maciker/spatial-ml-benchmark/issues/7) is the authoritative product backlog. Each linked ticket provides a vertical user outcome, dependencies and testable acceptance criteria.
+The [Spatial ML Benchmark Linear project](https://linear.app/maciker/project/spatial-ml-benchmark-c18b3a2a91b5) (tracker **MAC-11**) is the authoritative product backlog. Each child issue provides a vertical user outcome, dependencies and testable acceptance criteria.
 
 ## Workflow references
 Use domain-modeling for contracts, architecture-hexagonal for ports/adapters, xp-tdd-practices and testing-standards for behavior, frontend-patterns for React, git-strategy for branches and qa-review for independent review. See canonical `.ai/skills/*/SKILL.md` and `.ai/commands/to-spec.md`, `to-tickets.md`.

@@ -36,7 +36,7 @@ module.exports = {
   ],
   options: {
     doNotFollow: { path: "node_modules" },
-    exclude: { path: "(node_modules|dist|\\.quality|/tests?/)" },
+    exclude: { path: "(node_modules|dist|\\.quality|/tests?/|test/e2e/|apps/web/|playwright\\.config\\.ts$)" },
     tsConfig: { fileName: "tsconfig.json" },
     tsPreCompilationDeps: true,
     enhancedResolveOptions: {
