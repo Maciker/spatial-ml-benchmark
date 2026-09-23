@@ -1,30 +1,36 @@
 # Spatial ML Benchmark
 
-A reproducible benchmark for evaluating geospatial machine-learning models without misleading random train/test splits.
+Compare a majority baseline and a JavaScript Random Forest under reproducible random and spatial evaluation.
 
-The project will classify a clearly defined target using open data, compare a simple baseline with a tree-based model, and report performance under spatially separated validation.
+## Current state
 
-## First release
+The balanced-accuracy kernel and its known-result test are ported to TypeScript. Dataset, features, folds, model adapter, experiment runner and map are pending. This is a foundation, not a completed GIS product.
 
-1. Choose a small, openly licensed labelled dataset and define one prediction task.
-2. Build a documented feature table with spatial units and provenance.
-3. Establish a transparent baseline.
-4. Compare it with a Random Forest pipeline.
-5. Evaluate both with random and spatially grouped cross-validation.
-6. Publish metrics, error maps, and an explanation of where the model generalises poorly.
+All application, CLI and API code uses TypeScript on Node.js. QGIS desktop and PostGIS SQL remain GIS tools. There is no Python, FastAPI or PyQGIS runtime.
 
-## Repository structure
+## Start
 
-- `config/` — reproducible experiment configuration.
-- `src/` — data preparation, split logic, modelling, and evaluation.
-- `notebooks/` — exploration; stable code moves to `src/`.
-- `docs/` — project brief, evaluation protocol, and data policy.
-- `data/` — instructions and tiny fixtures; full data stays out of Git.
+Use Node.js 22 or 24 and pnpm 10.17.1 (pinned in package.json).
 
-## Scope guardrails
+```sh
+corepack enable
+pnpm install --frozen-lockfile
+pnpm quality:fast
+pnpm build
+```
 
-This benchmark measures a model on a stated dataset and protocol. It does not claim a general-purpose land-cover model, use a random split as its headline result, or introduce deep learning before the baseline is understood.
+See [local development](docs/development.md), [project specification](docs/project-spec.md), [architecture](docs/architecture.md) and [roadmap](docs/roadmap.md).
 
-## Learning connection
+## Agent workflow
 
-This is the third portfolio project in the [Modern Geospatial Engineering roadmap](https://github.com/Maciker/modern-geospatial-engineering).
+Canonical instructions and skills are in `.ai/`, with generated adapters for Cursor, Codex, Copilot and Hermes. OpenCode can read root `AGENTS.md` and the named skill files explicitly. No automatic OpenCode discovery is assumed.
+
+Imported from [agent-workflow-code-ts](https://github.com/Maciker/agent-workflow-code-ts/tree/97d01f03436cbbf35936c172008e74e55be56dd5). The pin, upstream MIT attribution and local adaptations are recorded in [workflow provenance](docs/workflow-provenance.json). This is a vendored snapshot: upstream changes require a reviewed update and regeneration, not a floating dependency on main.
+
+Run `pnpm quality:full` and `pnpm quality:stabilization` before review. Independent cross-model QA and human approval are merge requirements. Provider credentials are optional for local deterministic checks.
+
+## Work order
+
+Start with [foundation #8](https://github.com/Maciker/spatial-ml-benchmark/issues/8), then follow [MVP tracker #7](https://github.com/Maciker/spatial-ml-benchmark/issues/7). Tickets specify dependencies, acceptance tests and relevant skills. No feature is complete merely because its ticket exists.
+
+Keep source data immutable. Only tiny, licensed fixtures belong in Git; real datasets and generated outputs stay local.
