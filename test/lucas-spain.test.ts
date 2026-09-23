@@ -18,6 +18,11 @@ describe("The LUCAS land-cover mapper", () => {
     expect(() => mapLucasLandCover("B71")).toThrow(BenchmarkValidationError);
     expect(() => mapLucasLandCover("D10")).toThrow(BenchmarkValidationError);
     expect(() => mapLucasLandCover("C00")).toThrow(BenchmarkValidationError);
+    expect(() => mapLucasLandCover("C11")).toThrow(BenchmarkValidationError);
+    expect(() => mapLucasLandCover("C24")).toThrow(BenchmarkValidationError);
+    expect(() => mapLucasLandCover("C34")).toThrow(BenchmarkValidationError);
+    expect(() => mapLucasLandCover("C10x")).toThrow(BenchmarkValidationError);
+    expect(() => mapLucasLandCover("B100")).toThrow(BenchmarkValidationError);
     expect(() => mapLucasLandCover("")).toThrow(BenchmarkValidationError);
   });
 });
@@ -59,7 +64,7 @@ describe("The LUCAS Spain 2022 extract", () => {
       expect(sample?.spatialGroup).toBe(record.spatialGroup);
       expect(sample?.label).toBe(mapLucasLandCover(record.lucasCode));
       expect(sample?.rawFeatures.elevation_m).toBe(record.elevation_m);
-      expect(record.lucasCode in (sample?.rawFeatures ?? {})).toBe(false);
+      expect(sample?.rawFeatures).not.toHaveProperty("lucasCode");
     }
   });
 

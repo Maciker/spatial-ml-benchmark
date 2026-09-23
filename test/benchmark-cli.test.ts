@@ -36,4 +36,8 @@ describe("The benchmark CLI workflow", () => {
       await rm(outputDir, { recursive: true, force: true });
     }
   });
+
+  it("replays the committed MVP reference manifest", async () => {
+    await replayBenchmarkCommand(fixtureDir, path.join(fixtureDir, "reference-manifest.json"));
+  });
 });
