@@ -6,7 +6,7 @@
 2. `pnpm quality:full` — typecheck, lint, unit tests, architecture, knip, duplication, ratchet.
 3. `pnpm benchmark:run` — writes `.benchmark-runs/latest/manifest.json`.
 4. `pnpm benchmark:replay` — confirms deterministic replay.
-5. Optional UI: `pnpm --filter @gis/spatial-ml-benchmark-web build`.
+5. `pnpm test:e2e:install` (once per machine) then `pnpm test:e2e` — browser journey on the MapLibre explorer.
 
 ## CI coverage
 
