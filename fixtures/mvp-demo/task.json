@@ -21,6 +21,22 @@
     "unknownLabelPolicy": "reject"
   },
   "forbiddenFeatureFields": ["label", "future_label", "id"],
+  "features": [
+    {
+      "name": "elevation_m",
+      "source": "synthetic_dem",
+      "units": "meters",
+      "transformation": "none",
+      "missingValuePolicy": "reject"
+    },
+    {
+      "name": "slope_deg",
+      "source": "synthetic_dem",
+      "units": "degrees",
+      "transformation": "none",
+      "missingValuePolicy": "reject"
+    }
+  ],
   "source": {
     "name": "Synthetic MVP micro fixture (authored for this repository)",
     "license": "CC0-1.0",

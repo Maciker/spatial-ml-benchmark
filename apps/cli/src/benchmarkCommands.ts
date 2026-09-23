@@ -20,11 +20,12 @@ type RunBenchmarkOptions = {
 
 export async function runBenchmarkCommand(options: RunBenchmarkOptions): Promise<ExperimentManifest> {
   const fixture = await loadFixture(options.fixtureDir);
+  const foldCount = new Set(fixture.samples.map((sample) => sample.spatialGroup)).size;
   const config: ExperimentConfig = {
     taskId: fixture.task.taskId,
     fixtureSha256: fixture.fixtureSha256,
     seed: options.seed ?? 42,
-    foldCount: 3,
+    foldCount,
     schemes: ["random", "spatial"],
     models: ["majority", "random_forest"],
     randomForest: {

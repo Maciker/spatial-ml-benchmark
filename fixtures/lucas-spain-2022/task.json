@@ -21,6 +21,15 @@
     "unknownLabelPolicy": "reject"
   },
   "forbiddenFeatureFields": ["label", "id", "lucasCode", "SURVEY_LC1"],
+  "features": [
+    {
+      "name": "elevation_m",
+      "source": "LUCAS POINT_ALTITUDE",
+      "units": "meters",
+      "transformation": "none",
+      "missingValuePolicy": "reject"
+    }
+  ],
   "source": {
     "name": "Eurostat LUCAS 2022 Spain microdata, modified extract",
     "license": "Eurostat reuse with attribution; the European Commission accepts no responsibility for results derived from this extract",

@@ -35,4 +35,4 @@ Photos, soil measurements, GPS tracks, and every other LUCAS column. Olive (`B7x
 
 `featureTimestamp` and `labelTimestamp` in `task.json` are the earliest and latest `surveyDate` values in this extract (`2022-05-02` through `2022-10-29`). Elevation is the published theoretical-point altitude, not a separate observation.
 
-The two blocks are distant. The claim is spatial transfer between them, not national land-cover accuracy.
+The two blocks are distant. The claim is spatial transfer between them, not national land-cover accuracy. The benchmark command uses one fold per spatial group, so this extract runs with two folds. The synthetic fixture at `fixtures/mvp-demo` stays unchanged as the contract demo.

@@ -15,6 +15,7 @@ export type TaskDefinition = {
     readonly unknownLabelPolicy: UnknownLabelPolicy;
   };
   readonly forbiddenFeatureFields: readonly string[];
+  readonly features: readonly FeatureSpec[];
   readonly source: {
     readonly name: string;
     readonly license: string;

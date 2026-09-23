@@ -1,4 +1,4 @@
-import type { TaskDefinition, UnknownLabelPolicy } from "./contracts.js";
+import type { FeatureSpec, TaskDefinition, UnknownLabelPolicy } from "./contracts.js";
 import { BenchmarkValidationError } from "./errors.js";
 
 function isRecord(value: unknown): value is Record<string, unknown> {
@@ -35,6 +35,30 @@ function readNumberArray(record: Record<string, unknown>, key: string): readonly
     throw new BenchmarkValidationError(`Task field "${key}" must be a number array`);
   }
   return value;
+}
+
+function readFeatures(value: unknown): readonly FeatureSpec[] {
+  if (!Array.isArray(value) || value.length === 0) {
+    throw new BenchmarkValidationError("Task features must be a non-empty array");
+  }
+
+  const names = new Set<string>();
+  return value.map((entry) => {
+    if (!isRecord(entry)) throw new BenchmarkValidationError("Each feature spec must be an object");
+    const name = readString(entry, "name");
+    if (names.has(name)) throw new BenchmarkValidationError(`Duplicate feature name "${name}"`);
+    names.add(name);
+    if (entry.missingValuePolicy !== "reject") {
+      throw new BenchmarkValidationError(`Feature "${name}" missingValuePolicy must be "reject"`);
+    }
+    return {
+      name,
+      source: readString(entry, "source"),
+      units: readString(entry, "units"),
+      transformation: readString(entry, "transformation"),
+      missingValuePolicy: "reject",
+    };
+  });
 }
 
 function readUnknownLabelPolicy(value: unknown): UnknownLabelPolicy {
@@ -77,6 +101,7 @@ export function parseTaskDefinition(raw: unknown): TaskDefinition {
       unknownLabelPolicy: readUnknownLabelPolicy(targetRaw.unknownLabelPolicy),
     },
     forbiddenFeatureFields: readStringArray(raw, "forbiddenFeatureFields"),
+    features: readFeatures(raw.features),
     source: {
       name: readString(sourceRaw, "name"),
       license: readString(sourceRaw, "license"),

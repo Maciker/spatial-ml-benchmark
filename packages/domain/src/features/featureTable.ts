@@ -2,26 +2,8 @@ import type { FeatureRow, FeatureSpec, ParsedSample, TaskDefinition } from "../b
 import { assertNoForbiddenFeatures } from "../benchmark/parseSamples.js";
 import { BenchmarkValidationError } from "../benchmark/errors.js";
 
-const DEFAULT_FEATURE_SPECS: readonly FeatureSpec[] = [
-  {
-    name: "elevation_m",
-    source: "synthetic_dem",
-    units: "meters",
-    transformation: "none",
-    missingValuePolicy: "reject",
-  },
-  {
-    name: "slope_deg",
-    source: "synthetic_dem",
-    units: "degrees",
-    transformation: "none",
-    missingValuePolicy: "reject",
-  },
-];
-
 export function featureSpecsForTask(task: TaskDefinition): readonly FeatureSpec[] {
-  void task;
-  return DEFAULT_FEATURE_SPECS;
+  return task.features;
 }
 
 export function buildFeatureTable(samples: readonly ParsedSample[], task: TaskDefinition): {
