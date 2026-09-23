@@ -45,6 +45,10 @@ jobs:
           pnpm demo
       - name: Deterministic quality gates
         run: pnpm quality:ci
+      - name: Install Playwright browser
+        run: pnpm test:e2e:install
+      - name: Playwright E2E (explorer)
+        run: pnpm test:e2e
       - name: Adapter and scaffold validation
         run: pnpm quality:stabilization
       - name: Reject generated drift or tracked changes

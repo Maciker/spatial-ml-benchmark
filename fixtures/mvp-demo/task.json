@@ -1,0 +1,29 @@
+{
+  "taskId": "mvp-land-cover-micro",
+  "version": 1,
+  "crs": {
+    "epsg": 4326,
+    "name": "WGS 84",
+    "axisOrder": "longitude-latitude"
+  },
+  "sampleUnit": "point",
+  "generalizationClaim": "Hold out entire spatial groups to approximate block-level transfer within a tiny demo AOI.",
+  "featureTimestamp": "2019-01-01T00:00:00Z",
+  "labelTimestamp": "2019-06-01T00:00:00Z",
+  "leakageChannels": [
+    "future_label_in_feature_columns",
+    "duplicate_sample_ids",
+    "train_statistics_on_full_dataset"
+  ],
+  "target": {
+    "field": "label",
+    "classes": [0, 1],
+    "unknownLabelPolicy": "reject"
+  },
+  "forbiddenFeatureFields": ["label", "future_label", "id"],
+  "source": {
+    "name": "Synthetic MVP micro fixture (authored for this repository)",
+    "license": "CC0-1.0",
+    "reference": "fixtures/mvp-demo/samples.json"
+  }
+}

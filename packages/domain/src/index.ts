@@ -1,13 +1,21 @@
-export function scoreClassification(truth: readonly number[], predictions: readonly number[]): { balanced_accuracy: number } {
-  if (truth.length !== predictions.length) throw new Error("Truth and predictions must have equal length");
-  const recalls = new Map<number, { total: number; correct: number }>();
-  truth.forEach((label, index) => {
-    const value = recalls.get(label) ?? { total: 0, correct: 0 };
-    value.total += 1;
-    if (predictions[index] === label) value.correct += 1;
-    recalls.set(label, value);
-  });
-  if (recalls.size === 0) return { balanced_accuracy: Number.NaN };
-  const sum = [...recalls.values()].reduce((total, value) => total + value.correct / value.total, 0);
-  return { balanced_accuracy: sum / recalls.size };
-}
+export { scoreClassification } from "./metrics/scoreClassification.js";
+export type {
+  ExperimentConfig,
+  ExperimentManifest,
+  FoldAssignment,
+  FoldMetrics,
+  ParsedSample,
+  SamplePrediction,
+  SplitScheme,
+  TaskDefinition,
+} from "./benchmark/contracts.js";
+export { BenchmarkReplayError, BenchmarkValidationError } from "./benchmark/errors.js";
+export { parseTaskDefinition } from "./benchmark/parseTask.js";
+export { parseSamples } from "./benchmark/parseSamples.js";
+export { buildFeatureTable, featureSpecsForTask, fitFoldNormalizer } from "./features/featureTable.js";
+export { assignFolds } from "./folds/assignFolds.js";
+export { foldHasSpatialGroupLeakage, sharedSpatialGroupsBetweenPartitions } from "./folds/leakage.js";
+export { runExperiment } from "./experiment/runExperiment.js";
+export { assertManifestMatchesFixture, parseManifest, serializeManifest } from "./experiment/manifest.js";
+export type { ClassifierModel, RandomForestAdapter } from "./models/modelPort.js";
+export { createMajorityBaseline } from "./models/majorityBaseline.js";

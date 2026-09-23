@@ -1,0 +1,1158 @@
+{
+  "manifestVersion": 1,
+  "createdAt": "2026-09-23T21:04:18.998Z",
+  "incomplete": false,
+  "config": {
+    "taskId": "mvp-land-cover-micro",
+    "fixtureSha256": "3632699cf357a1a4f4299698c06b1edd33c35cd0511deb0e150052de5b4957ac",
+    "seed": 42,
+    "foldCount": 3,
+    "schemes": [
+      "random",
+      "spatial"
+    ],
+    "models": [
+      "majority",
+      "random_forest"
+    ],
+    "randomForest": {
+      "library": "ml-random-forest",
+      "libraryVersion": "2.1.0",
+      "nEstimators": 25
+    }
+  },
+  "task": {
+    "taskId": "mvp-land-cover-micro",
+    "version": 1,
+    "crs": {
+      "epsg": 4326,
+      "name": "WGS 84",
+      "axisOrder": "longitude-latitude"
+    },
+    "sampleUnit": "point",
+    "generalizationClaim": "Hold out entire spatial groups to approximate block-level transfer within a tiny demo AOI.",
+    "featureTimestamp": "2019-01-01T00:00:00Z",
+    "labelTimestamp": "2019-06-01T00:00:00Z",
+    "leakageChannels": [
+      "future_label_in_feature_columns",
+      "duplicate_sample_ids",
+      "train_statistics_on_full_dataset"
+    ],
+    "target": {
+      "field": "label",
+      "classes": [
+        0,
+        1
+      ],
+      "unknownLabelPolicy": "reject"
+    },
+    "forbiddenFeatureFields": [
+      "label",
+      "future_label",
+      "id"
+    ],
+    "source": {
+      "name": "Synthetic MVP micro fixture (authored for this repository)",
+      "license": "CC0-1.0",
+      "reference": "fixtures/mvp-demo/samples.json"
+    }
+  },
+  "foldAssignments": [
+    {
+      "scheme": "random",
+      "foldIndex": 0,
+      "seed": 42,
+      "trainSampleIds": [
+        "s10",
+        "s12",
+        "s04",
+        "s02",
+        "s07",
+        "s09",
+        "s05",
+        "s08"
+      ],
+      "testSampleIds": [
+        "s03",
+        "s01",
+        "s06",
+        "s11"
+      ],
+      "spatialGroupsInTest": [
+        "north-west",
+        "south-east",
+        "central"
+      ]
+    },
+    {
+      "scheme": "random",
+      "foldIndex": 1,
+      "seed": 42,
+      "trainSampleIds": [
+        "s03",
+        "s01",
+        "s06",
+        "s11",
+        "s07",
+        "s09",
+        "s05",
+        "s08"
+      ],
+      "testSampleIds": [
+        "s10",
+        "s12",
+        "s04",
+        "s02"
+      ],
+      "spatialGroupsInTest": [
+        "central",
+        "north-west"
+      ]
+    },
+    {
+      "scheme": "random",
+      "foldIndex": 2,
+      "seed": 42,
+      "trainSampleIds": [
+        "s03",
+        "s01",
+        "s06",
+        "s11",
+        "s10",
+        "s12",
+        "s04",
+        "s02"
+      ],
+      "testSampleIds": [
+        "s07",
+        "s09",
+        "s05",
+        "s08"
+      ],
+      "spatialGroupsInTest": [
+        "south-east",
+        "central"
+      ]
+    },
+    {
+      "scheme": "spatial",
+      "foldIndex": 0,
+      "seed": 42,
+      "trainSampleIds": [
+        "s01",
+        "s02",
+        "s03",
+        "s04",
+        "s09",
+        "s10",
+        "s11",
+        "s12"
+      ],
+      "testSampleIds": [
+        "s05",
+        "s06",
+        "s07",
+        "s08"
+      ],
+      "spatialGroupsInTest": [
+        "south-east"
+      ]
+    },
+    {
+      "scheme": "spatial",
+      "foldIndex": 1,
+      "seed": 42,
+      "trainSampleIds": [
+        "s01",
+        "s02",
+        "s03",
+        "s04",
+        "s05",
+        "s06",
+        "s07",
+        "s08"
+      ],
+      "testSampleIds": [
+        "s09",
+        "s10",
+        "s11",
+        "s12"
+      ],
+      "spatialGroupsInTest": [
+        "central"
+      ]
+    },
+    {
+      "scheme": "spatial",
+      "foldIndex": 2,
+      "seed": 42,
+      "trainSampleIds": [
+        "s05",
+        "s06",
+        "s07",
+        "s08",
+        "s09",
+        "s10",
+        "s11",
+        "s12"
+      ],
+      "testSampleIds": [
+        "s01",
+        "s02",
+        "s03",
+        "s04"
+      ],
+      "spatialGroupsInTest": [
+        "north-west"
+      ]
+    }
+  ],
+  "metrics": [
+    {
+      "foldIndex": 0,
+      "scheme": "random",
+      "model": "majority",
+      "balancedAccuracy": 0.5,
+      "confusion": {
+        "matrix": {
+          "0": {
+            "1": 3
+          },
+          "1": {
+            "1": 1
+          }
+        },
+        "supportByClass": {
+          "0": 3,
+          "1": 1
+        }
+      },
+      "perClassRecall": {
+        "0": 0,
+        "1": 1
+      },
+      "trainClassSupport": {
+        "0": 3,
+        "1": 5
+      },
+      "testClassSupport": {
+        "0": 3,
+        "1": 1
+      },
+      "warnings": [
+        "Random fold shares spatial groups between train and test partitions"
+      ]
+    },
+    {
+      "foldIndex": 0,
+      "scheme": "random",
+      "model": "random_forest",
+      "balancedAccuracy": 0.8333333333333333,
+      "confusion": {
+        "matrix": {
+          "0": {
+            "0": 2,
+            "1": 1
+          },
+          "1": {
+            "1": 1
+          }
+        },
+        "supportByClass": {
+          "0": 3,
+          "1": 1
+        }
+      },
+      "perClassRecall": {
+        "0": 0.6666666666666666,
+        "1": 1
+      },
+      "trainClassSupport": {
+        "0": 3,
+        "1": 5
+      },
+      "testClassSupport": {
+        "0": 3,
+        "1": 1
+      },
+      "warnings": [
+        "Random fold shares spatial groups between train and test partitions"
+      ]
+    },
+    {
+      "foldIndex": 1,
+      "scheme": "random",
+      "model": "majority",
+      "balancedAccuracy": 0.5,
+      "confusion": {
+        "matrix": {
+          "0": {
+            "0": 1
+          },
+          "1": {
+            "0": 3
+          }
+        },
+        "supportByClass": {
+          "0": 1,
+          "1": 3
+        }
+      },
+      "perClassRecall": {
+        "0": 1,
+        "1": 0
+      },
+      "trainClassSupport": {
+        "0": 5,
+        "1": 3
+      },
+      "testClassSupport": {
+        "0": 1,
+        "1": 3
+      },
+      "warnings": [
+        "Random fold shares spatial groups between train and test partitions"
+      ]
+    },
+    {
+      "foldIndex": 1,
+      "scheme": "random",
+      "model": "random_forest",
+      "balancedAccuracy": 0.6666666666666666,
+      "confusion": {
+        "matrix": {
+          "0": {
+            "0": 1
+          },
+          "1": {
+            "0": 2,
+            "1": 1
+          }
+        },
+        "supportByClass": {
+          "0": 1,
+          "1": 3
+        }
+      },
+      "perClassRecall": {
+        "0": 1,
+        "1": 0.3333333333333333
+      },
+      "trainClassSupport": {
+        "0": 5,
+        "1": 3
+      },
+      "testClassSupport": {
+        "0": 1,
+        "1": 3
+      },
+      "warnings": [
+        "Random fold shares spatial groups between train and test partitions"
+      ]
+    },
+    {
+      "foldIndex": 2,
+      "scheme": "random",
+      "model": "majority",
+      "balancedAccuracy": 0.5,
+      "confusion": {
+        "matrix": {
+          "0": {
+            "0": 2
+          },
+          "1": {
+            "0": 2
+          }
+        },
+        "supportByClass": {
+          "0": 2,
+          "1": 2
+        }
+      },
+      "perClassRecall": {
+        "0": 1,
+        "1": 0
+      },
+      "trainClassSupport": {
+        "0": 4,
+        "1": 4
+      },
+      "testClassSupport": {
+        "0": 2,
+        "1": 2
+      },
+      "warnings": [
+        "Random fold shares spatial groups between train and test partitions"
+      ]
+    },
+    {
+      "foldIndex": 2,
+      "scheme": "random",
+      "model": "random_forest",
+      "balancedAccuracy": 0.75,
+      "confusion": {
+        "matrix": {
+          "0": {
+            "0": 1,
+            "1": 1
+          },
+          "1": {
+            "1": 2
+          }
+        },
+        "supportByClass": {
+          "0": 2,
+          "1": 2
+        }
+      },
+      "perClassRecall": {
+        "0": 0.5,
+        "1": 1
+      },
+      "trainClassSupport": {
+        "0": 4,
+        "1": 4
+      },
+      "testClassSupport": {
+        "0": 2,
+        "1": 2
+      },
+      "warnings": [
+        "Random fold shares spatial groups between train and test partitions"
+      ]
+    },
+    {
+      "foldIndex": 0,
+      "scheme": "spatial",
+      "model": "majority",
+      "balancedAccuracy": 0.5,
+      "confusion": {
+        "matrix": {
+          "0": {
+            "0": 2
+          },
+          "1": {
+            "0": 2
+          }
+        },
+        "supportByClass": {
+          "0": 2,
+          "1": 2
+        }
+      },
+      "perClassRecall": {
+        "0": 1,
+        "1": 0
+      },
+      "trainClassSupport": {
+        "0": 4,
+        "1": 4
+      },
+      "testClassSupport": {
+        "0": 2,
+        "1": 2
+      },
+      "warnings": []
+    },
+    {
+      "foldIndex": 0,
+      "scheme": "spatial",
+      "model": "random_forest",
+      "balancedAccuracy": 1,
+      "confusion": {
+        "matrix": {
+          "0": {
+            "0": 2
+          },
+          "1": {
+            "1": 2
+          }
+        },
+        "supportByClass": {
+          "0": 2,
+          "1": 2
+        }
+      },
+      "perClassRecall": {
+        "0": 1,
+        "1": 1
+      },
+      "trainClassSupport": {
+        "0": 4,
+        "1": 4
+      },
+      "testClassSupport": {
+        "0": 2,
+        "1": 2
+      },
+      "warnings": []
+    },
+    {
+      "foldIndex": 1,
+      "scheme": "spatial",
+      "model": "majority",
+      "balancedAccuracy": 0.5,
+      "confusion": {
+        "matrix": {
+          "0": {
+            "0": 2
+          },
+          "1": {
+            "0": 2
+          }
+        },
+        "supportByClass": {
+          "0": 2,
+          "1": 2
+        }
+      },
+      "perClassRecall": {
+        "0": 1,
+        "1": 0
+      },
+      "trainClassSupport": {
+        "0": 4,
+        "1": 4
+      },
+      "testClassSupport": {
+        "0": 2,
+        "1": 2
+      },
+      "warnings": []
+    },
+    {
+      "foldIndex": 1,
+      "scheme": "spatial",
+      "model": "random_forest",
+      "balancedAccuracy": 0.75,
+      "confusion": {
+        "matrix": {
+          "0": {
+            "0": 1,
+            "1": 1
+          },
+          "1": {
+            "1": 2
+          }
+        },
+        "supportByClass": {
+          "0": 2,
+          "1": 2
+        }
+      },
+      "perClassRecall": {
+        "0": 0.5,
+        "1": 1
+      },
+      "trainClassSupport": {
+        "0": 4,
+        "1": 4
+      },
+      "testClassSupport": {
+        "0": 2,
+        "1": 2
+      },
+      "warnings": []
+    },
+    {
+      "foldIndex": 2,
+      "scheme": "spatial",
+      "model": "majority",
+      "balancedAccuracy": 0.5,
+      "confusion": {
+        "matrix": {
+          "0": {
+            "0": 2
+          },
+          "1": {
+            "0": 2
+          }
+        },
+        "supportByClass": {
+          "0": 2,
+          "1": 2
+        }
+      },
+      "perClassRecall": {
+        "0": 1,
+        "1": 0
+      },
+      "trainClassSupport": {
+        "0": 4,
+        "1": 4
+      },
+      "testClassSupport": {
+        "0": 2,
+        "1": 2
+      },
+      "warnings": []
+    },
+    {
+      "foldIndex": 2,
+      "scheme": "spatial",
+      "model": "random_forest",
+      "balancedAccuracy": 1,
+      "confusion": {
+        "matrix": {
+          "0": {
+            "0": 2
+          },
+          "1": {
+            "1": 2
+          }
+        },
+        "supportByClass": {
+          "0": 2,
+          "1": 2
+        }
+      },
+      "perClassRecall": {
+        "0": 1,
+        "1": 1
+      },
+      "trainClassSupport": {
+        "0": 4,
+        "1": 4
+      },
+      "testClassSupport": {
+        "0": 2,
+        "1": 2
+      },
+      "warnings": []
+    }
+  ],
+  "predictions": [
+    {
+      "sampleId": "s03",
+      "lon": -122.403,
+      "lat": 37.783,
+      "spatialGroup": "north-west",
+      "foldIndex": 0,
+      "scheme": "random",
+      "model": "majority",
+      "trueLabel": 1,
+      "predictedLabel": 1
+    },
+    {
+      "sampleId": "s01",
+      "lon": -122.401,
+      "lat": 37.781,
+      "spatialGroup": "north-west",
+      "foldIndex": 0,
+      "scheme": "random",
+      "model": "majority",
+      "trueLabel": 0,
+      "predictedLabel": 1
+    },
+    {
+      "sampleId": "s06",
+      "lon": -122.392,
+      "lat": 37.772,
+      "spatialGroup": "south-east",
+      "foldIndex": 0,
+      "scheme": "random",
+      "model": "majority",
+      "trueLabel": 0,
+      "predictedLabel": 1
+    },
+    {
+      "sampleId": "s11",
+      "lon": -122.398,
+      "lat": 37.778,
+      "spatialGroup": "central",
+      "foldIndex": 0,
+      "scheme": "random",
+      "model": "majority",
+      "trueLabel": 0,
+      "predictedLabel": 1
+    },
+    {
+      "sampleId": "s03",
+      "lon": -122.403,
+      "lat": 37.783,
+      "spatialGroup": "north-west",
+      "foldIndex": 0,
+      "scheme": "random",
+      "model": "random_forest",
+      "trueLabel": 1,
+      "predictedLabel": 1
+    },
+    {
+      "sampleId": "s01",
+      "lon": -122.401,
+      "lat": 37.781,
+      "spatialGroup": "north-west",
+      "foldIndex": 0,
+      "scheme": "random",
+      "model": "random_forest",
+      "trueLabel": 0,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "s06",
+      "lon": -122.392,
+      "lat": 37.772,
+      "spatialGroup": "south-east",
+      "foldIndex": 0,
+      "scheme": "random",
+      "model": "random_forest",
+      "trueLabel": 0,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "s11",
+      "lon": -122.398,
+      "lat": 37.778,
+      "spatialGroup": "central",
+      "foldIndex": 0,
+      "scheme": "random",
+      "model": "random_forest",
+      "trueLabel": 0,
+      "predictedLabel": 1
+    },
+    {
+      "sampleId": "s10",
+      "lon": -122.397,
+      "lat": 37.777,
+      "spatialGroup": "central",
+      "foldIndex": 1,
+      "scheme": "random",
+      "model": "majority",
+      "trueLabel": 1,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "s12",
+      "lon": -122.399,
+      "lat": 37.779,
+      "spatialGroup": "central",
+      "foldIndex": 1,
+      "scheme": "random",
+      "model": "majority",
+      "trueLabel": 1,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "s04",
+      "lon": -122.404,
+      "lat": 37.784,
+      "spatialGroup": "north-west",
+      "foldIndex": 1,
+      "scheme": "random",
+      "model": "majority",
+      "trueLabel": 1,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "s02",
+      "lon": -122.402,
+      "lat": 37.782,
+      "spatialGroup": "north-west",
+      "foldIndex": 1,
+      "scheme": "random",
+      "model": "majority",
+      "trueLabel": 0,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "s10",
+      "lon": -122.397,
+      "lat": 37.777,
+      "spatialGroup": "central",
+      "foldIndex": 1,
+      "scheme": "random",
+      "model": "random_forest",
+      "trueLabel": 1,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "s12",
+      "lon": -122.399,
+      "lat": 37.779,
+      "spatialGroup": "central",
+      "foldIndex": 1,
+      "scheme": "random",
+      "model": "random_forest",
+      "trueLabel": 1,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "s04",
+      "lon": -122.404,
+      "lat": 37.784,
+      "spatialGroup": "north-west",
+      "foldIndex": 1,
+      "scheme": "random",
+      "model": "random_forest",
+      "trueLabel": 1,
+      "predictedLabel": 1
+    },
+    {
+      "sampleId": "s02",
+      "lon": -122.402,
+      "lat": 37.782,
+      "spatialGroup": "north-west",
+      "foldIndex": 1,
+      "scheme": "random",
+      "model": "random_forest",
+      "trueLabel": 0,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "s07",
+      "lon": -122.393,
+      "lat": 37.773,
+      "spatialGroup": "south-east",
+      "foldIndex": 2,
+      "scheme": "random",
+      "model": "majority",
+      "trueLabel": 1,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "s09",
+      "lon": -122.396,
+      "lat": 37.776,
+      "spatialGroup": "central",
+      "foldIndex": 2,
+      "scheme": "random",
+      "model": "majority",
+      "trueLabel": 0,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "s05",
+      "lon": -122.391,
+      "lat": 37.771,
+      "spatialGroup": "south-east",
+      "foldIndex": 2,
+      "scheme": "random",
+      "model": "majority",
+      "trueLabel": 0,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "s08",
+      "lon": -122.394,
+      "lat": 37.774,
+      "spatialGroup": "south-east",
+      "foldIndex": 2,
+      "scheme": "random",
+      "model": "majority",
+      "trueLabel": 1,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "s07",
+      "lon": -122.393,
+      "lat": 37.773,
+      "spatialGroup": "south-east",
+      "foldIndex": 2,
+      "scheme": "random",
+      "model": "random_forest",
+      "trueLabel": 1,
+      "predictedLabel": 1
+    },
+    {
+      "sampleId": "s09",
+      "lon": -122.396,
+      "lat": 37.776,
+      "spatialGroup": "central",
+      "foldIndex": 2,
+      "scheme": "random",
+      "model": "random_forest",
+      "trueLabel": 0,
+      "predictedLabel": 1
+    },
+    {
+      "sampleId": "s05",
+      "lon": -122.391,
+      "lat": 37.771,
+      "spatialGroup": "south-east",
+      "foldIndex": 2,
+      "scheme": "random",
+      "model": "random_forest",
+      "trueLabel": 0,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "s08",
+      "lon": -122.394,
+      "lat": 37.774,
+      "spatialGroup": "south-east",
+      "foldIndex": 2,
+      "scheme": "random",
+      "model": "random_forest",
+      "trueLabel": 1,
+      "predictedLabel": 1
+    },
+    {
+      "sampleId": "s05",
+      "lon": -122.391,
+      "lat": 37.771,
+      "spatialGroup": "south-east",
+      "foldIndex": 0,
+      "scheme": "spatial",
+      "model": "majority",
+      "trueLabel": 0,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "s06",
+      "lon": -122.392,
+      "lat": 37.772,
+      "spatialGroup": "south-east",
+      "foldIndex": 0,
+      "scheme": "spatial",
+      "model": "majority",
+      "trueLabel": 0,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "s07",
+      "lon": -122.393,
+      "lat": 37.773,
+      "spatialGroup": "south-east",
+      "foldIndex": 0,
+      "scheme": "spatial",
+      "model": "majority",
+      "trueLabel": 1,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "s08",
+      "lon": -122.394,
+      "lat": 37.774,
+      "spatialGroup": "south-east",
+      "foldIndex": 0,
+      "scheme": "spatial",
+      "model": "majority",
+      "trueLabel": 1,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "s05",
+      "lon": -122.391,
+      "lat": 37.771,
+      "spatialGroup": "south-east",
+      "foldIndex": 0,
+      "scheme": "spatial",
+      "model": "random_forest",
+      "trueLabel": 0,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "s06",
+      "lon": -122.392,
+      "lat": 37.772,
+      "spatialGroup": "south-east",
+      "foldIndex": 0,
+      "scheme": "spatial",
+      "model": "random_forest",
+      "trueLabel": 0,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "s07",
+      "lon": -122.393,
+      "lat": 37.773,
+      "spatialGroup": "south-east",
+      "foldIndex": 0,
+      "scheme": "spatial",
+      "model": "random_forest",
+      "trueLabel": 1,
+      "predictedLabel": 1
+    },
+    {
+      "sampleId": "s08",
+      "lon": -122.394,
+      "lat": 37.774,
+      "spatialGroup": "south-east",
+      "foldIndex": 0,
+      "scheme": "spatial",
+      "model": "random_forest",
+      "trueLabel": 1,
+      "predictedLabel": 1
+    },
+    {
+      "sampleId": "s09",
+      "lon": -122.396,
+      "lat": 37.776,
+      "spatialGroup": "central",
+      "foldIndex": 1,
+      "scheme": "spatial",
+      "model": "majority",
+      "trueLabel": 0,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "s10",
+      "lon": -122.397,
+      "lat": 37.777,
+      "spatialGroup": "central",
+      "foldIndex": 1,
+      "scheme": "spatial",
+      "model": "majority",
+      "trueLabel": 1,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "s11",
+      "lon": -122.398,
+      "lat": 37.778,
+      "spatialGroup": "central",
+      "foldIndex": 1,
+      "scheme": "spatial",
+      "model": "majority",
+      "trueLabel": 0,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "s12",
+      "lon": -122.399,
+      "lat": 37.779,
+      "spatialGroup": "central",
+      "foldIndex": 1,
+      "scheme": "spatial",
+      "model": "majority",
+      "trueLabel": 1,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "s09",
+      "lon": -122.396,
+      "lat": 37.776,
+      "spatialGroup": "central",
+      "foldIndex": 1,
+      "scheme": "spatial",
+      "model": "random_forest",
+      "trueLabel": 0,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "s10",
+      "lon": -122.397,
+      "lat": 37.777,
+      "spatialGroup": "central",
+      "foldIndex": 1,
+      "scheme": "spatial",
+      "model": "random_forest",
+      "trueLabel": 1,
+      "predictedLabel": 1
+    },
+    {
+      "sampleId": "s11",
+      "lon": -122.398,
+      "lat": 37.778,
+      "spatialGroup": "central",
+      "foldIndex": 1,
+      "scheme": "spatial",
+      "model": "random_forest",
+      "trueLabel": 0,
+      "predictedLabel": 1
+    },
+    {
+      "sampleId": "s12",
+      "lon": -122.399,
+      "lat": 37.779,
+      "spatialGroup": "central",
+      "foldIndex": 1,
+      "scheme": "spatial",
+      "model": "random_forest",
+      "trueLabel": 1,
+      "predictedLabel": 1
+    },
+    {
+      "sampleId": "s01",
+      "lon": -122.401,
+      "lat": 37.781,
+      "spatialGroup": "north-west",
+      "foldIndex": 2,
+      "scheme": "spatial",
+      "model": "majority",
+      "trueLabel": 0,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "s02",
+      "lon": -122.402,
+      "lat": 37.782,
+      "spatialGroup": "north-west",
+      "foldIndex": 2,
+      "scheme": "spatial",
+      "model": "majority",
+      "trueLabel": 0,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "s03",
+      "lon": -122.403,
+      "lat": 37.783,
+      "spatialGroup": "north-west",
+      "foldIndex": 2,
+      "scheme": "spatial",
+      "model": "majority",
+      "trueLabel": 1,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "s04",
+      "lon": -122.404,
+      "lat": 37.784,
+      "spatialGroup": "north-west",
+      "foldIndex": 2,
+      "scheme": "spatial",
+      "model": "majority",
+      "trueLabel": 1,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "s01",
+      "lon": -122.401,
+      "lat": 37.781,
+      "spatialGroup": "north-west",
+      "foldIndex": 2,
+      "scheme": "spatial",
+      "model": "random_forest",
+      "trueLabel": 0,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "s02",
+      "lon": -122.402,
+      "lat": 37.782,
+      "spatialGroup": "north-west",
+      "foldIndex": 2,
+      "scheme": "spatial",
+      "model": "random_forest",
+      "trueLabel": 0,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "s03",
+      "lon": -122.403,
+      "lat": 37.783,
+      "spatialGroup": "north-west",
+      "foldIndex": 2,
+      "scheme": "spatial",
+      "model": "random_forest",
+      "trueLabel": 1,
+      "predictedLabel": 1
+    },
+    {
+      "sampleId": "s04",
+      "lon": -122.404,
+      "lat": 37.784,
+      "spatialGroup": "north-west",
+      "foldIndex": 2,
+      "scheme": "spatial",
+      "model": "random_forest",
+      "trueLabel": 1,
+      "predictedLabel": 1
+    }
+  ],
+  "dependencyVersions": {
+    "node": "v22.14.0",
+    "ml-random-forest": "2.1.0"
+  }
+}

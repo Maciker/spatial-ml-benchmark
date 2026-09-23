@@ -20,6 +20,7 @@ dist/
 # Local geospatial assets and reports
 data/raw/
 outputs/
+.benchmark-runs/
 coverage/
 playwright-report/
 test-results/
