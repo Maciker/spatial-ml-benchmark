@@ -1,0 +1,16 @@
+{
+  "samples": [
+    { "id": "s01", "lon": -122.401, "lat": 37.781, "spatialGroup": "north-west", "label": 0, "elevation_m": 12.0, "slope_deg": 1.5 },
+    { "id": "s02", "lon": -122.402, "lat": 37.782, "spatialGroup": "north-west", "label": 0, "elevation_m": 14.0, "slope_deg": 2.0 },
+    { "id": "s03", "lon": -122.403, "lat": 37.783, "spatialGroup": "north-west", "label": 1, "elevation_m": 18.0, "slope_deg": 4.5 },
+    { "id": "s04", "lon": -122.404, "lat": 37.784, "spatialGroup": "north-west", "label": 1, "elevation_m": 20.0, "slope_deg": 5.0 },
+    { "id": "s05", "lon": -122.391, "lat": 37.771, "spatialGroup": "south-east", "label": 0, "elevation_m": 8.0, "slope_deg": 0.5 },
+    { "id": "s06", "lon": -122.392, "lat": 37.772, "spatialGroup": "south-east", "label": 0, "elevation_m": 9.0, "slope_deg": 1.0 },
+    { "id": "s07", "lon": -122.393, "lat": 37.773, "spatialGroup": "south-east", "label": 1, "elevation_m": 22.0, "slope_deg": 6.0 },
+    { "id": "s08", "lon": -122.394, "lat": 37.774, "spatialGroup": "south-east", "label": 1, "elevation_m": 24.0, "slope_deg": 6.5 },
+    { "id": "s09", "lon": -122.396, "lat": 37.776, "spatialGroup": "central", "label": 0, "elevation_m": 15.0, "slope_deg": 3.0 },
+    { "id": "s10", "lon": -122.397, "lat": 37.777, "spatialGroup": "central", "label": 1, "elevation_m": 16.0, "slope_deg": 3.5 },
+    { "id": "s11", "lon": -122.398, "lat": 37.778, "spatialGroup": "central", "label": 0, "elevation_m": 17.0, "slope_deg": 4.0 },
+    { "id": "s12", "lon": -122.399, "lat": 37.779, "spatialGroup": "central", "label": 1, "elevation_m": 19.0, "slope_deg": 4.2 }
+  ]
+}
