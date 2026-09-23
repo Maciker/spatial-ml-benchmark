@@ -9,7 +9,9 @@
   },
   "packageManager": "pnpm@10.17.1",
   "scripts": {
-    "build": "pnpm build:server",
+    "build": "pnpm build:server && pnpm build:web",
+    "build:web": "pnpm --filter @gis/spatial-ml-benchmark-web build",
+    "test:e2e": "node test/error-map.e2e.mjs",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
@@ -47,7 +49,7 @@
     "doctor": "node tools/diagnostics/doctor.mjs",
     "setup:hooks": "bash scripts/install-githooks.sh",
     "build:server": "tsc -p tsconfig.build.json",
-    "demo": "pnpm build && node dist/apps/cli/src/main.js"
+    "demo": "pnpm build:server && node dist/apps/cli/src/main.js"
   },
   "dependencies": {
     "yaml": "^2.7.0"
@@ -66,6 +68,7 @@
     "knip": "^5.42.0",
     "typescript": "^5.7.0",
     "typescript-eslint": "^8.20.0",
+    "playwright": "^1.55.0",
     "vitest": "^3.0.0"
   }
 }

@@ -43,6 +43,8 @@ jobs:
           pnpm doctor
           pnpm build
           pnpm demo
+          pnpm exec playwright install --with-deps chromium
+          pnpm test:e2e
       - name: Deterministic quality gates
         run: pnpm quality:ci
       - name: Adapter and scaffold validation

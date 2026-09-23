@@ -1,0 +1,502 @@
+{
+  "limitations": "Do not invent statistical significance from this tiny fixture.",
+  "schemes": {
+    "random": {
+      "scheme": "random",
+      "majority": {
+        "model": "majority",
+        "folds": [
+          {
+            "foldId": "random:0",
+            "summary": {
+              "balancedAccuracy": 0.5,
+              "recalls": {
+                "0": 0,
+                "1": 1
+              },
+              "support": {
+                "0": 3,
+                "1": 1
+              },
+              "confusion": {
+                "trueMeadowPredictedMeadow": 0,
+                "trueMeadowPredictedWoodland": 3,
+                "trueWoodlandPredictedMeadow": 0,
+                "trueWoodlandPredictedWoodland": 1
+              }
+            }
+          },
+          {
+            "foldId": "random:1",
+            "summary": {
+              "balancedAccuracy": 0.5,
+              "recalls": {
+                "0": 1,
+                "1": 0
+              },
+              "support": {
+                "0": 2,
+                "1": 2
+              },
+              "confusion": {
+                "trueMeadowPredictedMeadow": 2,
+                "trueMeadowPredictedWoodland": 0,
+                "trueWoodlandPredictedMeadow": 2,
+                "trueWoodlandPredictedWoodland": 0
+              }
+            }
+          },
+          {
+            "foldId": "random:2",
+            "summary": {
+              "balancedAccuracy": 0.5,
+              "recalls": {
+                "0": 1,
+                "1": 0
+              },
+              "support": {
+                "0": 2,
+                "1": 2
+              },
+              "confusion": {
+                "trueMeadowPredictedMeadow": 2,
+                "trueMeadowPredictedWoodland": 0,
+                "trueWoodlandPredictedMeadow": 2,
+                "trueWoodlandPredictedWoodland": 0
+              }
+            }
+          },
+          {
+            "foldId": "random:3",
+            "summary": {
+              "balancedAccuracy": 0.5,
+              "recalls": {
+                "0": 1,
+                "1": 0
+              },
+              "support": {
+                "0": 1,
+                "1": 3
+              },
+              "confusion": {
+                "trueMeadowPredictedMeadow": 1,
+                "trueMeadowPredictedWoodland": 0,
+                "trueWoodlandPredictedMeadow": 3,
+                "trueWoodlandPredictedWoodland": 0
+              }
+            }
+          }
+        ],
+        "meanBalancedAccuracy": 0.5
+      },
+      "forest": {
+        "model": "forest",
+        "folds": [
+          {
+            "foldId": "random:0",
+            "summary": {
+              "balancedAccuracy": 0.8333333333333333,
+              "recalls": {
+                "0": 0.6666666666666666,
+                "1": 1
+              },
+              "support": {
+                "0": 3,
+                "1": 1
+              },
+              "confusion": {
+                "trueMeadowPredictedMeadow": 2,
+                "trueMeadowPredictedWoodland": 1,
+                "trueWoodlandPredictedMeadow": 0,
+                "trueWoodlandPredictedWoodland": 1
+              }
+            }
+          },
+          {
+            "foldId": "random:1",
+            "summary": {
+              "balancedAccuracy": 0.75,
+              "recalls": {
+                "0": 1,
+                "1": 0.5
+              },
+              "support": {
+                "0": 2,
+                "1": 2
+              },
+              "confusion": {
+                "trueMeadowPredictedMeadow": 2,
+                "trueMeadowPredictedWoodland": 0,
+                "trueWoodlandPredictedMeadow": 1,
+                "trueWoodlandPredictedWoodland": 1
+              }
+            }
+          },
+          {
+            "foldId": "random:2",
+            "summary": {
+              "balancedAccuracy": 1,
+              "recalls": {
+                "0": 1,
+                "1": 1
+              },
+              "support": {
+                "0": 2,
+                "1": 2
+              },
+              "confusion": {
+                "trueMeadowPredictedMeadow": 2,
+                "trueMeadowPredictedWoodland": 0,
+                "trueWoodlandPredictedMeadow": 0,
+                "trueWoodlandPredictedWoodland": 2
+              }
+            }
+          },
+          {
+            "foldId": "random:3",
+            "summary": {
+              "balancedAccuracy": 1,
+              "recalls": {
+                "0": 1,
+                "1": 1
+              },
+              "support": {
+                "0": 1,
+                "1": 3
+              },
+              "confusion": {
+                "trueMeadowPredictedMeadow": 1,
+                "trueMeadowPredictedWoodland": 0,
+                "trueWoodlandPredictedMeadow": 0,
+                "trueWoodlandPredictedWoodland": 3
+              }
+            }
+          }
+        ],
+        "meanBalancedAccuracy": 0.8958333333333333
+      }
+    },
+    "spatial": {
+      "scheme": "spatial",
+      "majority": {
+        "model": "majority",
+        "folds": [
+          {
+            "foldId": "spatial:east-north",
+            "summary": {
+              "balancedAccuracy": 0.5,
+              "recalls": {
+                "0": 1,
+                "1": 0
+              },
+              "support": {
+                "0": 1,
+                "1": 3
+              },
+              "confusion": {
+                "trueMeadowPredictedMeadow": 1,
+                "trueMeadowPredictedWoodland": 0,
+                "trueWoodlandPredictedMeadow": 3,
+                "trueWoodlandPredictedWoodland": 0
+              }
+            }
+          },
+          {
+            "foldId": "spatial:east-south",
+            "summary": {
+              "balancedAccuracy": 0.5,
+              "recalls": {
+                "0": 0,
+                "1": 1
+              },
+              "support": {
+                "0": 3,
+                "1": 1
+              },
+              "confusion": {
+                "trueMeadowPredictedMeadow": 0,
+                "trueMeadowPredictedWoodland": 3,
+                "trueWoodlandPredictedMeadow": 0,
+                "trueWoodlandPredictedWoodland": 1
+              }
+            }
+          },
+          {
+            "foldId": "spatial:west-north",
+            "summary": {
+              "balancedAccuracy": 0.5,
+              "recalls": {
+                "0": 0,
+                "1": 1
+              },
+              "support": {
+                "0": 3,
+                "1": 1
+              },
+              "confusion": {
+                "trueMeadowPredictedMeadow": 0,
+                "trueMeadowPredictedWoodland": 3,
+                "trueWoodlandPredictedMeadow": 0,
+                "trueWoodlandPredictedWoodland": 1
+              }
+            }
+          },
+          {
+            "foldId": "spatial:west-south",
+            "summary": {
+              "balancedAccuracy": 0.5,
+              "recalls": {
+                "0": 1,
+                "1": 0
+              },
+              "support": {
+                "0": 1,
+                "1": 3
+              },
+              "confusion": {
+                "trueMeadowPredictedMeadow": 1,
+                "trueMeadowPredictedWoodland": 0,
+                "trueWoodlandPredictedMeadow": 3,
+                "trueWoodlandPredictedWoodland": 0
+              }
+            }
+          }
+        ],
+        "meanBalancedAccuracy": 0.5
+      },
+      "forest": {
+        "model": "forest",
+        "folds": [
+          {
+            "foldId": "spatial:east-north",
+            "summary": {
+              "balancedAccuracy": 0.5,
+              "recalls": {
+                "0": 0,
+                "1": 1
+              },
+              "support": {
+                "0": 1,
+                "1": 3
+              },
+              "confusion": {
+                "trueMeadowPredictedMeadow": 0,
+                "trueMeadowPredictedWoodland": 1,
+                "trueWoodlandPredictedMeadow": 0,
+                "trueWoodlandPredictedWoodland": 3
+              }
+            }
+          },
+          {
+            "foldId": "spatial:east-south",
+            "summary": {
+              "balancedAccuracy": 0.5,
+              "recalls": {
+                "0": 1,
+                "1": 0
+              },
+              "support": {
+                "0": 3,
+                "1": 1
+              },
+              "confusion": {
+                "trueMeadowPredictedMeadow": 3,
+                "trueMeadowPredictedWoodland": 0,
+                "trueWoodlandPredictedMeadow": 1,
+                "trueWoodlandPredictedWoodland": 0
+              }
+            }
+          },
+          {
+            "foldId": "spatial:west-north",
+            "summary": {
+              "balancedAccuracy": 0.5,
+              "recalls": {
+                "0": 1,
+                "1": 0
+              },
+              "support": {
+                "0": 3,
+                "1": 1
+              },
+              "confusion": {
+                "trueMeadowPredictedMeadow": 3,
+                "trueMeadowPredictedWoodland": 0,
+                "trueWoodlandPredictedMeadow": 1,
+                "trueWoodlandPredictedWoodland": 0
+              }
+            }
+          },
+          {
+            "foldId": "spatial:west-south",
+            "summary": {
+              "balancedAccuracy": 0.5,
+              "recalls": {
+                "0": 0,
+                "1": 1
+              },
+              "support": {
+                "0": 1,
+                "1": 3
+              },
+              "confusion": {
+                "trueMeadowPredictedMeadow": 0,
+                "trueMeadowPredictedWoodland": 1,
+                "trueWoodlandPredictedMeadow": 0,
+                "trueWoodlandPredictedWoodland": 3
+              }
+            }
+          }
+        ],
+        "meanBalancedAccuracy": 0.5
+      }
+    }
+  },
+  "points": [
+    {
+      "id": "WN-01",
+      "longitude": -1.12,
+      "latitude": 53.08,
+      "foldId": "spatial:west-north",
+      "truth": 0,
+      "prediction": 0,
+      "isError": false
+    },
+    {
+      "id": "WN-02",
+      "longitude": -0.94,
+      "latitude": 53.11,
+      "foldId": "spatial:west-north",
+      "truth": 0,
+      "prediction": 0,
+      "isError": false
+    },
+    {
+      "id": "WN-03",
+      "longitude": -1.05,
+      "latitude": 52.97,
+      "foldId": "spatial:west-north",
+      "truth": 0,
+      "prediction": 0,
+      "isError": false
+    },
+    {
+      "id": "WN-04",
+      "longitude": -0.88,
+      "latitude": 52.92,
+      "foldId": "spatial:west-north",
+      "truth": 1,
+      "prediction": 0,
+      "isError": true
+    },
+    {
+      "id": "EN-01",
+      "longitude": 0.91,
+      "latitude": 53.06,
+      "foldId": "spatial:east-north",
+      "truth": 1,
+      "prediction": 1,
+      "isError": false
+    },
+    {
+      "id": "EN-02",
+      "longitude": 1.08,
+      "latitude": 53.12,
+      "foldId": "spatial:east-north",
+      "truth": 1,
+      "prediction": 1,
+      "isError": false
+    },
+    {
+      "id": "EN-03",
+      "longitude": 0.97,
+      "latitude": 52.95,
+      "foldId": "spatial:east-north",
+      "truth": 1,
+      "prediction": 1,
+      "isError": false
+    },
+    {
+      "id": "EN-04",
+      "longitude": 1.14,
+      "latitude": 52.9,
+      "foldId": "spatial:east-north",
+      "truth": 0,
+      "prediction": 1,
+      "isError": true
+    },
+    {
+      "id": "WS-01",
+      "longitude": -1.1,
+      "latitude": 51.08,
+      "foldId": "spatial:west-south",
+      "truth": 1,
+      "prediction": 1,
+      "isError": false
+    },
+    {
+      "id": "WS-02",
+      "longitude": -0.93,
+      "latitude": 51.13,
+      "foldId": "spatial:west-south",
+      "truth": 1,
+      "prediction": 1,
+      "isError": false
+    },
+    {
+      "id": "WS-03",
+      "longitude": -1.07,
+      "latitude": 50.96,
+      "foldId": "spatial:west-south",
+      "truth": 1,
+      "prediction": 1,
+      "isError": false
+    },
+    {
+      "id": "WS-04",
+      "longitude": -0.86,
+      "latitude": 50.91,
+      "foldId": "spatial:west-south",
+      "truth": 0,
+      "prediction": 1,
+      "isError": true
+    },
+    {
+      "id": "ES-01",
+      "longitude": 0.89,
+      "latitude": 51.07,
+      "foldId": "spatial:east-south",
+      "truth": 0,
+      "prediction": 0,
+      "isError": false
+    },
+    {
+      "id": "ES-02",
+      "longitude": 1.06,
+      "latitude": 51.14,
+      "foldId": "spatial:east-south",
+      "truth": 0,
+      "prediction": 0,
+      "isError": false
+    },
+    {
+      "id": "ES-03",
+      "longitude": 0.98,
+      "latitude": 50.95,
+      "foldId": "spatial:east-south",
+      "truth": 0,
+      "prediction": 0,
+      "isError": false
+    },
+    {
+      "id": "ES-04",
+      "longitude": 1.15,
+      "latitude": 50.9,
+      "foldId": "spatial:east-south",
+      "truth": 1,
+      "prediction": 0,
+      "isError": true
+    }
+  ],
+  "caseStudy": "# Meadow / woodland benchmark case study\n\nThis demonstration uses 16 synthetic CC0 points. It is not a land-cover product.\n\nDataset: Synthetic meadow and woodland points authored for Spatial ML Benchmark. Not observed land cover.\nLicense: CC0-1.0\nCRS: EPSG:4326\nTarget: meadow (0) vs woodland (1)\nDeployment assumption: Generalize to unsampled 1-degree cells in EPSG:4326. This is not a global land-cover product.\n\n## Principal result (spatial folds)\n\nMajority baseline balanced accuracy: 0.500\nSeeded forest balanced accuracy: 0.500\n\n## Comparison-only random folds\n\nSeeded forest balanced accuracy: 0.896\n\n## Limitations\n\nDo not invent statistical significance from this tiny fixture.\nFailure cases include minority points at group edges and any claim that these numbers transfer to real imagery.\n\n## Reproduction\n\n```\npnpm install --frozen-lockfile\npnpm demo\n```\n"
+}
