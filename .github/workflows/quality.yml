@@ -42,6 +42,7 @@ jobs:
         run: |
           pnpm doctor
           pnpm build
+          pnpm demo
       - name: Deterministic quality gates
         run: pnpm quality:ci
       - name: Adapter and scaffold validation
