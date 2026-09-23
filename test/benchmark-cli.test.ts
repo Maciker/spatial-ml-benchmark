@@ -3,6 +3,7 @@ import os from "node:os";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
 import { replayBenchmarkCommand, runBenchmarkCommand } from "../apps/cli/src/benchmarkCommands.js";
+import { parseManifest } from "../packages/domain/src/index.js";
 
 const fixtureDir = path.join(process.cwd(), "fixtures/mvp-demo");
 const lucasFixtureDir = path.join(process.cwd(), "fixtures/lucas-spain-2022");
@@ -38,6 +39,11 @@ describe("The benchmark CLI workflow", () => {
   });
 
   it("replays the committed MVP reference manifest", async () => {
+    const manifest = parseManifest(
+      JSON.parse(await readFile(path.join(fixtureDir, "reference-manifest.json"), "utf8")) as unknown,
+    );
+
+    expect(manifest.task.features.map((feature) => feature.name)).toEqual(["elevation_m", "slope_deg"]);
     await replayBenchmarkCommand(fixtureDir, path.join(fixtureDir, "reference-manifest.json"));
   });
 });

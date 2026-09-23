@@ -36,9 +36,9 @@ export function parseManifest(raw: unknown): ExperimentManifest {
   const task = raw.task;
   if (!isRecord(config) || !isRecord(task)) throw new BenchmarkReplayError("Manifest config/task missing");
 
-  parseTaskDefinition(taskWithFeatureContract(task));
+  const parsedTask = parseTaskDefinition(taskWithFeatureContract(task));
 
-  return raw as unknown as ExperimentManifest;
+  return { ...raw, task: parsedTask } as ExperimentManifest;
 }
 
 export function assertManifestMatchesFixture(manifest: ExperimentManifest, fixtureSha256: string): void {
