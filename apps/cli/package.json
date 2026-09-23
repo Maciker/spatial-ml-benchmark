@@ -2,5 +2,8 @@
   "name": "@gis/spatial-ml-benchmark-cli",
   "version": "0.1.0",
   "private": true,
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "ml-random-forest": "^2.1.0"
+  }
 }

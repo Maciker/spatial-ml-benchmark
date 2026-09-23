@@ -36,7 +36,7 @@ module.exports = {
   ],
   options: {
     doNotFollow: { path: "node_modules" },
-    exclude: { path: "(node_modules|dist|\\.quality|/tests?/)" },
+    exclude: { path: "(node_modules|dist|\\.quality|/tests?/|apps/web/)" },
     tsConfig: { fileName: "tsconfig.json" },
     tsPreCompilationDeps: true,
     enhancedResolveOptions: {

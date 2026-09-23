@@ -47,9 +47,14 @@
     "doctor": "node tools/diagnostics/doctor.mjs",
     "setup:hooks": "bash scripts/install-githooks.sh",
     "build:server": "tsc -p tsconfig.build.json",
-    "demo": "pnpm build && node dist/apps/cli/src/main.js"
+    "demo": "pnpm build && node dist/apps/cli/src/main.js",
+    "benchmark:run": "pnpm build && node dist/apps/cli/src/main.js benchmark run --fixture fixtures/mvp-demo --output .benchmark-runs/latest",
+    "benchmark:replay": "pnpm build && node dist/apps/cli/src/main.js benchmark replay --fixture fixtures/mvp-demo --manifest .benchmark-runs/latest/manifest.json",
+    "web:dev": "pnpm --filter @gis/spatial-ml-benchmark-web dev",
+    "web:build": "pnpm --filter @gis/spatial-ml-benchmark-web build"
   },
   "dependencies": {
+    "ml-random-forest": "^2.1.0",
     "yaml": "^2.7.0"
   },
   "pnpm": {
