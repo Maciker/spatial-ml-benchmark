@@ -1,10 +1,10 @@
 # Spatial ML Benchmark: bounded MVP
 
 ## Outcome
-Compare a majority baseline and a JavaScript Random Forest under reproducible random and spatial evaluation.
+Compare a majority baseline and a seeded TypeScript Random Forest under reproducible random and spatial evaluation.
 
-## Foundation delivered by this branch
-The balanced-accuracy kernel and its known-result test are ported to TypeScript. Dataset, features, folds, model adapter, experiment runner and map are pending.
+## Foundation delivered
+The balanced-accuracy kernel, licensed meadow/woodland fixture, feature table, folds, models, experiment runner, replayable manifest, case study and error map are implemented. Real imagery, hosted services and statistical claims from this 16-point fixture are out of scope.
 
 ## Constraints
 - TypeScript application code, Node 22/24, pnpm workspaces.
@@ -14,7 +14,7 @@ The balanced-accuracy kernel and its known-result test are ported to TypeScript.
 - Local demo first, bounded inputs and resources; no hosted service, billing or automatic publishing.
 
 ## Acceptance source
-[Tracker #7](https://github.com/Maciker/spatial-ml-benchmark/issues/7) is the authoritative product backlog. Each linked ticket provides a vertical user outcome, dependencies and testable acceptance criteria.
+Linear project Spatial ML Benchmark (parent [MAC-11](https://linear.app/maciker/issue/MAC-11)) and [tracker #7](https://github.com/Maciker/spatial-ml-benchmark/issues/7).
 
 ## Workflow references
-Use domain-modeling for contracts, architecture-hexagonal for ports/adapters, xp-tdd-practices and testing-standards for behavior, frontend-patterns for React, git-strategy for branches and qa-review for independent review. See canonical `.ai/skills/*/SKILL.md` and `.ai/commands/to-spec.md`, `to-tickets.md`.
+Use domain-modeling for contracts, architecture-hexagonal for ports/adapters, xp-tdd-practices and testing-standards for behavior, frontend-patterns for React, git-strategy for branches and qa-review for independent review.

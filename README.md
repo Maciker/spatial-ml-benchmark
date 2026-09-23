@@ -4,7 +4,7 @@ Compare a majority baseline and a JavaScript Random Forest under reproducible ra
 
 ## Current state
 
-The balanced-accuracy kernel and its known-result test are ported to TypeScript. Dataset, features, folds, model adapter, experiment runner and map are pending. This is a foundation, not a completed GIS product.
+A 16-point CC0 meadow/woodland fixture now runs through feature provenance, spatial and random folds, a majority baseline, a seeded forest, a replayable manifest and a MapLibre error map. This is a bounded demonstration, not a land-cover product.
 
 All application, CLI and API code uses TypeScript on Node.js. QGIS desktop and PostGIS SQL remain GIS tools. There is no Python, FastAPI or PyQGIS runtime.
 
@@ -31,6 +31,6 @@ Run `pnpm quality:full` and `pnpm quality:stabilization` before review. Independ
 
 ## Work order
 
-Start with [foundation #8](https://github.com/Maciker/spatial-ml-benchmark/issues/8), then follow [MVP tracker #7](https://github.com/Maciker/spatial-ml-benchmark/issues/7). Tickets specify dependencies, acceptance tests and relevant skills. No feature is complete merely because its ticket exists.
+Follow [MVP tracker #7](https://github.com/Maciker/spatial-ml-benchmark/issues/7) / Linear [MAC-11](https://linear.app/maciker/issue/MAC-11). The TypeScript foundation (#8) is on `main`. No feature is complete merely because its ticket exists.
 
 Keep source data immutable. Only tiny, licensed fixtures belong in Git; real datasets and generated outputs stay local.

@@ -13,4 +13,6 @@ pnpm quality:stabilization
 
 For environments with a different global pnpm, use `corepack pnpm` or enable Corepack shims first. Esbuild is the sole allowlisted dependency build script.
 
-Run `pnpm demo` for the tiny numerical-kernel demonstration. It does not download data, run a raster pipeline, train a model or evaluate spatial folds. Those capabilities have explicit backlog tickets. Configuration examples describe the planned pipeline and are not yet consumed by the demo.
+Run `pnpm demo` for the kernel check and the offline meadow/woodland experiment. It writes `outputs/manifest.json` and `outputs/case-study.md`. It does not download imagery or claim real-world accuracy.
+
+`pnpm --filter @gis/spatial-ml-benchmark-web build` builds the MapLibre error map from the recorded fixture in `apps/web/public/experiment.json`.
