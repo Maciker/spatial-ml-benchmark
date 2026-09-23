@@ -19,3 +19,4 @@ export { runExperiment } from "./experiment/runExperiment.js";
 export { assertManifestMatchesFixture, parseManifest, serializeManifest } from "./experiment/manifest.js";
 export type { ClassifierModel, RandomForestAdapter } from "./models/modelPort.js";
 export { createMajorityBaseline } from "./models/majorityBaseline.js";
+export { mapLucasLandCover } from "./lucas/mapLucasLandCover.js";
