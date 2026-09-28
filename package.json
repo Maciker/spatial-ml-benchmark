@@ -27,7 +27,7 @@
     "quality:fast": "pnpm typecheck && pnpm lint && pnpm test",
     "quality:full": "pnpm typecheck && pnpm lint && pnpm test && pnpm arch && pnpm deadcode && pnpm dup && pnpm quality:ratchet",
     "quality:ci": "pnpm typecheck && pnpm lint && pnpm test && pnpm arch && pnpm deadcode && pnpm dup && pnpm quality:ratchet",
-    "quality:agent": "pnpm quality:full && pnpm qa:gate",
+    "quality:agent": "pnpm quality:full && pnpm prepr:gate",
     "loop": "node tools/loop/verify-and-iterate.mjs run",
     "loop:status": "node tools/loop/verify-and-iterate.mjs status",
     "loop:reset": "node tools/loop/verify-and-iterate.mjs reset",
@@ -53,7 +53,9 @@
     "benchmark:run": "pnpm build && node dist/apps/cli/src/main.js benchmark run --fixture fixtures/mvp-demo --output .benchmark-runs/latest",
     "benchmark:replay": "pnpm build && node dist/apps/cli/src/main.js benchmark replay --fixture fixtures/mvp-demo --manifest .benchmark-runs/latest/manifest.json",
     "web:dev": "pnpm --filter @gis/spatial-ml-benchmark-web dev",
-    "web:build": "pnpm --filter @gis/spatial-ml-benchmark-web build"
+    "web:build": "pnpm --filter @gis/spatial-ml-benchmark-web build",
+    "qa:record": "node tools/qa/record-qa-run.mjs",
+    "prepr:gate": "node tools/qa/pre-pr-gate.mjs"
   },
   "dependencies": {
     "ml-random-forest": "^2.1.0",
