@@ -1,4 +1,16 @@
-import { expect, test } from "@playwright/test";
+import { expect, test, type Page } from "@playwright/test";
+
+async function openExplorerWithSpatialMajority(
+  page: Page,
+  options: { mapFold?: string } = {},
+): Promise<void> {
+  await page.goto("/");
+  await page.getByLabel("Split scheme").selectOption("spatial");
+  await page.getByLabel("Model").selectOption("majority");
+  if (options.mapFold !== undefined) {
+    await page.getByLabel("Map fold").selectOption(options.mapFold);
+  }
+}
 
 test.describe("The benchmark explorer", () => {
   test("loads the map and manifest-driven controls", async ({ page }) => {
@@ -34,10 +46,7 @@ test.describe("The benchmark explorer", () => {
   });
 
   test("lists metrics for every fold of the selected scheme and model", async ({ page }) => {
-    await page.goto("/");
-
-    await page.getByLabel("Split scheme").selectOption("spatial");
-    await page.getByLabel("Model").selectOption("majority");
+    await openExplorerWithSpatialMajority(page);
 
     await expect(page.getByText("fold 0 preview")).toHaveCount(0);
     await expect(page.getByRole("row", { name: /Fold 0/ })).toBeVisible();
@@ -52,11 +61,7 @@ test.describe("The benchmark explorer", () => {
   });
 
   test("uses the fold selector only to change map predictions", async ({ page }) => {
-    await page.goto("/");
-
-    await page.getByLabel("Split scheme").selectOption("spatial");
-    await page.getByLabel("Model").selectOption("majority");
-    await page.getByLabel("Map fold").selectOption("0");
+    await openExplorerWithSpatialMajority(page, { mapFold: "0" });
 
     const fold0Text = page.getByText(/Showing \d+ evaluation points for fold 0/);
     await expect(fold0Text).toBeVisible();
@@ -74,11 +79,7 @@ test.describe("The benchmark explorer", () => {
   });
 
   test("shows hit and miss point details from the manifest", async ({ page }) => {
-    await page.goto("/");
-
-    await page.getByLabel("Split scheme").selectOption("spatial");
-    await page.getByLabel("Model").selectOption("majority");
-    await page.getByLabel("Map fold").selectOption("0");
+    await openExplorerWithSpatialMajority(page, { mapFold: "0" });
 
     await page.getByRole("button", { name: "Sample 27722418" }).click();
     const detail = page.getByRole("region", { name: "Selected point detail" });
@@ -97,11 +98,7 @@ test.describe("The benchmark explorer", () => {
   });
 
   test("selects a point detail via keyboard", async ({ page }) => {
-    await page.goto("/");
-
-    await page.getByLabel("Split scheme").selectOption("spatial");
-    await page.getByLabel("Model").selectOption("majority");
-    await page.getByLabel("Map fold").selectOption("0");
+    await openExplorerWithSpatialMajority(page, { mapFold: "0" });
 
     await page.getByRole("button", { name: "Sample 27722418" }).focus();
     await expect(page.getByRole("button", { name: "Sample 27722418" })).toBeFocused();
@@ -130,10 +127,7 @@ test.describe("The benchmark explorer", () => {
       await route.continue();
     });
 
-    await page.goto("/");
-
-    await page.getByLabel("Split scheme").selectOption("spatial");
-    await page.getByLabel("Model").selectOption("majority");
+    await openExplorerWithSpatialMajority(page);
 
     await expect(page.getByLabel("Prediction error map")).toBeVisible();
     await expect(page.getByText(/coordinate\/group map \(no basemap\)/i)).toBeVisible();
