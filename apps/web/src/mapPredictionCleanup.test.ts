@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import { detachPredictionMapHandlers } from "../apps/web/src/mapPredictionCleanup.js";
+import { detachPredictionMapHandlers } from "./mapPredictionCleanup.js";
 
 describe("The prediction map handler detach", () => {
   it("removes the pending load listener without touching layers when style is gone", () => {
