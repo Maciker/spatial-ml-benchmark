@@ -2,11 +2,14 @@ import maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { useEffect, useMemo, useRef, useState } from "react";
 import styles from "./App.module.css";
+import { formatPredictedLabel } from "./predictionDetail";
 import type { DemoManifest } from "./types";
 
 type Props = {
   readonly manifest: DemoManifest;
 };
+
+type PredictionRow = DemoManifest["predictions"][number];
 
 function errorColor(trueLabel: number, predictedLabel: number): string {
   if (!Number.isFinite(predictedLabel)) return "#64748b";
@@ -37,21 +40,22 @@ function heldOutGroups(
   return match.spatialGroupsInTest.join(", ");
 }
 
-export function App({ manifest }: Props) {
+export function App(props: Props) {
   const mapContainer = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<maplibregl.Map | null>(null);
   const [scheme, setScheme] = useState("spatial");
   const [model, setModel] = useState("majority");
   const [foldIndex, setFoldIndex] = useState(0);
+  const [selectedSampleId, setSelectedSampleId] = useState<string | null>(null);
 
   const foldIndexes = useMemo(() => {
     const indexes = new Set(
-      manifest.metrics
+      props.manifest.metrics
         .filter((row) => row.scheme === scheme && row.model === model)
         .map((row) => row.foldIndex),
     );
     return [...indexes].sort((left, right) => left - right);
-  }, [manifest.metrics, scheme, model]);
+  }, [props.manifest.metrics, scheme, model]);
 
   useEffect(() => {
     if (foldIndexes.length === 0) return;
@@ -60,20 +64,31 @@ export function App({ manifest }: Props) {
 
   const filteredMetrics = useMemo(
     () =>
-      manifest.metrics
+      props.manifest.metrics
         .filter((row) => row.scheme === scheme && row.model === model)
         .sort((left, right) => left.foldIndex - right.foldIndex),
-    [manifest.metrics, scheme, model],
+    [props.manifest.metrics, scheme, model],
   );
 
   const filtered = useMemo(
     () =>
-      manifest.predictions.filter(
+      props.manifest.predictions.filter(
         (row) =>
           row.scheme === scheme && row.model === model && row.foldIndex === foldIndex,
       ),
-    [manifest.predictions, scheme, model, foldIndex],
+    [props.manifest.predictions, scheme, model, foldIndex],
   );
+
+  const selectedPoint = useMemo(
+    () => filtered.find((row) => row.sampleId === selectedSampleId) ?? null,
+    [filtered, selectedSampleId],
+  );
+
+  useEffect(() => {
+    if (selectedSampleId && !filtered.some((row) => row.sampleId === selectedSampleId)) {
+      setSelectedSampleId(null);
+    }
+  }, [filtered, selectedSampleId]);
 
   useEffect(() => {
     if (!mapContainer.current || mapRef.current) return;
@@ -121,8 +136,16 @@ export function App({ manifest }: Props) {
       map.fitBounds(bounds, { padding: 48, maxZoom: 8, duration: 0 });
     };
 
+    const onPointClick = (event: maplibregl.MapMouseEvent & { features?: maplibregl.MapGeoJSONFeature[] }) => {
+      const sampleId = event.features?.[0]?.properties?.sampleId;
+      if (typeof sampleId === "string") setSelectedSampleId(sampleId);
+    };
+
     const render = () => {
-      if (map.getLayer(layerId)) map.removeLayer(layerId);
+      if (map.getLayer(layerId)) {
+        map.off("click", layerId, onPointClick);
+        map.removeLayer(layerId);
+      }
       if (map.getSource(sourceId)) map.removeSource(sourceId);
       map.addSource(sourceId, { type: "geojson", data: geojson });
       map.addLayer({
@@ -136,22 +159,28 @@ export function App({ manifest }: Props) {
           "circle-stroke-color": "#0f172a",
         },
       });
+      map.on("click", layerId, onPointClick);
+      map.getCanvas().style.cursor = "pointer";
       fitToPoints();
     };
 
     if (map.isStyleLoaded()) render();
     else map.once("load", render);
+
+    return () => {
+      if (map.getLayer(layerId)) map.off("click", layerId, onPointClick);
+    };
   }, [filtered]);
 
   return (
     <div className={styles.layout}>
       <aside className={styles.sidebar}>
         <h1>Spatial ML Benchmark</h1>
-        <p>{manifest.task.generalizationClaim}</p>
-        {manifest.task.source ? (
+        <p>{props.manifest.task.generalizationClaim}</p>
+        {props.manifest.task.source ? (
           <p className={styles.attribution}>
-            Source: {manifest.task.source.name}. {manifest.task.source.license}.{" "}
-            <a href={manifest.task.source.reference} rel="noreferrer" target="_blank">
+            Source: {props.manifest.task.source.name}. {props.manifest.task.source.license}.{" "}
+            <a href={props.manifest.task.source.reference} rel="noreferrer" target="_blank">
               Reference
             </a>
           </p>
@@ -211,7 +240,7 @@ export function App({ manifest }: Props) {
                   <td>{formatAccuracy(metric.balancedAccuracy)}</td>
                   <td>{formatSupport(metric.testClassSupport)}</td>
                   <td>
-                    {heldOutGroups(manifest.foldAssignments, scheme, metric.foldIndex)}
+                    {heldOutGroups(props.manifest.foldAssignments, scheme, metric.foldIndex)}
                   </td>
                   <td>
                     {metric.warnings.length ? (
@@ -231,9 +260,46 @@ export function App({ manifest }: Props) {
           <p>
             Showing {filtered.length} evaluation points for fold {foldIndex}.
           </p>
+          <ul className={styles.pointList} aria-label="Evaluation points">
+            {filtered.map((row) => (
+              <li key={row.sampleId}>
+                <button
+                  type="button"
+                  className={
+                    row.sampleId === selectedSampleId
+                      ? styles.pointButtonSelected
+                      : styles.pointButton
+                  }
+                  onClick={() => setSelectedSampleId(row.sampleId)}
+                >
+                  Sample {row.sampleId}
+                </button>
+              </li>
+            ))}
+          </ul>
+          {selectedPoint ? <PointDetail point={selectedPoint} /> : null}
         </div>
       </aside>
       <div ref={mapContainer} className={styles.map} aria-label="Prediction error map" />
     </div>
+  );
+}
+
+type PointDetailProps = {
+  readonly point: PredictionRow;
+};
+
+function PointDetail(props: PointDetailProps) {
+  return (
+    <section className={styles.detail} aria-label="Selected point detail">
+      <h2>Selected point</h2>
+      <p>Sample ID: {props.point.sampleId}</p>
+      <p>Spatial group: {props.point.spatialGroup}</p>
+      <p>True label: {props.point.trueLabel}</p>
+      <p>Predicted label: {formatPredictedLabel(props.point.predictedLabel)}</p>
+      <p>Model: {props.point.model}</p>
+      <p>Scheme: {props.point.scheme}</p>
+      <p>Fold: {props.point.foldIndex}</p>
+    </section>
   );
 }

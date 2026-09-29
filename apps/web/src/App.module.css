@@ -67,6 +67,59 @@
   padding-left: 1rem;
 }
 
+.pointList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  max-height: 10rem;
+  overflow: auto;
+  margin: 0.75rem 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pointList li {
+  margin: 0;
+}
+
+.pointButton,
+.pointButtonSelected {
+  width: 100%;
+  text-align: left;
+  font: inherit;
+  font-size: 0.75rem;
+  padding: 0.3rem 0.45rem;
+  border: 1px solid #cbd5e1;
+  background: #fff;
+  color: #0f172a;
+  cursor: pointer;
+}
+
+.pointButtonSelected {
+  border-color: #0f172a;
+  background: #e2e8f0;
+}
+
+.pointButton:focus-visible,
+.pointButtonSelected:focus-visible {
+  outline: 2px solid #0f172a;
+  outline-offset: 2px;
+}
+
+.detail {
+  border-top: 1px solid #e2e8f0;
+  padding-top: 0.75rem;
+}
+
+.detail h2 {
+  font-size: 0.9rem;
+  margin: 0 0 0.5rem;
+}
+
+.detail p {
+  margin: 0.2rem 0;
+}
+
 .map {
   min-height: 100vh;
 }

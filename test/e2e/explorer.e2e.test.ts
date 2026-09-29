@@ -72,4 +72,43 @@ test.describe("The benchmark explorer", () => {
     await expect(page.getByRole("row", { name: /Fold 0/ })).toBeVisible();
     await expect(page.getByRole("row", { name: /Fold 1/ })).toBeVisible();
   });
+
+  test("shows hit and miss point details from the manifest", async ({ page }) => {
+    await page.goto("/");
+
+    await page.getByLabel("Split scheme").selectOption("spatial");
+    await page.getByLabel("Model").selectOption("majority");
+    await page.getByLabel("Map fold").selectOption("0");
+
+    await page.getByRole("button", { name: "Sample 27722418" }).click();
+    const detail = page.getByRole("region", { name: "Selected point detail" });
+    await expect(detail).toContainText("Sample ID: 27722418");
+    await expect(detail).toContainText("Spatial group: es11-galicia");
+    await expect(detail).toContainText("True label: 0");
+    await expect(detail).toContainText("Predicted label: 0");
+    await expect(detail).toContainText("Model: majority");
+    await expect(detail).toContainText("Scheme: spatial");
+    await expect(detail).toContainText("Fold: 0");
+
+    await page.getByRole("button", { name: "Sample 27682414" }).click();
+    await expect(detail).toContainText("Sample ID: 27682414");
+    await expect(detail).toContainText("True label: 1");
+    await expect(detail).toContainText("Predicted label: 0");
+  });
+
+  test("selects a point detail via keyboard", async ({ page }) => {
+    await page.goto("/");
+
+    await page.getByLabel("Split scheme").selectOption("spatial");
+    await page.getByLabel("Model").selectOption("majority");
+    await page.getByLabel("Map fold").selectOption("0");
+
+    await page.getByRole("button", { name: "Sample 27722418" }).focus();
+    await expect(page.getByRole("button", { name: "Sample 27722418" })).toBeFocused();
+    await page.keyboard.press("Enter");
+
+    const detail = page.getByRole("region", { name: "Selected point detail" });
+    await expect(detail).toContainText("Sample ID: 27722418");
+    await expect(detail).toContainText("Predicted label: 0");
+  });
 });
