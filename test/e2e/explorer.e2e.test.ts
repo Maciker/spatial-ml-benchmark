@@ -132,10 +132,23 @@ test.describe("The benchmark explorer", () => {
 
     await page.goto("/");
 
+    await page.getByLabel("Split scheme").selectOption("spatial");
+    await page.getByLabel("Model").selectOption("majority");
+
     await expect(page.getByLabel("Prediction error map")).toBeVisible();
     await expect(page.getByText(/coordinate\/group map \(no basemap\)/i)).toBeVisible();
-    await expect(page.getByText(/Showing \d+ evaluation points for fold/)).toBeVisible();
-    await expect(page.getByRole("button", { name: "Sample 27722418" })).toBeVisible();
+
+    await page.getByLabel("Map fold").selectOption("0");
+    await expect(page.getByText(/Showing \d+ evaluation points for fold 0/)).toBeVisible();
+    await page.getByRole("button", { name: "Sample 27722418" }).click();
+    const detail = page.getByRole("region", { name: "Selected point detail" });
+    await expect(detail).toContainText("Spatial group: es11-galicia");
+
+    await page.getByLabel("Map fold").selectOption("1");
+    await expect(page.getByText(/Showing \d+ evaluation points for fold 1/)).toBeVisible();
+    await page.getByRole("button", { name: "Sample 28221754" }).click();
+    await expect(detail).toContainText("Spatial group: es61-andalusia");
+
     expect(blockedHosts.some((host) => host.includes("demotiles.maplibre.org"))).toBe(false);
   });
 });
