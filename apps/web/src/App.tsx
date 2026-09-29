@@ -2,6 +2,8 @@ import maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { useEffect, useMemo, useRef, useState } from "react";
 import styles from "./App.module.css";
+import { detachPredictionMapHandlers } from "./mapPredictionCleanup";
+import type { PredictionMapCleanupTarget } from "./mapPredictionCleanup";
 import { offlineMapStyle } from "./offlineMapStyle";
 import { formatPredictedLabel } from "./predictionDetail";
 import type { DemoManifest } from "./types";
@@ -169,7 +171,12 @@ export function App(props: Props) {
     else map.once("load", render);
 
     return () => {
-      if (map.getLayer(layerId)) map.off("click", layerId, onPointClick);
+      detachPredictionMapHandlers(map as PredictionMapCleanupTarget, {
+        layerId,
+        liveMap: mapRef.current,
+        onLoad: render,
+        onPointClick,
+      });
     };
   }, [filtered]);
 
