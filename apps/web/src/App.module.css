@@ -35,6 +35,38 @@
   line-height: 1.45;
 }
 
+.attribution {
+  font-size: 0.75rem;
+  color: #475569;
+  margin: 0 0 1rem;
+}
+
+.metricsTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 0.75rem;
+  font-size: 0.75rem;
+}
+
+.metricsTable caption {
+  text-align: left;
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+}
+
+.metricsTable th,
+.metricsTable td {
+  border: 1px solid #e2e8f0;
+  padding: 0.35rem;
+  vertical-align: top;
+  text-align: left;
+}
+
+.metricsTable ul {
+  margin: 0;
+  padding-left: 1rem;
+}
+
 .map {
   min-height: 100vh;
 }

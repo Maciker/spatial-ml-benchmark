@@ -13,26 +13,66 @@ function errorColor(trueLabel: number, predictedLabel: number): string {
   return trueLabel === predictedLabel ? "#16a34a" : "#dc2626";
 }
 
+function formatAccuracy(value: number): string {
+  if (!Number.isFinite(value)) return "undefined (single-class fold)";
+  return value.toFixed(3);
+}
+
+function formatSupport(support: Readonly<Record<string, number>> | undefined): string {
+  if (!support) return "—";
+  return Object.entries(support)
+    .map(([label, count]) => `${label}:${count}`)
+    .join(", ");
+}
+
+function heldOutGroups(
+  assignments: DemoManifest["foldAssignments"],
+  scheme: string,
+  foldIndex: number,
+): string {
+  const match = assignments?.find(
+    (row) => row.scheme === scheme && row.foldIndex === foldIndex,
+  );
+  if (!match || match.spatialGroupsInTest.length === 0) return "—";
+  return match.spatialGroupsInTest.join(", ");
+}
+
 export function App({ manifest }: Props) {
   const mapContainer = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<maplibregl.Map | null>(null);
   const [scheme, setScheme] = useState("spatial");
   const [model, setModel] = useState("majority");
+  const [foldIndex, setFoldIndex] = useState(0);
+
+  const foldIndexes = useMemo(() => {
+    const indexes = new Set(
+      manifest.metrics
+        .filter((row) => row.scheme === scheme && row.model === model)
+        .map((row) => row.foldIndex),
+    );
+    return [...indexes].sort((left, right) => left - right);
+  }, [manifest.metrics, scheme, model]);
+
+  useEffect(() => {
+    if (foldIndexes.length === 0) return;
+    if (!foldIndexes.includes(foldIndex)) setFoldIndex(foldIndexes[0]);
+  }, [foldIndexes, foldIndex]);
+
+  const filteredMetrics = useMemo(
+    () =>
+      manifest.metrics
+        .filter((row) => row.scheme === scheme && row.model === model)
+        .sort((left, right) => left.foldIndex - right.foldIndex),
+    [manifest.metrics, scheme, model],
+  );
 
   const filtered = useMemo(
     () =>
       manifest.predictions.filter(
-        (row) => row.scheme === scheme && row.model === model && row.foldIndex === 0,
+        (row) =>
+          row.scheme === scheme && row.model === model && row.foldIndex === foldIndex,
       ),
-    [manifest.predictions, scheme, model],
-  );
-
-  const metric = useMemo(
-    () =>
-      manifest.metrics.find(
-        (row) => row.scheme === scheme && row.model === model && row.foldIndex === 0,
-      ),
-    [manifest.metrics, scheme, model],
+    [manifest.predictions, scheme, model, foldIndex],
   );
 
   useEffect(() => {
@@ -40,8 +80,8 @@ export function App({ manifest }: Props) {
     mapRef.current = new maplibregl.Map({
       container: mapContainer.current,
       style: "https://demotiles.maplibre.org/style.json",
-      center: [-122.397, 37.776],
-      zoom: 12,
+      center: [-5.5, 40],
+      zoom: 5,
     });
     return () => {
       mapRef.current?.remove();
@@ -71,6 +111,16 @@ export function App({ manifest }: Props) {
       })),
     };
 
+    const fitToPoints = () => {
+      if (filtered.length === 0) return;
+      const bounds = new maplibregl.LngLatBounds(
+        [filtered[0].lon, filtered[0].lat],
+        [filtered[0].lon, filtered[0].lat],
+      );
+      for (const row of filtered) bounds.extend([row.lon, row.lat]);
+      map.fitBounds(bounds, { padding: 48, maxZoom: 8, duration: 0 });
+    };
+
     const render = () => {
       if (map.getLayer(layerId)) map.removeLayer(layerId);
       if (map.getSource(sourceId)) map.removeSource(sourceId);
@@ -86,6 +136,7 @@ export function App({ manifest }: Props) {
           "circle-stroke-color": "#0f172a",
         },
       });
+      fitToPoints();
     };
 
     if (map.isStyleLoaded()) render();
@@ -97,35 +148,89 @@ export function App({ manifest }: Props) {
       <aside className={styles.sidebar}>
         <h1>Spatial ML Benchmark</h1>
         <p>{manifest.task.generalizationClaim}</p>
+        {manifest.task.source ? (
+          <p className={styles.attribution}>
+            Source: {manifest.task.source.name}. {manifest.task.source.license}.{" "}
+            <a href={manifest.task.source.reference} rel="noreferrer" target="_blank">
+              Reference
+            </a>
+          </p>
+        ) : null}
         <label>
           Split scheme
-          <select value={scheme} onChange={(event) => setScheme(event.target.value)}>
+          <select
+            aria-label="Split scheme"
+            value={scheme}
+            onChange={(event) => setScheme(event.target.value)}
+          >
             <option value="spatial">Spatial holdout</option>
             <option value="random">Random (may leak groups)</option>
           </select>
         </label>
         <label>
           Model
-          <select value={model} onChange={(event) => setModel(event.target.value)}>
+          <select
+            aria-label="Model"
+            value={model}
+            onChange={(event) => setModel(event.target.value)}
+          >
             <option value="majority">Majority baseline</option>
             <option value="random_forest">Random forest</option>
           </select>
         </label>
+        <label>
+          Map fold
+          <select
+            aria-label="Map fold"
+            value={String(foldIndex)}
+            onChange={(event) => setFoldIndex(Number(event.target.value))}
+          >
+            {foldIndexes.map((index) => (
+              <option key={index} value={index}>
+                Fold {index}
+              </option>
+            ))}
+          </select>
+        </label>
         <div className={styles.metrics}>
-          <p>
-            Balanced accuracy:{" "}
-            {metric && Number.isFinite(metric.balancedAccuracy)
-              ? metric.balancedAccuracy.toFixed(3)
-              : "undefined (single-class fold)"}
-          </p>
-          {metric?.warnings.length ? (
-            <ul>
-              {metric.warnings.map((warning) => (
-                <li key={warning}>{warning}</li>
+          <table className={styles.metricsTable}>
+            <caption>Metrics for all folds</caption>
+            <thead>
+              <tr>
+                <th scope="col">Fold</th>
+                <th scope="col">Balanced accuracy</th>
+                <th scope="col">Test support</th>
+                <th scope="col">Held-out groups</th>
+                <th scope="col">Warnings</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredMetrics.map((metric) => (
+                <tr key={`${metric.scheme}-${metric.model}-${metric.foldIndex}`}>
+                  <th scope="row">Fold {metric.foldIndex}</th>
+                  <td>{formatAccuracy(metric.balancedAccuracy)}</td>
+                  <td>{formatSupport(metric.testClassSupport)}</td>
+                  <td>
+                    {heldOutGroups(manifest.foldAssignments, scheme, metric.foldIndex)}
+                  </td>
+                  <td>
+                    {metric.warnings.length ? (
+                      <ul>
+                        {metric.warnings.map((warning) => (
+                          <li key={warning}>{warning}</li>
+                        ))}
+                      </ul>
+                    ) : (
+                      "—"
+                    )}
+                  </td>
+                </tr>
               ))}
-            </ul>
-          ) : null}
-          <p>Showing {filtered.length} evaluation points for fold 0 preview.</p>
+            </tbody>
+          </table>
+          <p>
+            Showing {filtered.length} evaluation points for fold {foldIndex}.
+          </p>
         </div>
       </aside>
       <div ref={mapContainer} className={styles.map} aria-label="Prediction error map" />
