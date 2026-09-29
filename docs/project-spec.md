@@ -4,7 +4,7 @@
 Compare a majority baseline and a JavaScript Random Forest under reproducible random and spatial evaluation.
 
 ## Foundation delivered by this branch
-The balanced-accuracy kernel and its known-result test are ported to TypeScript. Dataset, features, folds, model adapter, experiment runner and map are pending.
+The domain kernel, CLI run/replay, synthetic MVP fixture, LUCAS Spain 2022 extract, and offline MapLibre explorer are delivered. Further tickets refine claims and datasets under Linear dependency order.
 
 ## Constraints
 - TypeScript application code, Node 22/24, pnpm workspaces.

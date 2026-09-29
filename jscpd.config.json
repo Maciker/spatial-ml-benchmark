@@ -22,7 +22,7 @@
     "**/node_modules/**",
     "**/dist/**",
     "**/.quality/**",
-    "**/workspace/**"
+    "**/.ai/workspace/**"
   ],
   "minTokens": 50,
   "minLines": 5
