@@ -18,7 +18,9 @@ describe("The web demo manifest", () => {
     const predictionIds = new Set(manifest.predictions.map((row) => row.sampleId));
 
     expect(publicManifestPath.endsWith("apps/web/public/demo-manifest.json")).toBe(true);
-    predictionIds.forEach((id) => expect(fixtureIds.has(id)).toBe(true));
+    expect(manifest.predictions.length).toBeGreaterThan(0);
+    expect(fixtureIds.size).toBe(32);
+    expect(predictionIds).toEqual(fixtureIds);
   });
 
   it("exposes LUCAS provenance signals matching the fixture task", () => {
