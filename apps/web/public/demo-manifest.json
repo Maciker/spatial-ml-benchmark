@@ -1,12 +1,12 @@
 {
   "manifestVersion": 1,
-  "createdAt": "2026-09-23T21:04:18.998Z",
+  "createdAt": "2026-09-29T08:26:13.493Z",
   "incomplete": false,
   "config": {
-    "taskId": "mvp-land-cover-micro",
-    "fixtureSha256": "3632699cf357a1a4f4299698c06b1edd33c35cd0511deb0e150052de5b4957ac",
+    "taskId": "lucas-spain-2022-cropland-woodland",
+    "fixtureSha256": "7b4e3f570e74f474e7658eeb195ac70748f2b86032abcfe9996f8932ff421f95",
     "seed": 42,
-    "foldCount": 3,
+    "foldCount": 2,
     "schemes": [
       "random",
       "spatial"
@@ -22,7 +22,7 @@
     }
   },
   "task": {
-    "taskId": "mvp-land-cover-micro",
+    "taskId": "lucas-spain-2022-cropland-woodland",
     "version": 1,
     "crs": {
       "epsg": 4326,
@@ -30,11 +30,11 @@
       "axisOrder": "longitude-latitude"
     },
     "sampleUnit": "point",
-    "generalizationClaim": "Hold out entire spatial groups to approximate block-level transfer within a tiny demo AOI.",
-    "featureTimestamp": "2019-01-01T00:00:00Z",
-    "labelTimestamp": "2019-06-01T00:00:00Z",
+    "generalizationClaim": "Hold out one of two distant Spanish NUTS2 blocks to measure spatial transfer between Galicia and Andalusia. This extract does not support a national land-cover accuracy claim.",
+    "featureTimestamp": "2022-05-02T00:00:00Z",
+    "labelTimestamp": "2022-10-29T00:00:00Z",
     "leakageChannels": [
-      "future_label_in_feature_columns",
+      "lucas_land_cover_code_in_feature_columns",
       "duplicate_sample_ids",
       "train_statistics_on_full_dataset"
     ],
@@ -48,13 +48,23 @@
     },
     "forbiddenFeatureFields": [
       "label",
-      "future_label",
-      "id"
+      "id",
+      "lucasCode",
+      "SURVEY_LC1"
+    ],
+    "features": [
+      {
+        "name": "elevation_m",
+        "source": "LUCAS POINT_ALTITUDE",
+        "units": "meters",
+        "transformation": "none",
+        "missingValuePolicy": "reject"
+      }
     ],
     "source": {
-      "name": "Synthetic MVP micro fixture (authored for this repository)",
-      "license": "CC0-1.0",
-      "reference": "fixtures/mvp-demo/samples.json"
+      "name": "Eurostat LUCAS 2022 Spain microdata, modified extract",
+      "license": "Eurostat reuse with attribution; the European Commission accepts no responsibility for results derived from this extract",
+      "reference": "https://ec.europa.eu/eurostat/web/lucas/database/2022"
     }
   },
   "foldAssignments": [
@@ -63,25 +73,44 @@
       "foldIndex": 0,
       "seed": 42,
       "trainSampleIds": [
-        "s10",
-        "s12",
-        "s04",
-        "s02",
-        "s07",
-        "s09",
-        "s05",
-        "s08"
+        "27682414",
+        "27822402",
+        "28301754",
+        "27841774",
+        "28241748",
+        "27842400",
+        "27722300",
+        "28281750",
+        "27742388",
+        "27842412",
+        "27742368",
+        "27842398",
+        "27901798",
+        "27821792",
+        "27742366",
+        "28261748"
       ],
       "testSampleIds": [
-        "s03",
-        "s01",
-        "s06",
-        "s11"
+        "27861776",
+        "27861772",
+        "27742358",
+        "27881800",
+        "28241746",
+        "27762418",
+        "28221754",
+        "27802422",
+        "27722366",
+        "28321756",
+        "27901762",
+        "27781784",
+        "27842402",
+        "27722418",
+        "27722294",
+        "28301756"
       ],
       "spatialGroupsInTest": [
-        "north-west",
-        "south-east",
-        "central"
+        "es61-andalusia",
+        "es11-galicia"
       ]
     },
     {
@@ -89,49 +118,44 @@
       "foldIndex": 1,
       "seed": 42,
       "trainSampleIds": [
-        "s03",
-        "s01",
-        "s06",
-        "s11",
-        "s07",
-        "s09",
-        "s05",
-        "s08"
+        "27861776",
+        "27861772",
+        "27742358",
+        "27881800",
+        "28241746",
+        "27762418",
+        "28221754",
+        "27802422",
+        "27722366",
+        "28321756",
+        "27901762",
+        "27781784",
+        "27842402",
+        "27722418",
+        "27722294",
+        "28301756"
       ],
       "testSampleIds": [
-        "s10",
-        "s12",
-        "s04",
-        "s02"
+        "27682414",
+        "27822402",
+        "28301754",
+        "27841774",
+        "28241748",
+        "27842400",
+        "27722300",
+        "28281750",
+        "27742388",
+        "27842412",
+        "27742368",
+        "27842398",
+        "27901798",
+        "27821792",
+        "27742366",
+        "28261748"
       ],
       "spatialGroupsInTest": [
-        "central",
-        "north-west"
-      ]
-    },
-    {
-      "scheme": "random",
-      "foldIndex": 2,
-      "seed": 42,
-      "trainSampleIds": [
-        "s03",
-        "s01",
-        "s06",
-        "s11",
-        "s10",
-        "s12",
-        "s04",
-        "s02"
-      ],
-      "testSampleIds": [
-        "s07",
-        "s09",
-        "s05",
-        "s08"
-      ],
-      "spatialGroupsInTest": [
-        "south-east",
-        "central"
+        "es11-galicia",
+        "es61-andalusia"
       ]
     },
     {
@@ -139,23 +163,43 @@
       "foldIndex": 0,
       "seed": 42,
       "trainSampleIds": [
-        "s01",
-        "s02",
-        "s03",
-        "s04",
-        "s09",
-        "s10",
-        "s11",
-        "s12"
+        "28221754",
+        "28241746",
+        "28241748",
+        "28261748",
+        "28281750",
+        "28301754",
+        "28301756",
+        "28321756",
+        "27781784",
+        "27821792",
+        "27841774",
+        "27861772",
+        "27861776",
+        "27881800",
+        "27901762",
+        "27901798"
       ],
       "testSampleIds": [
-        "s05",
-        "s06",
-        "s07",
-        "s08"
+        "27722418",
+        "27762418",
+        "27802422",
+        "27822402",
+        "27842398",
+        "27842400",
+        "27842402",
+        "27842412",
+        "27682414",
+        "27722294",
+        "27722300",
+        "27722366",
+        "27742358",
+        "27742366",
+        "27742368",
+        "27742388"
       ],
       "spatialGroupsInTest": [
-        "south-east"
+        "es11-galicia"
       ]
     },
     {
@@ -163,47 +207,43 @@
       "foldIndex": 1,
       "seed": 42,
       "trainSampleIds": [
-        "s01",
-        "s02",
-        "s03",
-        "s04",
-        "s05",
-        "s06",
-        "s07",
-        "s08"
+        "27722418",
+        "27762418",
+        "27802422",
+        "27822402",
+        "27842398",
+        "27842400",
+        "27842402",
+        "27842412",
+        "27682414",
+        "27722294",
+        "27722300",
+        "27722366",
+        "27742358",
+        "27742366",
+        "27742368",
+        "27742388"
       ],
       "testSampleIds": [
-        "s09",
-        "s10",
-        "s11",
-        "s12"
+        "28221754",
+        "28241746",
+        "28241748",
+        "28261748",
+        "28281750",
+        "28301754",
+        "28301756",
+        "28321756",
+        "27781784",
+        "27821792",
+        "27841774",
+        "27861772",
+        "27861776",
+        "27881800",
+        "27901762",
+        "27901798"
       ],
       "spatialGroupsInTest": [
-        "central"
-      ]
-    },
-    {
-      "scheme": "spatial",
-      "foldIndex": 2,
-      "seed": 42,
-      "trainSampleIds": [
-        "s05",
-        "s06",
-        "s07",
-        "s08",
-        "s09",
-        "s10",
-        "s11",
-        "s12"
-      ],
-      "testSampleIds": [
-        "s01",
-        "s02",
-        "s03",
-        "s04"
-      ],
-      "spatialGroupsInTest": [
-        "north-west"
+        "es61-andalusia"
       ]
     }
   ],
@@ -216,28 +256,137 @@
       "confusion": {
         "matrix": {
           "0": {
+            "0": 8
+          },
+          "1": {
+            "0": 8
+          }
+        },
+        "supportByClass": {
+          "0": 8,
+          "1": 8
+        }
+      },
+      "perClassRecall": {
+        "0": 1,
+        "1": 0
+      },
+      "trainClassSupport": {
+        "0": 8,
+        "1": 8
+      },
+      "testClassSupport": {
+        "0": 8,
+        "1": 8
+      },
+      "warnings": [
+        "Random fold shares spatial groups between train and test partitions"
+      ]
+    },
+    {
+      "foldIndex": 0,
+      "scheme": "random",
+      "model": "random_forest",
+      "balancedAccuracy": 0.6875,
+      "confusion": {
+        "matrix": {
+          "0": {
+            "0": 5,
             "1": 3
           },
           "1": {
-            "1": 1
+            "0": 2,
+            "1": 6
           }
         },
         "supportByClass": {
-          "0": 3,
-          "1": 1
+          "0": 8,
+          "1": 8
         }
       },
       "perClassRecall": {
-        "0": 0,
-        "1": 1
+        "0": 0.625,
+        "1": 0.75
       },
       "trainClassSupport": {
-        "0": 3,
-        "1": 5
+        "0": 8,
+        "1": 8
       },
       "testClassSupport": {
-        "0": 3,
-        "1": 1
+        "0": 8,
+        "1": 8
+      },
+      "warnings": [
+        "Random fold shares spatial groups between train and test partitions"
+      ]
+    },
+    {
+      "foldIndex": 1,
+      "scheme": "random",
+      "model": "majority",
+      "balancedAccuracy": 0.5,
+      "confusion": {
+        "matrix": {
+          "0": {
+            "0": 8
+          },
+          "1": {
+            "0": 8
+          }
+        },
+        "supportByClass": {
+          "0": 8,
+          "1": 8
+        }
+      },
+      "perClassRecall": {
+        "0": 1,
+        "1": 0
+      },
+      "trainClassSupport": {
+        "0": 8,
+        "1": 8
+      },
+      "testClassSupport": {
+        "0": 8,
+        "1": 8
+      },
+      "warnings": [
+        "Random fold shares spatial groups between train and test partitions"
+      ]
+    },
+    {
+      "foldIndex": 1,
+      "scheme": "random",
+      "model": "random_forest",
+      "balancedAccuracy": 0.6875,
+      "confusion": {
+        "matrix": {
+          "0": {
+            "0": 7,
+            "1": 1
+          },
+          "1": {
+            "0": 4,
+            "1": 4
+          }
+        },
+        "supportByClass": {
+          "0": 8,
+          "1": 8
+        }
+      },
+      "perClassRecall": {
+        "0": 0.875,
+        "1": 0.5
+      },
+      "trainClassSupport": {
+        "0": 8,
+        "1": 8
+      },
+      "testClassSupport": {
+        "0": 8,
+        "1": 8
       },
       "warnings": [
         "Random fold shares spatial groups between train and test partitions"
@@ -245,57 +394,89 @@
     },
     {
       "foldIndex": 0,
-      "scheme": "random",
+      "scheme": "spatial",
+      "model": "majority",
+      "balancedAccuracy": 0.5,
+      "confusion": {
+        "matrix": {
+          "0": {
+            "0": 8
+          },
+          "1": {
+            "0": 8
+          }
+        },
+        "supportByClass": {
+          "0": 8,
+          "1": 8
+        }
+      },
+      "perClassRecall": {
+        "0": 1,
+        "1": 0
+      },
+      "trainClassSupport": {
+        "0": 8,
+        "1": 8
+      },
+      "testClassSupport": {
+        "0": 8,
+        "1": 8
+      },
+      "warnings": []
+    },
+    {
+      "foldIndex": 0,
+      "scheme": "spatial",
       "model": "random_forest",
-      "balancedAccuracy": 0.8333333333333333,
+      "balancedAccuracy": 0.375,
       "confusion": {
         "matrix": {
           "0": {
             "0": 2,
-            "1": 1
+            "1": 6
           },
           "1": {
-            "1": 1
+            "0": 4,
+            "1": 4
           }
         },
         "supportByClass": {
-          "0": 3,
-          "1": 1
+          "0": 8,
+          "1": 8
         }
       },
       "perClassRecall": {
-        "0": 0.6666666666666666,
-        "1": 1
+        "0": 0.25,
+        "1": 0.5
       },
       "trainClassSupport": {
-        "0": 3,
-        "1": 5
+        "0": 8,
+        "1": 8
       },
       "testClassSupport": {
-        "0": 3,
-        "1": 1
+        "0": 8,
+        "1": 8
       },
-      "warnings": [
-        "Random fold shares spatial groups between train and test partitions"
-      ]
+      "warnings": []
     },
     {
       "foldIndex": 1,
-      "scheme": "random",
+      "scheme": "spatial",
       "model": "majority",
       "balancedAccuracy": 0.5,
       "confusion": {
         "matrix": {
           "0": {
-            "0": 1
+            "0": 8
           },
           "1": {
-            "0": 3
+            "0": 8
           }
         },
         "supportByClass": {
-          "0": 1,
-          "1": 3
+          "0": 8,
+          "1": 8
         }
       },
       "perClassRecall": {
@@ -303,374 +484,233 @@
         "1": 0
       },
       "trainClassSupport": {
-        "0": 5,
-        "1": 3
+        "0": 8,
+        "1": 8
       },
       "testClassSupport": {
-        "0": 1,
-        "1": 3
+        "0": 8,
+        "1": 8
       },
-      "warnings": [
-        "Random fold shares spatial groups between train and test partitions"
-      ]
+      "warnings": []
     },
     {
       "foldIndex": 1,
-      "scheme": "random",
+      "scheme": "spatial",
       "model": "random_forest",
-      "balancedAccuracy": 0.6666666666666666,
+      "balancedAccuracy": 0.5625,
       "confusion": {
         "matrix": {
           "0": {
-            "0": 1
-          },
-          "1": {
             "0": 2,
-            "1": 1
-          }
-        },
-        "supportByClass": {
-          "0": 1,
-          "1": 3
-        }
-      },
-      "perClassRecall": {
-        "0": 1,
-        "1": 0.3333333333333333
-      },
-      "trainClassSupport": {
-        "0": 5,
-        "1": 3
-      },
-      "testClassSupport": {
-        "0": 1,
-        "1": 3
-      },
-      "warnings": [
-        "Random fold shares spatial groups between train and test partitions"
-      ]
-    },
-    {
-      "foldIndex": 2,
-      "scheme": "random",
-      "model": "majority",
-      "balancedAccuracy": 0.5,
-      "confusion": {
-        "matrix": {
-          "0": {
-            "0": 2
+            "1": 6
           },
           "1": {
-            "0": 2
-          }
-        },
-        "supportByClass": {
-          "0": 2,
-          "1": 2
-        }
-      },
-      "perClassRecall": {
-        "0": 1,
-        "1": 0
-      },
-      "trainClassSupport": {
-        "0": 4,
-        "1": 4
-      },
-      "testClassSupport": {
-        "0": 2,
-        "1": 2
-      },
-      "warnings": [
-        "Random fold shares spatial groups between train and test partitions"
-      ]
-    },
-    {
-      "foldIndex": 2,
-      "scheme": "random",
-      "model": "random_forest",
-      "balancedAccuracy": 0.75,
-      "confusion": {
-        "matrix": {
-          "0": {
             "0": 1,
-            "1": 1
-          },
-          "1": {
-            "1": 2
+            "1": 7
           }
         },
         "supportByClass": {
-          "0": 2,
-          "1": 2
+          "0": 8,
+          "1": 8
         }
       },
       "perClassRecall": {
-        "0": 0.5,
-        "1": 1
+        "0": 0.25,
+        "1": 0.875
       },
       "trainClassSupport": {
-        "0": 4,
-        "1": 4
+        "0": 8,
+        "1": 8
       },
       "testClassSupport": {
-        "0": 2,
-        "1": 2
-      },
-      "warnings": [
-        "Random fold shares spatial groups between train and test partitions"
-      ]
-    },
-    {
-      "foldIndex": 0,
-      "scheme": "spatial",
-      "model": "majority",
-      "balancedAccuracy": 0.5,
-      "confusion": {
-        "matrix": {
-          "0": {
-            "0": 2
-          },
-          "1": {
-            "0": 2
-          }
-        },
-        "supportByClass": {
-          "0": 2,
-          "1": 2
-        }
-      },
-      "perClassRecall": {
-        "0": 1,
-        "1": 0
-      },
-      "trainClassSupport": {
-        "0": 4,
-        "1": 4
-      },
-      "testClassSupport": {
-        "0": 2,
-        "1": 2
-      },
-      "warnings": []
-    },
-    {
-      "foldIndex": 0,
-      "scheme": "spatial",
-      "model": "random_forest",
-      "balancedAccuracy": 1,
-      "confusion": {
-        "matrix": {
-          "0": {
-            "0": 2
-          },
-          "1": {
-            "1": 2
-          }
-        },
-        "supportByClass": {
-          "0": 2,
-          "1": 2
-        }
-      },
-      "perClassRecall": {
-        "0": 1,
-        "1": 1
-      },
-      "trainClassSupport": {
-        "0": 4,
-        "1": 4
-      },
-      "testClassSupport": {
-        "0": 2,
-        "1": 2
-      },
-      "warnings": []
-    },
-    {
-      "foldIndex": 1,
-      "scheme": "spatial",
-      "model": "majority",
-      "balancedAccuracy": 0.5,
-      "confusion": {
-        "matrix": {
-          "0": {
-            "0": 2
-          },
-          "1": {
-            "0": 2
-          }
-        },
-        "supportByClass": {
-          "0": 2,
-          "1": 2
-        }
-      },
-      "perClassRecall": {
-        "0": 1,
-        "1": 0
-      },
-      "trainClassSupport": {
-        "0": 4,
-        "1": 4
-      },
-      "testClassSupport": {
-        "0": 2,
-        "1": 2
-      },
-      "warnings": []
-    },
-    {
-      "foldIndex": 1,
-      "scheme": "spatial",
-      "model": "random_forest",
-      "balancedAccuracy": 0.75,
-      "confusion": {
-        "matrix": {
-          "0": {
-            "0": 1,
-            "1": 1
-          },
-          "1": {
-            "1": 2
-          }
-        },
-        "supportByClass": {
-          "0": 2,
-          "1": 2
-        }
-      },
-      "perClassRecall": {
-        "0": 0.5,
-        "1": 1
-      },
-      "trainClassSupport": {
-        "0": 4,
-        "1": 4
-      },
-      "testClassSupport": {
-        "0": 2,
-        "1": 2
-      },
-      "warnings": []
-    },
-    {
-      "foldIndex": 2,
-      "scheme": "spatial",
-      "model": "majority",
-      "balancedAccuracy": 0.5,
-      "confusion": {
-        "matrix": {
-          "0": {
-            "0": 2
-          },
-          "1": {
-            "0": 2
-          }
-        },
-        "supportByClass": {
-          "0": 2,
-          "1": 2
-        }
-      },
-      "perClassRecall": {
-        "0": 1,
-        "1": 0
-      },
-      "trainClassSupport": {
-        "0": 4,
-        "1": 4
-      },
-      "testClassSupport": {
-        "0": 2,
-        "1": 2
-      },
-      "warnings": []
-    },
-    {
-      "foldIndex": 2,
-      "scheme": "spatial",
-      "model": "random_forest",
-      "balancedAccuracy": 1,
-      "confusion": {
-        "matrix": {
-          "0": {
-            "0": 2
-          },
-          "1": {
-            "1": 2
-          }
-        },
-        "supportByClass": {
-          "0": 2,
-          "1": 2
-        }
-      },
-      "perClassRecall": {
-        "0": 1,
-        "1": 1
-      },
-      "trainClassSupport": {
-        "0": 4,
-        "1": 4
-      },
-      "testClassSupport": {
-        "0": 2,
-        "1": 2
+        "0": 8,
+        "1": 8
       },
       "warnings": []
     }
   ],
   "predictions": [
     {
-      "sampleId": "s03",
-      "lon": -122.403,
-      "lat": 37.783,
-      "spatialGroup": "north-west",
+      "sampleId": "27861776",
+      "lon": -7.388136495,
+      "lat": 37.48205009,
+      "spatialGroup": "es61-andalusia",
       "foldIndex": 0,
       "scheme": "random",
       "model": "majority",
       "trueLabel": 1,
-      "predictedLabel": 1
+      "predictedLabel": 0
     },
     {
-      "sampleId": "s01",
-      "lon": -122.401,
-      "lat": 37.781,
-      "spatialGroup": "north-west",
+      "sampleId": "27861772",
+      "lon": -7.379068583,
+      "lat": 37.44677647,
+      "spatialGroup": "es61-andalusia",
+      "foldIndex": 0,
+      "scheme": "random",
+      "model": "majority",
+      "trueLabel": 1,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "27742358",
+      "lon": -9.005107942,
+      "lat": 42.55544852,
+      "spatialGroup": "es11-galicia",
+      "foldIndex": 0,
+      "scheme": "random",
+      "model": "majority",
+      "trueLabel": 1,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "27881800",
+      "lon": -7.420708159,
+      "lat": 37.69773904,
+      "spatialGroup": "es61-andalusia",
+      "foldIndex": 0,
+      "scheme": "random",
+      "model": "majority",
+      "trueLabel": 1,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "28241746",
+      "lon": -6.90256871,
+      "lat": 37.29402187,
+      "spatialGroup": "es61-andalusia",
       "foldIndex": 0,
       "scheme": "random",
       "model": "majority",
       "trueLabel": 0,
-      "predictedLabel": 1
+      "predictedLabel": 0
     },
     {
-      "sampleId": "s06",
-      "lon": -122.392,
-      "lat": 37.772,
-      "spatialGroup": "south-east",
+      "sampleId": "27762418",
+      "lon": -9.153933112,
+      "lat": 43.0819656,
+      "spatialGroup": "es11-galicia",
       "foldIndex": 0,
       "scheme": "random",
       "model": "majority",
       "trueLabel": 0,
-      "predictedLabel": 1
+      "predictedLabel": 0
     },
     {
-      "sampleId": "s11",
-      "lon": -122.398,
-      "lat": 37.778,
-      "spatialGroup": "central",
+      "sampleId": "28221754",
+      "lon": -6.942185925,
+      "lat": 37.36070605,
+      "spatialGroup": "es61-andalusia",
       "foldIndex": 0,
       "scheme": "random",
       "model": "majority",
       "trueLabel": 0,
-      "predictedLabel": 1
+      "predictedLabel": 0
     },
     {
-      "sampleId": "s03",
-      "lon": -122.403,
-      "lat": 37.783,
-      "spatialGroup": "north-west",
+      "sampleId": "27802422",
+      "lon": -9.117751188,
+      "lat": 43.12587625,
+      "spatialGroup": "es11-galicia",
+      "foldIndex": 0,
+      "scheme": "random",
+      "model": "majority",
+      "trueLabel": 0,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "27722366",
+      "lon": -9.051631426,
+      "lat": 42.62054251,
+      "spatialGroup": "es11-galicia",
+      "foldIndex": 0,
+      "scheme": "random",
+      "model": "majority",
+      "trueLabel": 1,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "28321756",
+      "lon": -6.836376223,
+      "lat": 37.39827757,
+      "spatialGroup": "es61-andalusia",
+      "foldIndex": 0,
+      "scheme": "random",
+      "model": "majority",
+      "trueLabel": 0,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "27901762",
+      "lon": -7.312423609,
+      "lat": 37.36674822,
+      "spatialGroup": "es61-andalusia",
+      "foldIndex": 0,
+      "scheme": "random",
+      "model": "majority",
+      "trueLabel": 1,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "27781784",
+      "lon": -7.494580315,
+      "lat": 37.53613529,
+      "spatialGroup": "es61-andalusia",
+      "foldIndex": 0,
+      "scheme": "random",
+      "model": "majority",
+      "trueLabel": 1,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "27842402",
+      "lon": -9.012110998,
+      "lat": 42.96102132,
+      "spatialGroup": "es11-galicia",
+      "foldIndex": 0,
+      "scheme": "random",
+      "model": "majority",
+      "trueLabel": 0,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "27722418",
+      "lon": -9.201723787,
+      "lat": 43.07281397,
+      "spatialGroup": "es11-galicia",
+      "foldIndex": 0,
+      "scheme": "random",
+      "model": "majority",
+      "trueLabel": 0,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "27722294",
+      "lon": -8.848788383,
+      "lat": 41.99347157,
+      "spatialGroup": "es11-galicia",
+      "foldIndex": 0,
+      "scheme": "random",
+      "model": "majority",
+      "trueLabel": 1,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "28301756",
+      "lon": -6.858424314,
+      "lat": 37.39430662,
+      "spatialGroup": "es61-andalusia",
+      "foldIndex": 0,
+      "scheme": "random",
+      "model": "majority",
+      "trueLabel": 0,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "27861776",
+      "lon": -7.388136495,
+      "lat": 37.48205009,
+      "spatialGroup": "es61-andalusia",
       "foldIndex": 0,
       "scheme": "random",
       "model": "random_forest",
@@ -678,10 +718,43 @@
       "predictedLabel": 1
     },
     {
-      "sampleId": "s01",
-      "lon": -122.401,
-      "lat": 37.781,
-      "spatialGroup": "north-west",
+      "sampleId": "27861772",
+      "lon": -7.379068583,
+      "lat": 37.44677647,
+      "spatialGroup": "es61-andalusia",
+      "foldIndex": 0,
+      "scheme": "random",
+      "model": "random_forest",
+      "trueLabel": 1,
+      "predictedLabel": 1
+    },
+    {
+      "sampleId": "27742358",
+      "lon": -9.005107942,
+      "lat": 42.55544852,
+      "spatialGroup": "es11-galicia",
+      "foldIndex": 0,
+      "scheme": "random",
+      "model": "random_forest",
+      "trueLabel": 1,
+      "predictedLabel": 1
+    },
+    {
+      "sampleId": "27881800",
+      "lon": -7.420708159,
+      "lat": 37.69773904,
+      "spatialGroup": "es61-andalusia",
+      "foldIndex": 0,
+      "scheme": "random",
+      "model": "random_forest",
+      "trueLabel": 1,
+      "predictedLabel": 1
+    },
+    {
+      "sampleId": "28241746",
+      "lon": -6.90256871,
+      "lat": 37.29402187,
+      "spatialGroup": "es61-andalusia",
       "foldIndex": 0,
       "scheme": "random",
       "model": "random_forest",
@@ -689,21 +762,10 @@
       "predictedLabel": 0
     },
     {
-      "sampleId": "s06",
-      "lon": -122.392,
-      "lat": 37.772,
-      "spatialGroup": "south-east",
-      "foldIndex": 0,
-      "scheme": "random",
-      "model": "random_forest",
-      "trueLabel": 0,
-      "predictedLabel": 0
-    },
-    {
-      "sampleId": "s11",
-      "lon": -122.398,
-      "lat": 37.778,
-      "spatialGroup": "central",
+      "sampleId": "27762418",
+      "lon": -9.153933112,
+      "lat": 43.0819656,
+      "spatialGroup": "es11-galicia",
       "foldIndex": 0,
       "scheme": "random",
       "model": "random_forest",
@@ -711,10 +773,120 @@
       "predictedLabel": 1
     },
     {
-      "sampleId": "s10",
-      "lon": -122.397,
-      "lat": 37.777,
-      "spatialGroup": "central",
+      "sampleId": "28221754",
+      "lon": -6.942185925,
+      "lat": 37.36070605,
+      "spatialGroup": "es61-andalusia",
+      "foldIndex": 0,
+      "scheme": "random",
+      "model": "random_forest",
+      "trueLabel": 0,
+      "predictedLabel": 1
+    },
+    {
+      "sampleId": "27802422",
+      "lon": -9.117751188,
+      "lat": 43.12587625,
+      "spatialGroup": "es11-galicia",
+      "foldIndex": 0,
+      "scheme": "random",
+      "model": "random_forest",
+      "trueLabel": 0,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "27722366",
+      "lon": -9.051631426,
+      "lat": 42.62054251,
+      "spatialGroup": "es11-galicia",
+      "foldIndex": 0,
+      "scheme": "random",
+      "model": "random_forest",
+      "trueLabel": 1,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "28321756",
+      "lon": -6.836376223,
+      "lat": 37.39827757,
+      "spatialGroup": "es61-andalusia",
+      "foldIndex": 0,
+      "scheme": "random",
+      "model": "random_forest",
+      "trueLabel": 0,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "27901762",
+      "lon": -7.312423609,
+      "lat": 37.36674822,
+      "spatialGroup": "es61-andalusia",
+      "foldIndex": 0,
+      "scheme": "random",
+      "model": "random_forest",
+      "trueLabel": 1,
+      "predictedLabel": 1
+    },
+    {
+      "sampleId": "27781784",
+      "lon": -7.494580315,
+      "lat": 37.53613529,
+      "spatialGroup": "es61-andalusia",
+      "foldIndex": 0,
+      "scheme": "random",
+      "model": "random_forest",
+      "trueLabel": 1,
+      "predictedLabel": 1
+    },
+    {
+      "sampleId": "27842402",
+      "lon": -9.012110998,
+      "lat": 42.96102132,
+      "spatialGroup": "es11-galicia",
+      "foldIndex": 0,
+      "scheme": "random",
+      "model": "random_forest",
+      "trueLabel": 0,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "27722418",
+      "lon": -9.201723787,
+      "lat": 43.07281397,
+      "spatialGroup": "es11-galicia",
+      "foldIndex": 0,
+      "scheme": "random",
+      "model": "random_forest",
+      "trueLabel": 0,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "27722294",
+      "lon": -8.848788383,
+      "lat": 41.99347157,
+      "spatialGroup": "es11-galicia",
+      "foldIndex": 0,
+      "scheme": "random",
+      "model": "random_forest",
+      "trueLabel": 1,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "28301756",
+      "lon": -6.858424314,
+      "lat": 37.39430662,
+      "spatialGroup": "es61-andalusia",
+      "foldIndex": 0,
+      "scheme": "random",
+      "model": "random_forest",
+      "trueLabel": 0,
+      "predictedLabel": 1
+    },
+    {
+      "sampleId": "27682414",
+      "lon": -9.237820846,
+      "lat": 43.02887453,
+      "spatialGroup": "es11-galicia",
       "foldIndex": 1,
       "scheme": "random",
       "model": "majority",
@@ -722,32 +894,10 @@
       "predictedLabel": 0
     },
     {
-      "sampleId": "s12",
-      "lon": -122.399,
-      "lat": 37.779,
-      "spatialGroup": "central",
-      "foldIndex": 1,
-      "scheme": "random",
-      "model": "majority",
-      "trueLabel": 1,
-      "predictedLabel": 0
-    },
-    {
-      "sampleId": "s04",
-      "lon": -122.404,
-      "lat": 37.784,
-      "spatialGroup": "north-west",
-      "foldIndex": 1,
-      "scheme": "random",
-      "model": "majority",
-      "trueLabel": 1,
-      "predictedLabel": 0
-    },
-    {
-      "sampleId": "s02",
-      "lon": -122.402,
-      "lat": 37.782,
-      "spatialGroup": "north-west",
+      "sampleId": "27822402",
+      "lon": -9.035969622,
+      "lat": 42.95648309,
+      "spatialGroup": "es11-galicia",
       "foldIndex": 1,
       "scheme": "random",
       "model": "majority",
@@ -755,32 +905,164 @@
       "predictedLabel": 0
     },
     {
-      "sampleId": "s10",
-      "lon": -122.397,
-      "lat": 37.777,
-      "spatialGroup": "central",
+      "sampleId": "28301754",
+      "lon": -6.854036229,
+      "lat": 37.37663629,
+      "spatialGroup": "es61-andalusia",
       "foldIndex": 1,
       "scheme": "random",
-      "model": "random_forest",
+      "model": "majority",
+      "trueLabel": 0,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "27841774",
+      "lon": -7.405645234,
+      "lat": 37.4603142,
+      "spatialGroup": "es61-andalusia",
+      "foldIndex": 1,
+      "scheme": "random",
+      "model": "majority",
       "trueLabel": 1,
       "predictedLabel": 0
     },
     {
-      "sampleId": "s12",
-      "lon": -122.399,
-      "lat": 37.779,
-      "spatialGroup": "central",
+      "sampleId": "28241748",
+      "lon": -6.906959667,
+      "lat": 37.31169158,
+      "spatialGroup": "es61-andalusia",
       "foldIndex": 1,
       "scheme": "random",
-      "model": "random_forest",
+      "model": "majority",
+      "trueLabel": 0,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "27842400",
+      "lon": -9.006356259,
+      "lat": 42.94362034,
+      "spatialGroup": "es11-galicia",
+      "foldIndex": 1,
+      "scheme": "random",
+      "model": "majority",
+      "trueLabel": 0,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "27722300",
+      "lon": -8.865475733,
+      "lat": 42.04576503,
+      "spatialGroup": "es11-galicia",
+      "foldIndex": 1,
+      "scheme": "random",
+      "model": "majority",
       "trueLabel": 1,
       "predictedLabel": 0
     },
     {
-      "sampleId": "s04",
-      "lon": -122.404,
-      "lat": 37.784,
-      "spatialGroup": "north-west",
+      "sampleId": "28281750",
+      "lon": -6.867299881,
+      "lat": 37.33732093,
+      "spatialGroup": "es61-andalusia",
+      "foldIndex": 1,
+      "scheme": "random",
+      "model": "majority",
+      "trueLabel": 0,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "27742388",
+      "lon": -9.090960157,
+      "lat": 42.81650618,
+      "spatialGroup": "es11-galicia",
+      "foldIndex": 1,
+      "scheme": "random",
+      "model": "majority",
+      "trueLabel": 1,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "27842412",
+      "lon": -9.040952818,
+      "lat": 43.04801488,
+      "spatialGroup": "es11-galicia",
+      "foldIndex": 1,
+      "scheme": "random",
+      "model": "majority",
+      "trueLabel": 0,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "27742368",
+      "lon": -9.033613262,
+      "lat": 42.64248675,
+      "spatialGroup": "es11-galicia",
+      "foldIndex": 1,
+      "scheme": "random",
+      "model": "majority",
+      "trueLabel": 1,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "27842398",
+      "lon": -9.000606051,
+      "lat": 42.9262186,
+      "spatialGroup": "es11-galicia",
+      "foldIndex": 1,
+      "scheme": "random",
+      "model": "majority",
+      "trueLabel": 0,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "27901798",
+      "lon": -7.394026197,
+      "lat": 37.68421431,
+      "spatialGroup": "es61-andalusia",
+      "foldIndex": 1,
+      "scheme": "random",
+      "model": "majority",
+      "trueLabel": 1,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "27821792",
+      "lon": -7.4687213,
+      "lat": 37.61488843,
+      "spatialGroup": "es61-andalusia",
+      "foldIndex": 1,
+      "scheme": "random",
+      "model": "majority",
+      "trueLabel": 1,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "27742366",
+      "lon": -9.027903266,
+      "lat": 42.62508062,
+      "spatialGroup": "es11-galicia",
+      "foldIndex": 1,
+      "scheme": "random",
+      "model": "majority",
+      "trueLabel": 1,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "28261748",
+      "lon": -6.884938999,
+      "lat": 37.31567314,
+      "spatialGroup": "es61-andalusia",
+      "foldIndex": 1,
+      "scheme": "random",
+      "model": "majority",
+      "trueLabel": 0,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "27682414",
+      "lon": -9.237820846,
+      "lat": 43.02887453,
+      "spatialGroup": "es11-galicia",
       "foldIndex": 1,
       "scheme": "random",
       "model": "random_forest",
@@ -788,10 +1070,10 @@
       "predictedLabel": 1
     },
     {
-      "sampleId": "s02",
-      "lon": -122.402,
-      "lat": 37.782,
-      "spatialGroup": "north-west",
+      "sampleId": "27822402",
+      "lon": -9.035969622,
+      "lat": 42.95648309,
+      "spatialGroup": "es11-galicia",
       "foldIndex": 1,
       "scheme": "random",
       "model": "random_forest",
@@ -799,98 +1081,164 @@
       "predictedLabel": 0
     },
     {
-      "sampleId": "s07",
-      "lon": -122.393,
-      "lat": 37.773,
-      "spatialGroup": "south-east",
-      "foldIndex": 2,
+      "sampleId": "28301754",
+      "lon": -6.854036229,
+      "lat": 37.37663629,
+      "spatialGroup": "es61-andalusia",
+      "foldIndex": 1,
       "scheme": "random",
-      "model": "majority",
-      "trueLabel": 1,
-      "predictedLabel": 0
-    },
-    {
-      "sampleId": "s09",
-      "lon": -122.396,
-      "lat": 37.776,
-      "spatialGroup": "central",
-      "foldIndex": 2,
-      "scheme": "random",
-      "model": "majority",
+      "model": "random_forest",
       "trueLabel": 0,
       "predictedLabel": 0
     },
     {
-      "sampleId": "s05",
-      "lon": -122.391,
-      "lat": 37.771,
-      "spatialGroup": "south-east",
-      "foldIndex": 2,
-      "scheme": "random",
-      "model": "majority",
-      "trueLabel": 0,
-      "predictedLabel": 0
-    },
-    {
-      "sampleId": "s08",
-      "lon": -122.394,
-      "lat": 37.774,
-      "spatialGroup": "south-east",
-      "foldIndex": 2,
-      "scheme": "random",
-      "model": "majority",
-      "trueLabel": 1,
-      "predictedLabel": 0
-    },
-    {
-      "sampleId": "s07",
-      "lon": -122.393,
-      "lat": 37.773,
-      "spatialGroup": "south-east",
-      "foldIndex": 2,
+      "sampleId": "27841774",
+      "lon": -7.405645234,
+      "lat": 37.4603142,
+      "spatialGroup": "es61-andalusia",
+      "foldIndex": 1,
       "scheme": "random",
       "model": "random_forest",
       "trueLabel": 1,
       "predictedLabel": 1
     },
     {
-      "sampleId": "s09",
-      "lon": -122.396,
-      "lat": 37.776,
-      "spatialGroup": "central",
-      "foldIndex": 2,
+      "sampleId": "28241748",
+      "lon": -6.906959667,
+      "lat": 37.31169158,
+      "spatialGroup": "es61-andalusia",
+      "foldIndex": 1,
       "scheme": "random",
       "model": "random_forest",
       "trueLabel": 0,
       "predictedLabel": 1
     },
     {
-      "sampleId": "s05",
-      "lon": -122.391,
-      "lat": 37.771,
-      "spatialGroup": "south-east",
-      "foldIndex": 2,
+      "sampleId": "27842400",
+      "lon": -9.006356259,
+      "lat": 42.94362034,
+      "spatialGroup": "es11-galicia",
+      "foldIndex": 1,
       "scheme": "random",
       "model": "random_forest",
       "trueLabel": 0,
       "predictedLabel": 0
     },
     {
-      "sampleId": "s08",
-      "lon": -122.394,
-      "lat": 37.774,
-      "spatialGroup": "south-east",
-      "foldIndex": 2,
+      "sampleId": "27722300",
+      "lon": -8.865475733,
+      "lat": 42.04576503,
+      "spatialGroup": "es11-galicia",
+      "foldIndex": 1,
+      "scheme": "random",
+      "model": "random_forest",
+      "trueLabel": 1,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "28281750",
+      "lon": -6.867299881,
+      "lat": 37.33732093,
+      "spatialGroup": "es61-andalusia",
+      "foldIndex": 1,
+      "scheme": "random",
+      "model": "random_forest",
+      "trueLabel": 0,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "27742388",
+      "lon": -9.090960157,
+      "lat": 42.81650618,
+      "spatialGroup": "es11-galicia",
+      "foldIndex": 1,
+      "scheme": "random",
+      "model": "random_forest",
+      "trueLabel": 1,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "27842412",
+      "lon": -9.040952818,
+      "lat": 43.04801488,
+      "spatialGroup": "es11-galicia",
+      "foldIndex": 1,
+      "scheme": "random",
+      "model": "random_forest",
+      "trueLabel": 0,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "27742368",
+      "lon": -9.033613262,
+      "lat": 42.64248675,
+      "spatialGroup": "es11-galicia",
+      "foldIndex": 1,
+      "scheme": "random",
+      "model": "random_forest",
+      "trueLabel": 1,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "27842398",
+      "lon": -9.000606051,
+      "lat": 42.9262186,
+      "spatialGroup": "es11-galicia",
+      "foldIndex": 1,
+      "scheme": "random",
+      "model": "random_forest",
+      "trueLabel": 0,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "27901798",
+      "lon": -7.394026197,
+      "lat": 37.68421431,
+      "spatialGroup": "es61-andalusia",
+      "foldIndex": 1,
       "scheme": "random",
       "model": "random_forest",
       "trueLabel": 1,
       "predictedLabel": 1
     },
     {
-      "sampleId": "s05",
-      "lon": -122.391,
-      "lat": 37.771,
-      "spatialGroup": "south-east",
+      "sampleId": "27821792",
+      "lon": -7.4687213,
+      "lat": 37.61488843,
+      "spatialGroup": "es61-andalusia",
+      "foldIndex": 1,
+      "scheme": "random",
+      "model": "random_forest",
+      "trueLabel": 1,
+      "predictedLabel": 1
+    },
+    {
+      "sampleId": "27742366",
+      "lon": -9.027903266,
+      "lat": 42.62508062,
+      "spatialGroup": "es11-galicia",
+      "foldIndex": 1,
+      "scheme": "random",
+      "model": "random_forest",
+      "trueLabel": 1,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "28261748",
+      "lon": -6.884938999,
+      "lat": 37.31567314,
+      "spatialGroup": "es61-andalusia",
+      "foldIndex": 1,
+      "scheme": "random",
+      "model": "random_forest",
+      "trueLabel": 0,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "27722418",
+      "lon": -9.201723787,
+      "lat": 43.07281397,
+      "spatialGroup": "es11-galicia",
       "foldIndex": 0,
       "scheme": "spatial",
       "model": "majority",
@@ -898,10 +1246,10 @@
       "predictedLabel": 0
     },
     {
-      "sampleId": "s06",
-      "lon": -122.392,
-      "lat": 37.772,
-      "spatialGroup": "south-east",
+      "sampleId": "27762418",
+      "lon": -9.153933112,
+      "lat": 43.0819656,
+      "spatialGroup": "es11-galicia",
       "foldIndex": 0,
       "scheme": "spatial",
       "model": "majority",
@@ -909,10 +1257,76 @@
       "predictedLabel": 0
     },
     {
-      "sampleId": "s07",
-      "lon": -122.393,
-      "lat": 37.773,
-      "spatialGroup": "south-east",
+      "sampleId": "27802422",
+      "lon": -9.117751188,
+      "lat": 43.12587625,
+      "spatialGroup": "es11-galicia",
+      "foldIndex": 0,
+      "scheme": "spatial",
+      "model": "majority",
+      "trueLabel": 0,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "27822402",
+      "lon": -9.035969622,
+      "lat": 42.95648309,
+      "spatialGroup": "es11-galicia",
+      "foldIndex": 0,
+      "scheme": "spatial",
+      "model": "majority",
+      "trueLabel": 0,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "27842398",
+      "lon": -9.000606051,
+      "lat": 42.9262186,
+      "spatialGroup": "es11-galicia",
+      "foldIndex": 0,
+      "scheme": "spatial",
+      "model": "majority",
+      "trueLabel": 0,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "27842400",
+      "lon": -9.006356259,
+      "lat": 42.94362034,
+      "spatialGroup": "es11-galicia",
+      "foldIndex": 0,
+      "scheme": "spatial",
+      "model": "majority",
+      "trueLabel": 0,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "27842402",
+      "lon": -9.012110998,
+      "lat": 42.96102132,
+      "spatialGroup": "es11-galicia",
+      "foldIndex": 0,
+      "scheme": "spatial",
+      "model": "majority",
+      "trueLabel": 0,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "27842412",
+      "lon": -9.040952818,
+      "lat": 43.04801488,
+      "spatialGroup": "es11-galicia",
+      "foldIndex": 0,
+      "scheme": "spatial",
+      "model": "majority",
+      "trueLabel": 0,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "27682414",
+      "lon": -9.237820846,
+      "lat": 43.02887453,
+      "spatialGroup": "es11-galicia",
       "foldIndex": 0,
       "scheme": "spatial",
       "model": "majority",
@@ -920,10 +1334,10 @@
       "predictedLabel": 0
     },
     {
-      "sampleId": "s08",
-      "lon": -122.394,
-      "lat": 37.774,
-      "spatialGroup": "south-east",
+      "sampleId": "27722294",
+      "lon": -8.848788383,
+      "lat": 41.99347157,
+      "spatialGroup": "es11-galicia",
       "foldIndex": 0,
       "scheme": "spatial",
       "model": "majority",
@@ -931,10 +1345,76 @@
       "predictedLabel": 0
     },
     {
-      "sampleId": "s05",
-      "lon": -122.391,
-      "lat": 37.771,
-      "spatialGroup": "south-east",
+      "sampleId": "27722300",
+      "lon": -8.865475733,
+      "lat": 42.04576503,
+      "spatialGroup": "es11-galicia",
+      "foldIndex": 0,
+      "scheme": "spatial",
+      "model": "majority",
+      "trueLabel": 1,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "27722366",
+      "lon": -9.051631426,
+      "lat": 42.62054251,
+      "spatialGroup": "es11-galicia",
+      "foldIndex": 0,
+      "scheme": "spatial",
+      "model": "majority",
+      "trueLabel": 1,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "27742358",
+      "lon": -9.005107942,
+      "lat": 42.55544852,
+      "spatialGroup": "es11-galicia",
+      "foldIndex": 0,
+      "scheme": "spatial",
+      "model": "majority",
+      "trueLabel": 1,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "27742366",
+      "lon": -9.027903266,
+      "lat": 42.62508062,
+      "spatialGroup": "es11-galicia",
+      "foldIndex": 0,
+      "scheme": "spatial",
+      "model": "majority",
+      "trueLabel": 1,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "27742368",
+      "lon": -9.033613262,
+      "lat": 42.64248675,
+      "spatialGroup": "es11-galicia",
+      "foldIndex": 0,
+      "scheme": "spatial",
+      "model": "majority",
+      "trueLabel": 1,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "27742388",
+      "lon": -9.090960157,
+      "lat": 42.81650618,
+      "spatialGroup": "es11-galicia",
+      "foldIndex": 0,
+      "scheme": "spatial",
+      "model": "majority",
+      "trueLabel": 1,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "27722418",
+      "lon": -9.201723787,
+      "lat": 43.07281397,
+      "spatialGroup": "es11-galicia",
       "foldIndex": 0,
       "scheme": "spatial",
       "model": "random_forest",
@@ -942,10 +1422,21 @@
       "predictedLabel": 0
     },
     {
-      "sampleId": "s06",
-      "lon": -122.392,
-      "lat": 37.772,
-      "spatialGroup": "south-east",
+      "sampleId": "27762418",
+      "lon": -9.153933112,
+      "lat": 43.0819656,
+      "spatialGroup": "es11-galicia",
+      "foldIndex": 0,
+      "scheme": "spatial",
+      "model": "random_forest",
+      "trueLabel": 0,
+      "predictedLabel": 1
+    },
+    {
+      "sampleId": "27802422",
+      "lon": -9.117751188,
+      "lat": 43.12587625,
+      "spatialGroup": "es11-galicia",
       "foldIndex": 0,
       "scheme": "spatial",
       "model": "random_forest",
@@ -953,10 +1444,65 @@
       "predictedLabel": 0
     },
     {
-      "sampleId": "s07",
-      "lon": -122.393,
-      "lat": 37.773,
-      "spatialGroup": "south-east",
+      "sampleId": "27822402",
+      "lon": -9.035969622,
+      "lat": 42.95648309,
+      "spatialGroup": "es11-galicia",
+      "foldIndex": 0,
+      "scheme": "spatial",
+      "model": "random_forest",
+      "trueLabel": 0,
+      "predictedLabel": 1
+    },
+    {
+      "sampleId": "27842398",
+      "lon": -9.000606051,
+      "lat": 42.9262186,
+      "spatialGroup": "es11-galicia",
+      "foldIndex": 0,
+      "scheme": "spatial",
+      "model": "random_forest",
+      "trueLabel": 0,
+      "predictedLabel": 1
+    },
+    {
+      "sampleId": "27842400",
+      "lon": -9.006356259,
+      "lat": 42.94362034,
+      "spatialGroup": "es11-galicia",
+      "foldIndex": 0,
+      "scheme": "spatial",
+      "model": "random_forest",
+      "trueLabel": 0,
+      "predictedLabel": 1
+    },
+    {
+      "sampleId": "27842402",
+      "lon": -9.012110998,
+      "lat": 42.96102132,
+      "spatialGroup": "es11-galicia",
+      "foldIndex": 0,
+      "scheme": "spatial",
+      "model": "random_forest",
+      "trueLabel": 0,
+      "predictedLabel": 1
+    },
+    {
+      "sampleId": "27842412",
+      "lon": -9.040952818,
+      "lat": 43.04801488,
+      "spatialGroup": "es11-galicia",
+      "foldIndex": 0,
+      "scheme": "spatial",
+      "model": "random_forest",
+      "trueLabel": 0,
+      "predictedLabel": 1
+    },
+    {
+      "sampleId": "27682414",
+      "lon": -9.237820846,
+      "lat": 43.02887453,
+      "spatialGroup": "es11-galicia",
       "foldIndex": 0,
       "scheme": "spatial",
       "model": "random_forest",
@@ -964,10 +1510,10 @@
       "predictedLabel": 1
     },
     {
-      "sampleId": "s08",
-      "lon": -122.394,
-      "lat": 37.774,
-      "spatialGroup": "south-east",
+      "sampleId": "27722294",
+      "lon": -8.848788383,
+      "lat": 41.99347157,
+      "spatialGroup": "es11-galicia",
       "foldIndex": 0,
       "scheme": "spatial",
       "model": "random_forest",
@@ -975,10 +1521,76 @@
       "predictedLabel": 1
     },
     {
-      "sampleId": "s09",
-      "lon": -122.396,
-      "lat": 37.776,
-      "spatialGroup": "central",
+      "sampleId": "27722300",
+      "lon": -8.865475733,
+      "lat": 42.04576503,
+      "spatialGroup": "es11-galicia",
+      "foldIndex": 0,
+      "scheme": "spatial",
+      "model": "random_forest",
+      "trueLabel": 1,
+      "predictedLabel": 1
+    },
+    {
+      "sampleId": "27722366",
+      "lon": -9.051631426,
+      "lat": 42.62054251,
+      "spatialGroup": "es11-galicia",
+      "foldIndex": 0,
+      "scheme": "spatial",
+      "model": "random_forest",
+      "trueLabel": 1,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "27742358",
+      "lon": -9.005107942,
+      "lat": 42.55544852,
+      "spatialGroup": "es11-galicia",
+      "foldIndex": 0,
+      "scheme": "spatial",
+      "model": "random_forest",
+      "trueLabel": 1,
+      "predictedLabel": 1
+    },
+    {
+      "sampleId": "27742366",
+      "lon": -9.027903266,
+      "lat": 42.62508062,
+      "spatialGroup": "es11-galicia",
+      "foldIndex": 0,
+      "scheme": "spatial",
+      "model": "random_forest",
+      "trueLabel": 1,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "27742368",
+      "lon": -9.033613262,
+      "lat": 42.64248675,
+      "spatialGroup": "es11-galicia",
+      "foldIndex": 0,
+      "scheme": "spatial",
+      "model": "random_forest",
+      "trueLabel": 1,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "27742388",
+      "lon": -9.090960157,
+      "lat": 42.81650618,
+      "spatialGroup": "es11-galicia",
+      "foldIndex": 0,
+      "scheme": "spatial",
+      "model": "random_forest",
+      "trueLabel": 1,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "28221754",
+      "lon": -6.942185925,
+      "lat": 37.36070605,
+      "spatialGroup": "es61-andalusia",
       "foldIndex": 1,
       "scheme": "spatial",
       "model": "majority",
@@ -986,21 +1598,10 @@
       "predictedLabel": 0
     },
     {
-      "sampleId": "s10",
-      "lon": -122.397,
-      "lat": 37.777,
-      "spatialGroup": "central",
-      "foldIndex": 1,
-      "scheme": "spatial",
-      "model": "majority",
-      "trueLabel": 1,
-      "predictedLabel": 0
-    },
-    {
-      "sampleId": "s11",
-      "lon": -122.398,
-      "lat": 37.778,
-      "spatialGroup": "central",
+      "sampleId": "28241746",
+      "lon": -6.90256871,
+      "lat": 37.29402187,
+      "spatialGroup": "es61-andalusia",
       "foldIndex": 1,
       "scheme": "spatial",
       "model": "majority",
@@ -1008,10 +1609,76 @@
       "predictedLabel": 0
     },
     {
-      "sampleId": "s12",
-      "lon": -122.399,
-      "lat": 37.779,
-      "spatialGroup": "central",
+      "sampleId": "28241748",
+      "lon": -6.906959667,
+      "lat": 37.31169158,
+      "spatialGroup": "es61-andalusia",
+      "foldIndex": 1,
+      "scheme": "spatial",
+      "model": "majority",
+      "trueLabel": 0,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "28261748",
+      "lon": -6.884938999,
+      "lat": 37.31567314,
+      "spatialGroup": "es61-andalusia",
+      "foldIndex": 1,
+      "scheme": "spatial",
+      "model": "majority",
+      "trueLabel": 0,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "28281750",
+      "lon": -6.867299881,
+      "lat": 37.33732093,
+      "spatialGroup": "es61-andalusia",
+      "foldIndex": 1,
+      "scheme": "spatial",
+      "model": "majority",
+      "trueLabel": 0,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "28301754",
+      "lon": -6.854036229,
+      "lat": 37.37663629,
+      "spatialGroup": "es61-andalusia",
+      "foldIndex": 1,
+      "scheme": "spatial",
+      "model": "majority",
+      "trueLabel": 0,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "28301756",
+      "lon": -6.858424314,
+      "lat": 37.39430662,
+      "spatialGroup": "es61-andalusia",
+      "foldIndex": 1,
+      "scheme": "spatial",
+      "model": "majority",
+      "trueLabel": 0,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "28321756",
+      "lon": -6.836376223,
+      "lat": 37.39827757,
+      "spatialGroup": "es61-andalusia",
+      "foldIndex": 1,
+      "scheme": "spatial",
+      "model": "majority",
+      "trueLabel": 0,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "27781784",
+      "lon": -7.494580315,
+      "lat": 37.53613529,
+      "spatialGroup": "es61-andalusia",
       "foldIndex": 1,
       "scheme": "spatial",
       "model": "majority",
@@ -1019,10 +1686,142 @@
       "predictedLabel": 0
     },
     {
-      "sampleId": "s09",
-      "lon": -122.396,
-      "lat": 37.776,
-      "spatialGroup": "central",
+      "sampleId": "27821792",
+      "lon": -7.4687213,
+      "lat": 37.61488843,
+      "spatialGroup": "es61-andalusia",
+      "foldIndex": 1,
+      "scheme": "spatial",
+      "model": "majority",
+      "trueLabel": 1,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "27841774",
+      "lon": -7.405645234,
+      "lat": 37.4603142,
+      "spatialGroup": "es61-andalusia",
+      "foldIndex": 1,
+      "scheme": "spatial",
+      "model": "majority",
+      "trueLabel": 1,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "27861772",
+      "lon": -7.379068583,
+      "lat": 37.44677647,
+      "spatialGroup": "es61-andalusia",
+      "foldIndex": 1,
+      "scheme": "spatial",
+      "model": "majority",
+      "trueLabel": 1,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "27861776",
+      "lon": -7.388136495,
+      "lat": 37.48205009,
+      "spatialGroup": "es61-andalusia",
+      "foldIndex": 1,
+      "scheme": "spatial",
+      "model": "majority",
+      "trueLabel": 1,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "27881800",
+      "lon": -7.420708159,
+      "lat": 37.69773904,
+      "spatialGroup": "es61-andalusia",
+      "foldIndex": 1,
+      "scheme": "spatial",
+      "model": "majority",
+      "trueLabel": 1,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "27901762",
+      "lon": -7.312423609,
+      "lat": 37.36674822,
+      "spatialGroup": "es61-andalusia",
+      "foldIndex": 1,
+      "scheme": "spatial",
+      "model": "majority",
+      "trueLabel": 1,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "27901798",
+      "lon": -7.394026197,
+      "lat": 37.68421431,
+      "spatialGroup": "es61-andalusia",
+      "foldIndex": 1,
+      "scheme": "spatial",
+      "model": "majority",
+      "trueLabel": 1,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "28221754",
+      "lon": -6.942185925,
+      "lat": 37.36070605,
+      "spatialGroup": "es61-andalusia",
+      "foldIndex": 1,
+      "scheme": "spatial",
+      "model": "random_forest",
+      "trueLabel": 0,
+      "predictedLabel": 1
+    },
+    {
+      "sampleId": "28241746",
+      "lon": -6.90256871,
+      "lat": 37.29402187,
+      "spatialGroup": "es61-andalusia",
+      "foldIndex": 1,
+      "scheme": "spatial",
+      "model": "random_forest",
+      "trueLabel": 0,
+      "predictedLabel": 1
+    },
+    {
+      "sampleId": "28241748",
+      "lon": -6.906959667,
+      "lat": 37.31169158,
+      "spatialGroup": "es61-andalusia",
+      "foldIndex": 1,
+      "scheme": "spatial",
+      "model": "random_forest",
+      "trueLabel": 0,
+      "predictedLabel": 1
+    },
+    {
+      "sampleId": "28261748",
+      "lon": -6.884938999,
+      "lat": 37.31567314,
+      "spatialGroup": "es61-andalusia",
+      "foldIndex": 1,
+      "scheme": "spatial",
+      "model": "random_forest",
+      "trueLabel": 0,
+      "predictedLabel": 1
+    },
+    {
+      "sampleId": "28281750",
+      "lon": -6.867299881,
+      "lat": 37.33732093,
+      "spatialGroup": "es61-andalusia",
+      "foldIndex": 1,
+      "scheme": "spatial",
+      "model": "random_forest",
+      "trueLabel": 0,
+      "predictedLabel": 1
+    },
+    {
+      "sampleId": "28301754",
+      "lon": -6.854036229,
+      "lat": 37.37663629,
+      "spatialGroup": "es61-andalusia",
       "foldIndex": 1,
       "scheme": "spatial",
       "model": "random_forest",
@@ -1030,10 +1829,32 @@
       "predictedLabel": 0
     },
     {
-      "sampleId": "s10",
-      "lon": -122.397,
-      "lat": 37.777,
-      "spatialGroup": "central",
+      "sampleId": "28301756",
+      "lon": -6.858424314,
+      "lat": 37.39430662,
+      "spatialGroup": "es61-andalusia",
+      "foldIndex": 1,
+      "scheme": "spatial",
+      "model": "random_forest",
+      "trueLabel": 0,
+      "predictedLabel": 1
+    },
+    {
+      "sampleId": "28321756",
+      "lon": -6.836376223,
+      "lat": 37.39827757,
+      "spatialGroup": "es61-andalusia",
+      "foldIndex": 1,
+      "scheme": "spatial",
+      "model": "random_forest",
+      "trueLabel": 0,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "27781784",
+      "lon": -7.494580315,
+      "lat": 37.53613529,
+      "spatialGroup": "es61-andalusia",
       "foldIndex": 1,
       "scheme": "spatial",
       "model": "random_forest",
@@ -1041,21 +1862,10 @@
       "predictedLabel": 1
     },
     {
-      "sampleId": "s11",
-      "lon": -122.398,
-      "lat": 37.778,
-      "spatialGroup": "central",
-      "foldIndex": 1,
-      "scheme": "spatial",
-      "model": "random_forest",
-      "trueLabel": 0,
-      "predictedLabel": 1
-    },
-    {
-      "sampleId": "s12",
-      "lon": -122.399,
-      "lat": 37.779,
-      "spatialGroup": "central",
+      "sampleId": "27821792",
+      "lon": -7.4687213,
+      "lat": 37.61488843,
+      "spatialGroup": "es61-andalusia",
       "foldIndex": 1,
       "scheme": "spatial",
       "model": "random_forest",
@@ -1063,88 +1873,66 @@
       "predictedLabel": 1
     },
     {
-      "sampleId": "s01",
-      "lon": -122.401,
-      "lat": 37.781,
-      "spatialGroup": "north-west",
-      "foldIndex": 2,
-      "scheme": "spatial",
-      "model": "majority",
-      "trueLabel": 0,
-      "predictedLabel": 0
-    },
-    {
-      "sampleId": "s02",
-      "lon": -122.402,
-      "lat": 37.782,
-      "spatialGroup": "north-west",
-      "foldIndex": 2,
-      "scheme": "spatial",
-      "model": "majority",
-      "trueLabel": 0,
-      "predictedLabel": 0
-    },
-    {
-      "sampleId": "s03",
-      "lon": -122.403,
-      "lat": 37.783,
-      "spatialGroup": "north-west",
-      "foldIndex": 2,
-      "scheme": "spatial",
-      "model": "majority",
-      "trueLabel": 1,
-      "predictedLabel": 0
-    },
-    {
-      "sampleId": "s04",
-      "lon": -122.404,
-      "lat": 37.784,
-      "spatialGroup": "north-west",
-      "foldIndex": 2,
-      "scheme": "spatial",
-      "model": "majority",
-      "trueLabel": 1,
-      "predictedLabel": 0
-    },
-    {
-      "sampleId": "s01",
-      "lon": -122.401,
-      "lat": 37.781,
-      "spatialGroup": "north-west",
-      "foldIndex": 2,
-      "scheme": "spatial",
-      "model": "random_forest",
-      "trueLabel": 0,
-      "predictedLabel": 0
-    },
-    {
-      "sampleId": "s02",
-      "lon": -122.402,
-      "lat": 37.782,
-      "spatialGroup": "north-west",
-      "foldIndex": 2,
-      "scheme": "spatial",
-      "model": "random_forest",
-      "trueLabel": 0,
-      "predictedLabel": 0
-    },
-    {
-      "sampleId": "s03",
-      "lon": -122.403,
-      "lat": 37.783,
-      "spatialGroup": "north-west",
-      "foldIndex": 2,
+      "sampleId": "27841774",
+      "lon": -7.405645234,
+      "lat": 37.4603142,
+      "spatialGroup": "es61-andalusia",
+      "foldIndex": 1,
       "scheme": "spatial",
       "model": "random_forest",
       "trueLabel": 1,
       "predictedLabel": 1
     },
     {
-      "sampleId": "s04",
-      "lon": -122.404,
-      "lat": 37.784,
-      "spatialGroup": "north-west",
-      "foldIndex": 2,
+      "sampleId": "27861772",
+      "lon": -7.379068583,
+      "lat": 37.44677647,
+      "spatialGroup": "es61-andalusia",
+      "foldIndex": 1,
+      "scheme": "spatial",
+      "model": "random_forest",
+      "trueLabel": 1,
+      "predictedLabel": 1
+    },
+    {
+      "sampleId": "27861776",
+      "lon": -7.388136495,
+      "lat": 37.48205009,
+      "spatialGroup": "es61-andalusia",
+      "foldIndex": 1,
+      "scheme": "spatial",
+      "model": "random_forest",
+      "trueLabel": 1,
+      "predictedLabel": 0
+    },
+    {
+      "sampleId": "27881800",
+      "lon": -7.420708159,
+      "lat": 37.69773904,
+      "spatialGroup": "es61-andalusia",
+      "foldIndex": 1,
+      "scheme": "spatial",
+      "model": "random_forest",
+      "trueLabel": 1,
+      "predictedLabel": 1
+    },
+    {
+      "sampleId": "27901762",
+      "lon": -7.312423609,
+      "lat": 37.36674822,
+      "spatialGroup": "es61-andalusia",
+      "foldIndex": 1,
+      "scheme": "spatial",
+      "model": "random_forest",
+      "trueLabel": 1,
+      "predictedLabel": 1
+    },
+    {
+      "sampleId": "27901798",
+      "lon": -7.394026197,
+      "lat": 37.68421431,
+      "spatialGroup": "es61-andalusia",
+      "foldIndex": 1,
       "scheme": "spatial",
       "model": "random_forest",
       "trueLabel": 1,
