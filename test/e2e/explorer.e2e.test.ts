@@ -111,4 +111,31 @@ test.describe("The benchmark explorer", () => {
     await expect(detail).toContainText("Sample ID: 27722418");
     await expect(detail).toContainText("Predicted label: 0");
   });
+
+  test("keeps Galicia and Andalusia points visible with external network blocked", async ({
+    page,
+  }) => {
+    const blockedHosts: string[] = [];
+    await page.route("**/*", async (route) => {
+      const url = new URL(route.request().url());
+      const isLocal =
+        url.hostname === "127.0.0.1" ||
+        url.hostname === "localhost" ||
+        url.hostname === "[::1]";
+      if (!isLocal) {
+        blockedHosts.push(url.host);
+        await route.abort();
+        return;
+      }
+      await route.continue();
+    });
+
+    await page.goto("/");
+
+    await expect(page.getByLabel("Prediction error map")).toBeVisible();
+    await expect(page.getByText(/coordinate\/group map \(no basemap\)/i)).toBeVisible();
+    await expect(page.getByText(/Showing \d+ evaluation points for fold/)).toBeVisible();
+    await expect(page.getByRole("button", { name: "Sample 27722418" })).toBeVisible();
+    expect(blockedHosts.some((host) => host.includes("demotiles.maplibre.org"))).toBe(false);
+  });
 });

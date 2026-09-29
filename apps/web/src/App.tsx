@@ -2,6 +2,7 @@ import maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { useEffect, useMemo, useRef, useState } from "react";
 import styles from "./App.module.css";
+import { offlineMapStyle } from "./offlineMapStyle";
 import { formatPredictedLabel } from "./predictionDetail";
 import type { DemoManifest } from "./types";
 
@@ -94,7 +95,7 @@ export function App(props: Props) {
     if (!mapContainer.current || mapRef.current) return;
     mapRef.current = new maplibregl.Map({
       container: mapContainer.current,
-      style: "https://demotiles.maplibre.org/style.json",
+      style: offlineMapStyle,
       center: [-5.5, 40],
       zoom: 5,
     });
@@ -280,7 +281,10 @@ export function App(props: Props) {
           {selectedPoint ? <PointDetail point={selectedPoint} /> : null}
         </div>
       </aside>
-      <div ref={mapContainer} className={styles.map} aria-label="Prediction error map" />
+      <div className={styles.mapPane}>
+        <p className={styles.basemapNotice}>Coordinate/group map (no basemap)</p>
+        <div ref={mapContainer} className={styles.map} aria-label="Prediction error map" />
+      </div>
     </div>
   );
 }

@@ -120,6 +120,24 @@
   margin: 0.2rem 0;
 }
 
+.mapPane {
+  position: relative;
+  min-height: 100vh;
+}
+
+.basemapNotice {
+  position: absolute;
+  z-index: 2;
+  top: 0.75rem;
+  left: 0.75rem;
+  margin: 0;
+  padding: 0.35rem 0.55rem;
+  font-size: 0.75rem;
+  background: rgba(248, 250, 252, 0.92);
+  border: 1px solid #cbd5e1;
+  color: #334155;
+}
+
 .map {
   min-height: 100vh;
 }
@@ -128,5 +146,10 @@
   .layout {
     grid-template-columns: 1fr;
     grid-template-rows: auto 60vh;
+  }
+
+  .mapPane,
+  .map {
+    min-height: 60vh;
   }
 }
