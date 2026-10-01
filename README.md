@@ -56,3 +56,7 @@ Run `pnpm quality:full`, `pnpm prepr:gate` and `pnpm quality:stabilization` befo
 Hackathon demo epic [MAC-107](https://linear.app/maciker/issue/MAC-107/hackathon-explicar-validacion-espacial-y-errores-del-benchmark) wires the existing runner and map for jury rehearsal. Prior MVP (MAC-11) and LUCAS extract (MAC-49) are on `main`. Tickets specify dependencies, acceptance tests and relevant skills.
 
 Keep source data immutable. Only tiny, licensed fixtures belong in Git; real datasets and generated outputs stay local.
+
+## Post-PR review
+
+Run `pnpm run pr:review -- --input <post-pr-review-input.json> --report <post-pr-review-report.json>` after PR creation. Only APPROVED is eligible for human merge consideration.
