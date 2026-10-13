@@ -1,6 +1,7 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
+import { replayBenchmarkCommand } from "../apps/cli/src/benchmarkCommands.js";
 
 const publicManifestPath = path.join(process.cwd(), "apps/web/public/demo-manifest.json");
 const lucasFixtureDir = path.join(process.cwd(), "fixtures/lucas-spain-2022");
@@ -40,5 +41,9 @@ describe("The web demo manifest", () => {
     expect(manifest.task.source.name).toBe(task.source.name);
     expect(manifest.task.source.license).toBe(task.source.license);
     expect(manifest.task.source.reference).toBe(task.source.reference);
+  });
+
+  it("replays the committed explorer manifest against the LUCAS fixture", async () => {
+    await expect(replayBenchmarkCommand(lucasFixtureDir, publicManifestPath)).resolves.toBeDefined();
   });
 });
