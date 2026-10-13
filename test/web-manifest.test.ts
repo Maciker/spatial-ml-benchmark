@@ -43,6 +43,15 @@ describe("The web demo manifest", () => {
     expect(manifest.task.source.reference).toBe(task.source.reference);
   });
 
+  it("is recorded with the current run contract rather than a legacy one", () => {
+    const manifest = JSON.parse(readFileSync(publicManifestPath, "utf8")) as {
+      config: { taskSha256?: string; randomFoldStrategy?: string };
+    };
+
+    expect(manifest.config.taskSha256).toMatch(/^[0-9a-f]{64}$/);
+    expect(manifest.config.randomFoldStrategy).toBe("stratified");
+  });
+
   it("replays the committed explorer manifest against the LUCAS fixture", async () => {
     await expect(replayBenchmarkCommand(lucasFixtureDir, publicManifestPath)).resolves.toBeDefined();
   });

@@ -1,44 +1,34 @@
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { parseCliArgs } from "./cliArgs.js";
 import { renderKernelDemonstration } from "./demonstration.js";
 import { replayBenchmarkCommand, runBenchmarkCommand } from "./benchmarkCommands.js";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(here, "../../..");
-const defaultFixture = path.join(repoRoot, "fixtures/mvp-demo");
 
 async function main(): Promise<void> {
-  const [command, ...rest] = process.argv.slice(2);
+  const parsed = parseCliArgs(process.argv.slice(2), {
+    fixtureDir: path.join(repoRoot, "fixtures/mvp-demo"),
+    outputDir: path.join(repoRoot, ".benchmark-runs/latest"),
+    manifestPath: path.join(repoRoot, ".benchmark-runs/latest/manifest.json"),
+  });
 
-  if (command === "benchmark" && rest[0] === "run") {
-    const fixtureFlagIndex = rest.indexOf("--fixture");
-    const outputFlagIndex = rest.indexOf("--output");
-    const seedFlagIndex = rest.indexOf("--seed");
-    const fixtureDir =
-      fixtureFlagIndex >= 0 ? (rest[fixtureFlagIndex + 1] ?? defaultFixture) : defaultFixture;
-    const outputDir =
-      outputFlagIndex >= 0 ? (rest[outputFlagIndex + 1] ?? path.join(repoRoot, ".benchmark-runs/latest")) : path.join(repoRoot, ".benchmark-runs/latest");
-    const seedValue = seedFlagIndex >= 0 ? Number(rest[seedFlagIndex + 1]) : undefined;
+  if (parsed.command === "run") {
     const manifest = await runBenchmarkCommand({
-      fixtureDir: path.resolve(fixtureDir),
-      outputDir: path.resolve(outputDir),
-      ...(seedValue !== undefined && Number.isFinite(seedValue) ? { seed: seedValue } : {}),
+      fixtureDir: path.resolve(parsed.fixtureDir),
+      outputDir: path.resolve(parsed.outputDir),
+      ...(parsed.seed === undefined ? {} : { seed: parsed.seed }),
     });
-    process.stdout.write(`${JSON.stringify({ ok: true, outputDir, metrics: manifest.metrics.length }, null, 2)}\n`);
+    process.stdout.write(
+      `${JSON.stringify({ ok: true, outputDir: parsed.outputDir, metrics: manifest.metrics.length }, null, 2)}\n`,
+    );
     return;
   }
 
-  if (command === "benchmark" && rest[0] === "replay") {
-    const fixtureFlagIndex = rest.indexOf("--fixture");
-    const manifestFlagIndex = rest.indexOf("--manifest");
-    const fixtureDir =
-      fixtureFlagIndex >= 0 ? (rest[fixtureFlagIndex + 1] ?? defaultFixture) : defaultFixture;
-    const manifestPath =
-      manifestFlagIndex >= 0
-        ? (rest[manifestFlagIndex + 1] ?? path.join(repoRoot, ".benchmark-runs/latest/manifest.json"))
-        : path.join(repoRoot, ".benchmark-runs/latest/manifest.json");
-    await replayBenchmarkCommand(path.resolve(fixtureDir), path.resolve(manifestPath));
-    process.stdout.write(JSON.stringify({ ok: true, replay: "matched" }, null, 2) + "\n");
+  if (parsed.command === "replay") {
+    const result = await replayBenchmarkCommand(path.resolve(parsed.fixtureDir), path.resolve(parsed.manifestPath));
+    process.stdout.write(`${JSON.stringify({ ok: true, replay: "matched", warnings: result.warnings }, null, 2)}\n`);
     return;
   }
 

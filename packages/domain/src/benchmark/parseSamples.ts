@@ -28,6 +28,9 @@ export function parseSamples(raw: unknown, task: TaskDefinition): readonly Parse
     if (typeof lon !== "number" || typeof lat !== "number") {
       throw new BenchmarkValidationError(`Sample "${id}" requires numeric lon and lat`);
     }
+    if (!(lon >= -180 && lon <= 180 && lat >= -90 && lat <= 90)) {
+      throw new BenchmarkValidationError(`Sample "${id}" lon/lat (${lon}, ${lat}) is outside EPSG:4326 bounds`);
+    }
 
     const spatialGroup = entry.spatialGroup;
     if (typeof spatialGroup !== "string" || spatialGroup.trim() === "") {
