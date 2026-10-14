@@ -4,10 +4,8 @@
 
 1. `pnpm install --frozen-lockfile`
 2. `pnpm quality:full` — typecheck, lint, unit tests, architecture, knip, duplication, ratchet.
-3. LUCAS publish path:
-   - `pnpm benchmark:publish:web-demo`, or
-   - `pnpm build` then run/copy/replay as in `docs/development.md` / `docs/case-study.md`.
-4. Confirm replay reports matched against `apps/web/public/demo-manifest.json`.
+3. `pnpm benchmark:verify:web-demo` — read-only replay; confirm it reports matched against `apps/web/public/demo-manifest.json`.
+4. Only when the fixture or run contract changed: `pnpm benchmark:publish:web-demo`, then commit the regenerated manifest.
 5. `pnpm test:e2e:install` (once per machine) then `pnpm test:e2e` — explorer journey including all-folds UI, point inspection, and offline/blocked-network map (no demotiles).
 
 MVP contract path (optional regression):
@@ -16,7 +14,7 @@ MVP contract path (optional regression):
 
 ## CI coverage
 
-GitHub Actions `quality.yml` runs the deterministic quality pipeline on Node 22/24. Benchmark replay is covered by unit tests (`test/benchmark-cli.test.ts`, `test/folds.test.ts`, `test/experiment.test.ts`). Web demo provenance is covered by `test/web-manifest.test.ts`. Explorer UX is covered by `test/e2e/explorer.e2e.test.ts`.
+GitHub Actions `quality.yml` runs the deterministic quality pipeline on Node 22/24. Benchmark replay is covered by unit tests (`test/benchmark-cli.test.ts`, `test/folds.test.ts`, `test/experiment.test.ts`). Web demo provenance and replay of the committed explorer manifest are covered by `test/web-manifest.test.ts`. `pnpm typecheck` includes the web app (`typecheck:web`). Explorer UX is covered by `test/e2e/explorer.e2e.test.ts`.
 
 ## Licenses
 

@@ -20,6 +20,7 @@ pnpm demo
 pnpm benchmark:run
 pnpm benchmark:replay
 pnpm benchmark:run:lucas
+pnpm benchmark:verify:web-demo
 pnpm benchmark:publish:web-demo
 pnpm web:dev
 ```
@@ -27,7 +28,8 @@ pnpm web:dev
 - `pnpm demo` — tiny numerical-kernel demonstration.
 - `pnpm benchmark:run` / `benchmark:replay` — synthetic MVP fixture contracts.
 - `pnpm benchmark:run:lucas` — LUCAS Spain 2022 extract with seed 42 into `.benchmark-runs/lucas-demo`.
-- `pnpm benchmark:publish:web-demo` — regenerate LUCAS, copy to `apps/web/public/demo-manifest.json`, replay against the published file. Prefer verifying replay equality of predictions/metrics over requiring identical JSON bytes (`createdAt` may change).
+- `pnpm benchmark:verify:web-demo` — read-only replay of the committed `apps/web/public/demo-manifest.json`.
+- `pnpm benchmark:publish:web-demo` — overwrite the committed manifest: regenerate LUCAS, copy to `apps/web/public/demo-manifest.json`, replay against the published file. Prefer verifying replay equality of predictions/metrics over requiring identical JSON bytes (`createdAt` may change).
 - `pnpm web:dev` — MapLibre explorer on the published demo (offline background style).
 
 Browser e2e (Chromium once per machine):
