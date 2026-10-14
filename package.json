@@ -10,7 +10,8 @@
   "packageManager": "pnpm@10.17.1",
   "scripts": {
     "build": "pnpm build:server",
-    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "typecheck": "tsc -p tsconfig.json --noEmit && pnpm typecheck:web",
+    "typecheck:web": "tsc -p apps/web/tsconfig.json",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "test": "vitest run",
@@ -54,6 +55,7 @@
     "benchmark:replay": "pnpm build && node dist/apps/cli/src/main.js benchmark replay --fixture fixtures/mvp-demo --manifest .benchmark-runs/latest/manifest.json",
     "benchmark:run:lucas": "pnpm build && node dist/apps/cli/src/main.js benchmark run --fixture fixtures/lucas-spain-2022 --output .benchmark-runs/lucas-demo --seed 42",
     "benchmark:publish:web-demo": "pnpm benchmark:run:lucas && cp .benchmark-runs/lucas-demo/manifest.json apps/web/public/demo-manifest.json && node dist/apps/cli/src/main.js benchmark replay --fixture fixtures/lucas-spain-2022 --manifest apps/web/public/demo-manifest.json",
+    "benchmark:verify:web-demo": "pnpm build && node dist/apps/cli/src/main.js benchmark replay --fixture fixtures/lucas-spain-2022 --manifest apps/web/public/demo-manifest.json",
     "web:dev": "pnpm --filter @gis/spatial-ml-benchmark-web dev",
     "web:build": "pnpm --filter @gis/spatial-ml-benchmark-web build",
     "qa:record": "node tools/qa/record-qa-run.mjs",

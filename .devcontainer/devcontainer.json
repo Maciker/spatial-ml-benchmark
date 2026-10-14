@@ -1,11 +1,11 @@
 {
-  "name": "agent-workflow-code-ts",
+  "name": "spatial-ml-benchmark",
   "image": "mcr.microsoft.com/devcontainers/typescript-node:1-22-bookworm",
   "features": {
     "ghcr.io/devcontainers/features/git:1": {}
   },
   "onCreateCommand": "corepack enable && corepack prepare pnpm@10.17.1 --activate",
-  "postCreateCommand": "pnpm install --prefer-offline",
+  "postCreateCommand": "pnpm install --frozen-lockfile",
   "remoteEnv": {
     "AI_PROVIDER": "${localEnv:AI_PROVIDER}",
     "AI_MODEL": "${localEnv:AI_MODEL}",

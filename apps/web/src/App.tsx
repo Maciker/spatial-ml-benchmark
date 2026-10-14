@@ -5,7 +5,8 @@ import styles from "./App.module.css";
 import { detachPredictionMapHandlers } from "./mapPredictionCleanup";
 import type { PredictionMapCleanupTarget } from "./mapPredictionCleanup";
 import { offlineMapStyle } from "./offlineMapStyle";
-import { formatPredictedLabel } from "./predictionDetail";
+import { formatBalancedAccuracyStep } from "./metricResolution";
+import { formatClassLabel, formatPredictedLabel } from "./predictionDetail";
 import type { DemoManifest } from "./types";
 
 type Props = {
@@ -13,14 +14,15 @@ type Props = {
 };
 
 type PredictionRow = DemoManifest["predictions"][number];
+type PredictionFeatureCollection = Extract<maplibregl.GeoJSONSourceSpecification["data"], { type: "FeatureCollection" }>;
 
-function errorColor(trueLabel: number, predictedLabel: number): string {
-  if (!Number.isFinite(predictedLabel)) return "#64748b";
+function errorColor(trueLabel: number, predictedLabel: number | null): string {
+  if (predictedLabel === null || !Number.isFinite(predictedLabel)) return "#64748b";
   return trueLabel === predictedLabel ? "#16a34a" : "#dc2626";
 }
 
-function formatAccuracy(value: number): string {
-  if (!Number.isFinite(value)) return "undefined (single-class fold)";
+function formatAccuracy(value: number | null): string {
+  if (value === null || !Number.isFinite(value)) return "undefined (single-class fold)";
   return value.toFixed(3);
 }
 
@@ -61,8 +63,9 @@ export function App(props: Props) {
   }, [props.manifest.metrics, scheme, model]);
 
   useEffect(() => {
-    if (foldIndexes.length === 0) return;
-    if (!foldIndexes.includes(foldIndex)) setFoldIndex(foldIndexes[0]);
+    const firstFold = foldIndexes[0];
+    if (firstFold === undefined) return;
+    if (!foldIndexes.includes(foldIndex)) setFoldIndex(firstFold);
   }, [foldIndexes, foldIndex]);
 
   const filteredMetrics = useMemo(
@@ -114,7 +117,7 @@ export function App(props: Props) {
     const sourceId = "predictions";
     const layerId = "prediction-points";
 
-    const geojson: GeoJSON.FeatureCollection = {
+    const geojson: PredictionFeatureCollection = {
       type: "FeatureCollection",
       features: filtered.map((row) => ({
         type: "Feature",
@@ -130,11 +133,9 @@ export function App(props: Props) {
     };
 
     const fitToPoints = () => {
-      if (filtered.length === 0) return;
-      const bounds = new maplibregl.LngLatBounds(
-        [filtered[0].lon, filtered[0].lat],
-        [filtered[0].lon, filtered[0].lat],
-      );
+      const first = filtered[0];
+      if (!first) return;
+      const bounds = new maplibregl.LngLatBounds([first.lon, first.lat], [first.lon, first.lat]);
       for (const row of filtered) bounds.extend([row.lon, row.lat]);
       map.fitBounds(bounds, { padding: 48, maxZoom: 8, duration: 0 });
     };
@@ -236,6 +237,7 @@ export function App(props: Props) {
               <tr>
                 <th scope="col">Fold</th>
                 <th scope="col">Balanced accuracy</th>
+                <th scope="col">One point moves it by</th>
                 <th scope="col">Test support</th>
                 <th scope="col">Held-out groups</th>
                 <th scope="col">Warnings</th>
@@ -246,6 +248,7 @@ export function App(props: Props) {
                 <tr key={`${metric.scheme}-${metric.model}-${metric.foldIndex}`}>
                   <th scope="row">Fold {metric.foldIndex}</th>
                   <td>{formatAccuracy(metric.balancedAccuracy)}</td>
+                  <td>{formatBalancedAccuracyStep(metric.testClassSupport)}</td>
                   <td>{formatSupport(metric.testClassSupport)}</td>
                   <td>
                     {heldOutGroups(props.manifest.foldAssignments, scheme, metric.foldIndex)}
@@ -265,6 +268,10 @@ export function App(props: Props) {
               ))}
             </tbody>
           </table>
+          <p className={styles.resolutionNote}>
+            Single seed, few points per fold: differences smaller than the per-point step are not
+            evidence that one model or split is better.
+          </p>
           <p>
             Showing {filtered.length} evaluation points for fold {foldIndex}.
           </p>
@@ -285,7 +292,9 @@ export function App(props: Props) {
               </li>
             ))}
           </ul>
-          {selectedPoint ? <PointDetail point={selectedPoint} /> : null}
+          {selectedPoint ? (
+            <PointDetail point={selectedPoint} classNames={props.manifest.task.target?.classNames} />
+          ) : null}
         </div>
       </aside>
       <div className={styles.mapPane}>
@@ -298,6 +307,7 @@ export function App(props: Props) {
 
 type PointDetailProps = {
   readonly point: PredictionRow;
+  readonly classNames: Readonly<Record<string, string>> | undefined;
 };
 
 function PointDetail(props: PointDetailProps) {
@@ -306,8 +316,8 @@ function PointDetail(props: PointDetailProps) {
       <h2>Selected point</h2>
       <p>Sample ID: {props.point.sampleId}</p>
       <p>Spatial group: {props.point.spatialGroup}</p>
-      <p>True label: {props.point.trueLabel}</p>
-      <p>Predicted label: {formatPredictedLabel(props.point.predictedLabel)}</p>
+      <p>True label: {formatClassLabel(props.point.trueLabel, props.classNames)}</p>
+      <p>Predicted label: {formatPredictedLabel(props.point.predictedLabel, props.classNames)}</p>
       <p>Model: {props.point.model}</p>
       <p>Scheme: {props.point.scheme}</p>
       <p>Fold: {props.point.foldIndex}</p>

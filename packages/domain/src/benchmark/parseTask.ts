@@ -66,6 +66,41 @@ function readUnknownLabelPolicy(value: unknown): UnknownLabelPolicy {
   throw new BenchmarkValidationError('Task target.unknownLabelPolicy must be "reject" or "map_to_unknown"');
 }
 
+function readClassNames(value: unknown, classes: readonly number[]): Readonly<Record<string, string>> {
+  if (!isRecord(value)) throw new BenchmarkValidationError("Task target.classNames must be an object");
+  const expectedKeys = classes.map(String).sort();
+  const actualKeys = Object.keys(value).sort();
+  if (JSON.stringify(actualKeys) !== JSON.stringify(expectedKeys)) {
+    throw new BenchmarkValidationError(`Task target.classNames keys must be exactly ${expectedKeys.join(", ")}`);
+  }
+  const names: Record<string, string> = {};
+  for (const key of expectedKeys) names[key] = readString(value, key);
+  return names;
+}
+
+function readTarget(targetRaw: Record<string, unknown>): TaskDefinition["target"] {
+  const classes = readNumberArray(targetRaw, "classes");
+  return {
+    field: readString(targetRaw, "field"),
+    classes,
+    unknownLabelPolicy: readUnknownLabelPolicy(targetRaw.unknownLabelPolicy),
+    ...(targetRaw.classNames === undefined ? {} : { classNames: readClassNames(targetRaw.classNames, classes) }),
+  };
+}
+
+/** Samples are lon/lat points; the explorer draws them as such, so other CRS are rejected rather than reprojected. */
+function readCrs(crsRaw: Record<string, unknown>): TaskDefinition["crs"] {
+  const crs = {
+    epsg: readNumber(crsRaw, "epsg"),
+    name: readString(crsRaw, "name"),
+    axisOrder: readString(crsRaw, "axisOrder"),
+  };
+  if (crs.epsg !== 4326 || crs.axisOrder !== "longitude-latitude") {
+    throw new BenchmarkValidationError('Only EPSG:4326 with axisOrder "longitude-latitude" is supported');
+  }
+  return crs;
+}
+
 export function parseTaskDefinition(raw: unknown): TaskDefinition {
   if (!isRecord(raw)) throw new BenchmarkValidationError("Task definition must be a JSON object");
 
@@ -85,21 +120,13 @@ export function parseTaskDefinition(raw: unknown): TaskDefinition {
   return {
     taskId: readString(raw, "taskId"),
     version: readNumber(raw, "version"),
-    crs: {
-      epsg: readNumber(crsRaw, "epsg"),
-      name: readString(crsRaw, "name"),
-      axisOrder: readString(crsRaw, "axisOrder"),
-    },
+    crs: readCrs(crsRaw),
     sampleUnit: "point",
     generalizationClaim: readString(raw, "generalizationClaim"),
     featureTimestamp: readString(raw, "featureTimestamp"),
     labelTimestamp: readString(raw, "labelTimestamp"),
     leakageChannels: readStringArray(raw, "leakageChannels"),
-    target: {
-      field: readString(targetRaw, "field"),
-      classes: readNumberArray(targetRaw, "classes"),
-      unknownLabelPolicy: readUnknownLabelPolicy(targetRaw.unknownLabelPolicy),
-    },
+    target: readTarget(targetRaw),
     forbiddenFeatureFields: readStringArray(raw, "forbiddenFeatureFields"),
     features: readFeatures(raw.features),
     source: {

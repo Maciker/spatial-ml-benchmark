@@ -41,6 +41,11 @@
   margin: 0 0 1rem;
 }
 
+.resolutionNote {
+  font-size: 0.75rem;
+  color: #475569;
+}
+
 .metricsTable {
   width: 100%;
   border-collapse: collapse;

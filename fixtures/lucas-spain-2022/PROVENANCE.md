@@ -35,4 +35,10 @@ Photos, soil measurements, GPS tracks, and every other LUCAS column. Olive (`B7x
 
 `featureTimestamp` and `labelTimestamp` in `task.json` are the earliest and latest `surveyDate` values in this extract (`2022-05-02` through `2022-10-29`). Elevation is the published theoretical-point altitude, not a separate observation.
 
+## Known sampling bias
+
+LUCAS `POINT_ID` values encode the survey grid position, so taking the lowest IDs selects a geographic strip rather than a sample of each region. In this extract Galicia spans longitude −9.24 to −8.85 (latitude 41.99–43.13) and Andalusia spans longitude −7.49 to −6.84 (latitude 37.29–37.70), the western edge of each region. The elevation–label relationship also reverses between the blocks (Galician cropland sits higher than Galician woodland; Andalusian cropland sits lower). Read spatial-holdout scores as transfer between these two strips only. A representative re-selection (seeded random or spatially stratified within each NUTS2 region) needs the full `ES_LUCAS_2022.csv`, which is not stored here.
+
+With 16 evaluation points per fold (8 per class), one point moves balanced accuracy by 0.0625. Changing only the random-fold layout moved the random-forest scores from 0.6875/0.6875 to 0.5/0.625, so differences of that size are noise.
+
 The two blocks are distant. The claim is spatial transfer between them, not national land-cover accuracy. The benchmark command uses one fold per spatial group, so this extract runs with two folds. The synthetic fixture at `fixtures/mvp-demo` stays unchanged as the contract demo.

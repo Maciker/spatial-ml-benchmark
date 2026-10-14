@@ -8,7 +8,12 @@ type LoadedFixture = {
   readonly task: TaskDefinition;
   readonly samples: readonly ParsedSample[];
   readonly fixtureSha256: string;
+  readonly taskSha256: string;
 };
+
+function sha256Hex(content: string | Buffer): string {
+  return createHash("sha256").update(content).digest("hex");
+}
 
 export async function loadFixture(directory: string): Promise<LoadedFixture> {
   const taskPath = path.join(directory, "task.json");
@@ -21,7 +26,9 @@ export async function loadFixture(directory: string): Promise<LoadedFixture> {
 
   const task = parseTaskDefinition(taskRaw);
   const samples = parseSamples(samplesRaw, task);
-  const fixtureSha256 = createHash("sha256").update(samplesBytes).digest("hex");
+  const fixtureSha256 = sha256Hex(samplesBytes);
+  // Hash re-serialized JSON so whitespace and line endings do not change the task identity.
+  const taskSha256 = sha256Hex(JSON.stringify(taskRaw));
 
-  return { directory, task, samples, fixtureSha256 };
+  return { directory, task, samples, fixtureSha256, taskSha256 };
 }

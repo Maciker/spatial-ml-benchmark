@@ -24,8 +24,10 @@ export async function runBenchmarkCommand(options: RunBenchmarkOptions): Promise
   const config: ExperimentConfig = {
     taskId: fixture.task.taskId,
     fixtureSha256: fixture.fixtureSha256,
+    taskSha256: fixture.taskSha256,
     seed: options.seed ?? 42,
     foldCount,
+    randomFoldStrategy: "stratified",
     schemes: ["random", "spatial"],
     models: ["majority", "random_forest"],
     randomForest: {
@@ -59,10 +61,25 @@ export async function runBenchmarkCommand(options: RunBenchmarkOptions): Promise
   return manifest;
 }
 
-export async function replayBenchmarkCommand(fixtureDir: string, manifestPath: string): Promise<ExperimentManifest> {
+type ReplayResult = {
+  readonly manifest: ExperimentManifest;
+  readonly warnings: readonly string[];
+};
+
+function nodeMajor(version: string): string {
+  return version.replace(/^v/, "").split(".")[0] ?? version;
+}
+
+function replayEnvironmentWarnings(stored: ExperimentManifest): string[] {
+  const recordedNode = stored.dependencyVersions.node;
+  if (recordedNode === undefined || nodeMajor(recordedNode) === nodeMajor(process.version)) return [];
+  return [`Manifest recorded Node.js ${recordedNode}; replay ran on ${process.version}`];
+}
+
+export async function replayBenchmarkCommand(fixtureDir: string, manifestPath: string): Promise<ReplayResult> {
   const fixture = await loadFixture(fixtureDir);
   const stored = parseManifest(JSON.parse(await readFile(manifestPath, "utf8")) as unknown);
-  assertManifestMatchesFixture(stored, fixture.fixtureSha256);
+  assertManifestMatchesFixture(stored, fixture);
 
   const replayed = runExperiment({
     task: fixture.task,
@@ -80,5 +97,5 @@ export async function replayBenchmarkCommand(fixtureDir: string, manifestPath: s
     throw new Error("Replay metrics differ from stored manifest");
   }
 
-  return replayed;
+  return { manifest: replayed, warnings: replayEnvironmentWarnings(stored) };
 }

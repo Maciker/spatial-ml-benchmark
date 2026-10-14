@@ -66,6 +66,7 @@ function evaluateFold(
   }
   if (testLabels.length === 0) warnings.push("Empty evaluation fold");
   if (new Set(testLabels).size <= 1) warnings.push("Single-class evaluation fold");
+  if (new Set(trainLabels).size <= 1) warnings.push("Single-class training fold");
 
   const unseen = rawPredictions.filter((prediction) => !task.target.classes.includes(prediction));
   if (unseen.length > 0) warnings.push("Model emitted labels outside declared classes");
@@ -117,7 +118,9 @@ export function runExperiment(input: {
   const foldAssignments: FoldAssignment[] = [];
   const schemes: SplitScheme[] = [...input.config.schemes];
   schemes.forEach((scheme) => {
-    foldAssignments.push(...assignFolds(input.samples, scheme, input.config.foldCount, input.config.seed));
+    foldAssignments.push(
+      ...assignFolds(input.samples, scheme, input.config.foldCount, input.config.seed, input.config.randomFoldStrategy),
+    );
   });
 
   const metrics: FoldMetrics[] = [];

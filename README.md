@@ -29,11 +29,19 @@ See [local development](docs/development.md), [project specification](docs/proje
 pnpm web:dev
 ```
 
-Open http://localhost:5173. Regenerate and publish the committed LUCAS demo (replay must match predictions/metrics):
+Open http://localhost:5173. Check that the committed manifest still replays (read-only; CI runs the same check in `test/web-manifest.test.ts`):
+
+```sh
+pnpm benchmark:verify:web-demo
+```
+
+Regenerate and overwrite it only after changing the fixture or run contract (replay must match predictions/metrics):
 
 ```sh
 pnpm benchmark:publish:web-demo
 ```
+
+Scores come from one seed and 16 evaluation points per fold, so one point moves balanced accuracy by 0.0625; the explorer shows that step next to each score. The extract covers the western strip of each region (see PROVENANCE).
 
 ### Four-minute jury script
 
@@ -41,7 +49,7 @@ pnpm benchmark:publish:web-demo
 2. Switch **Spatial holdout** ↔ **Random** and **Majority** ↔ **Random forest**; read the all-folds metrics table (supports, held-out groups, warnings).
 3. Use **Map fold** to change which fold’s points are drawn; confirm both fold rows stay visible.
 4. Select a red (miss) and green (hit) sample from the evaluation list; read sample ID, spatial group, true/predicted labels, model, scheme, fold.
-5. Mention CLI regenerate/replay: `pnpm benchmark:publish:web-demo` (or `benchmark:run:lucas` + copy + replay).
+5. Mention CLI replay/regenerate: `pnpm benchmark:verify:web-demo` (read-only) or `pnpm benchmark:publish:web-demo`.
 
 ## Agent workflow
 

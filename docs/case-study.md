@@ -25,11 +25,13 @@ Synthetic MVP (`fixtures/mvp-demo`) remains the contract fixture and is unchange
 ## Reproduction
 
 ```bash
-pnpm install
+pnpm install --frozen-lockfile
 pnpm quality:fast
-pnpm benchmark:publish:web-demo
+pnpm benchmark:verify:web-demo   # read-only: replays the committed manifest
 pnpm web:dev
 ```
+
+`pnpm benchmark:publish:web-demo` regenerates and overwrites the committed manifest; use it only when the run contract or fixture changes.
 
 Or regenerate manually:
 
@@ -57,6 +59,7 @@ Open http://localhost:5173. Switch schemes/models, inspect both folds, select hi
 
 ## Failure cases to expect
 
-- Single-class evaluation folds yield undefined balanced accuracy (reported explicitly).
+- Single-class evaluation folds yield undefined balanced accuracy (reported explicitly); single-class training folds are flagged too.
+- One evaluation point moves balanced accuracy by 0.0625 here, and the sample covers the western strip of each region; see `fixtures/lucas-spain-2022/PROVENANCE.md` ("Known sampling bias").
 - Random splits surface leakage warnings when groups appear in both train and test partitions.
 - Incomplete or warning-bearing folds stay visible; do not hide them for presentation.

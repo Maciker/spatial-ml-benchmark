@@ -13,6 +13,8 @@ export type TaskDefinition = {
     readonly field: string;
     readonly classes: readonly number[];
     readonly unknownLabelPolicy: UnknownLabelPolicy;
+    /** Human-readable name per class, keyed by the class value as a string. */
+    readonly classNames?: Readonly<Record<string, string>>;
   };
   readonly forbiddenFeatureFields: readonly string[];
   readonly features: readonly FeatureSpec[];
@@ -48,6 +50,9 @@ export type FeatureRow = {
 
 export type SplitScheme = "random" | "spatial";
 
+/** "shuffled" is the original unstratified layout; manifests without a strategy were recorded with it. */
+export type RandomFoldStrategy = "shuffled" | "stratified";
+
 export type FoldAssignment = {
   readonly scheme: SplitScheme;
   readonly foldIndex: number;
@@ -62,8 +67,11 @@ export type ModelKind = "majority" | "random_forest";
 export type ExperimentConfig = {
   readonly taskId: string;
   readonly fixtureSha256: string;
+  /** SHA-256 of the canonical JSON task definition; absent on manifests recorded before it existed. */
+  readonly taskSha256?: string;
   readonly seed: number;
   readonly foldCount: number;
+  readonly randomFoldStrategy?: RandomFoldStrategy;
   readonly schemes: readonly SplitScheme[];
   readonly models: readonly ModelKind[];
   readonly randomForest: {

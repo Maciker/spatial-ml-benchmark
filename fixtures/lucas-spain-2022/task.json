@@ -18,7 +18,11 @@
   "target": {
     "field": "label",
     "classes": [0, 1],
-    "unknownLabelPolicy": "reject"
+    "unknownLabelPolicy": "reject",
+    "classNames": {
+      "0": "herbaceous cropland",
+      "1": "woodland"
+    }
   },
   "forbiddenFeatureFields": ["label", "id", "lucasCode", "SURVEY_LC1"],
   "features": [
