@@ -25,12 +25,11 @@
     "mandatory pre-PR gate with verifiable distinct-model evidence",
     "two-round correction limit and supported-PR-path coverage"
   ],
-  "skills": "All canonical .ai/skills and references copied verbatim apart from CRLF-to-LF line endings; generated adapters regenerated locally.",
-  "sourceCommit": "6bef0f3a5ab4e42f4db13782f7478dd09e7cd697",
+  "skills": "All canonical .ai/skills and references copied verbatim; generated adapters regenerated locally.",
+  "sourceCommit": "9fee87341827d8ad865f514f81b922a7e792ca23",
   "postPrReview": {
     "canonical": ".ai/commands/post-pr-review.md",
-    "sourceCommit": "6bef0f3a5ab4e42f4db13782f7478dd09e7cd697",
-    "provenanceNote": "Originally recorded as 44913eefee32aaa9580a5090e4347bf371c6e6bd, which is not in upstream history. Upstream 6bef0f3 (main, PR #9) matches the imported command, tools and schema; the schema $id is rewritten to this repository.",
+    "sourceCommit": "9fee87341827d8ad865f514f81b922a7e792ca23",
     "statuses": [
       "APPROVED",
       "CHANGES_REQUESTED",
@@ -47,5 +46,18 @@
       "integratedOn": "2026-10-01",
       "skillCount": 13
     }
-  ]
+  ],
+  "previousSourceCommit": "44913eefee32aaa9580a5090e4347bf371c6e6bd",
+  "sourceRepository": "https://github.com/Maciker/agent-workflow-code-ts",
+  "synchronizedOn": "2026-10-14",
+  "canonicalPath": ".ai",
+  "integration": {
+    "identityEvidence": [
+      "declared",
+      "harness"
+    ],
+    "blockingFindings": "all severities block",
+    "preserved": "Project instructions, stack, package manager, architecture, local skills, quality baselines and unmanaged vendor files",
+    "qaStatus": "pending independent review; no fabricated model evidence"
+  }
 }
